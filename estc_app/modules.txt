@@ -1,5 +1,4 @@
 ESTC APP
-System Setting
-loan
+ESTC System Setting
 ESTC HR
 ESTC Loan
