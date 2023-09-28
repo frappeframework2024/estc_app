@@ -214,3 +214,8 @@ app_include_css = "/assets/estc_app/css/estc_app.css"
 # auth_hooks = [
 #	"estc_app.auth.validate"
 # ]
+
+
+fixtures = [
+    {"dt": "Custom HTML Block"},
+]
