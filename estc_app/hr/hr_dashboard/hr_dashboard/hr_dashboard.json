@@ -1,0 +1,58 @@
+{
+ "cards": [
+  {
+   "card": "Total Employee"
+  },
+  {
+   "card": "Leave Pending Approval"
+  },
+  {
+   "card": "Today On Leave"
+  },
+  {
+   "card": "Next week On Leave"
+  }
+ ],
+ "charts": [
+  {
+   "chart": "Monthly Attendance",
+   "width": "Full"
+  },
+  {
+   "chart": "Employee By Gender",
+   "width": "Half"
+  },
+  {
+   "chart": "Employee By Department",
+   "width": "Half"
+  },
+  {
+   "chart": "Yearly Leave Count vs Leave Usage",
+   "width": "Full"
+  },
+  {
+   "chart": "Employee By Type",
+   "width": "Half"
+  },
+  {
+   "chart": "Employee By Position",
+   "width": "Half"
+  },
+  {
+   "chart": "Leave Taken on Each Day of The Week",
+   "width": "Half"
+  }
+ ],
+ "creation": "2023-09-25 09:39:35.846654",
+ "dashboard_name": "HR Dashboard",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 1,
+ "is_default": 0,
+ "is_standard": 1,
+ "modified": "2023-09-25 12:14:04.032287",
+ "modified_by": "Administrator",
+ "module": "HR",
+ "name": "HR Dashboard",
+ "owner": "Administrator"
+}

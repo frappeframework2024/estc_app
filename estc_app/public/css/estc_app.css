@@ -1,0 +1,11 @@
+.widget.shortcut-widget-box{
+    background: #ebeef0!important;
+}
+
+.widget.links-widget-box {
+    background: #f9fafa;
+    border: solid 1px #e3dede;
+}
+.widget.custom-block-widget-box{
+    padding: 0 !important;
+}

@@ -1,0 +1,74 @@
+{
+ "add_total_row": 0,
+ "columns": [
+  {
+   "fieldname": "parent",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee",
+   "width": 0
+  },
+  {
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name",
+   "width": 0
+  },
+  {
+   "fieldname": "max_leave",
+   "fieldtype": "Float",
+   "label": "Max Leave",
+   "width": 0
+  },
+  {
+   "fieldname": "use_leave",
+   "fieldtype": "Float",
+   "label": "Use Leave",
+   "width": 0
+  },
+  {
+   "fieldname": "balance",
+   "fieldtype": "Float",
+   "label": "Balance",
+   "width": 0
+  }
+ ],
+ "creation": "2023-09-25 11:07:07.174748",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [
+  {
+   "fieldname": "fiscal_year",
+   "fieldtype": "Link",
+   "label": "Fiscal year",
+   "mandatory": 1,
+   "options": "Fiscal Year",
+   "wildcard_filter": 0
+  }
+ ],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letterhead": null,
+ "modified": "2023-09-25 11:24:23.829448",
+ "modified_by": "Administrator",
+ "module": "HR",
+ "name": "Leave Count vs Leave Usage",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "select \n    a.parent ,\n    b.employee_name,\n    sum(a.max_leave) as max_leave,\n    sum(a.use_leave) as use_leave,\n    sum(a.balance) as balance\nfrom `tabEmployee Attendance Leave Count` a \n    inner join `tabEmployee` b on b.name = a.parent\nwhere a.fiscal_year = %(fiscal_year)s\n\ngroup by\n    a.parent,\n    b.employee_name\n",
+ "ref_doctype": "Employee",
+ "report_name": "Leave Count vs Leave Usage",
+ "report_type": "Query Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "HR Manager"
+  },
+  {
+   "role": "System Admin"
+  }
+ ]
+}

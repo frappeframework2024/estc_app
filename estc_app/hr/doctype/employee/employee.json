@@ -1,0 +1,483 @@
+{
+ "actions": [],
+ "allow_events_in_timeline": 1,
+ "allow_rename": 1,
+ "autoname": "field:employee_code",
+ "creation": "2023-09-24 18:56:02.213771",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "employee_code",
+  "title",
+  "employee_name",
+  "gender",
+  "nationality",
+  "photo",
+  "column_break_fpog",
+  "date_of_birth",
+  "date_of_joining",
+  "contract_end_date",
+  "status",
+  "column_break_apfu",
+  "department",
+  "employee_type",
+  "position",
+  "report_to",
+  "address_and_contact_section",
+  "phone_number",
+  "personal_email",
+  "company_email",
+  "column_break_gntw",
+  "address",
+  "google_map_url",
+  "emergency_contact_section",
+  "emergency_contact_name",
+  "column_break_zsvk",
+  "emergency_contact_phone_number",
+  "column_break_fhyu",
+  "emergency_contact_relation",
+  "identity_information_tab",
+  "marital_status",
+  "blood_group",
+  "column_break_httv",
+  "health_detail",
+  "section_break_pmrw",
+  "identity_type",
+  "issue_place",
+  "column_break_obpl",
+  "identity_number",
+  "column_break_jqpf",
+  "issue_date",
+  "column_break_bcgi",
+  "expired_date",
+  "other_identity_information_section",
+  "table_knil",
+  "profile_tab",
+  "bio_information",
+  "attendance_and_leaves_tab",
+  "attendance_device_id",
+  "column_break_kict",
+  "leave_approver",
+  "leave_setting_section",
+  "leave_setting",
+  "login_information_tab",
+  "allow_login",
+  "username",
+  "password",
+  "column_break_nrwk",
+  "role_profile",
+  "module_profile",
+  "personalize_tab",
+  "profile_background_photo",
+  "column_break_tgid"
+ ],
+ "fields": [
+  {
+   "fieldname": "employee_code",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Employee Code",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "default": "Mr",
+   "fieldname": "title",
+   "fieldtype": "Select",
+   "label": "Title",
+   "options": "Mr\nMs\nMiss\nDr"
+  },
+  {
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Employee Name",
+   "reqd": 1
+  },
+  {
+   "default": "Male",
+   "fieldname": "gender",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Gender",
+   "options": "Male\nFemale"
+  },
+  {
+   "fieldname": "column_break_fpog",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date of Birth"
+  },
+  {
+   "fieldname": "date_of_joining",
+   "fieldtype": "Date",
+   "label": "Date of Joining"
+  },
+  {
+   "default": "Active",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Active\nInactive\nSuspended\nLeft"
+  },
+  {
+   "fieldname": "photo",
+   "fieldtype": "Attach Image",
+   "hidden": 1,
+   "label": "Photo"
+  },
+  {
+   "fieldname": "column_break_apfu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Department",
+   "options": "Department",
+   "reqd": 1
+  },
+  {
+   "fieldname": "employee_type",
+   "fieldtype": "Link",
+   "label": "Employee Type",
+   "options": "Employee Type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "position",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Position",
+   "options": "Position",
+   "reqd": 1
+  },
+  {
+   "fieldname": "report_to",
+   "fieldtype": "Link",
+   "label": "Report To",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "contract_end_date",
+   "fieldtype": "Date",
+   "label": "Contract End Date"
+  },
+  {
+   "fieldname": "address_and_contact_section",
+   "fieldtype": "Section Break",
+   "label": "Address and Contact"
+  },
+  {
+   "fieldname": "phone_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Phone Number"
+  },
+  {
+   "fieldname": "personal_email",
+   "fieldtype": "Data",
+   "label": "Personal Email"
+  },
+  {
+   "fieldname": "company_email",
+   "fieldtype": "Data",
+   "label": "Company Email",
+   "mandatory_depends_on": "eval:doc.allow_login==1"
+  },
+  {
+   "fieldname": "column_break_gntw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Small Text",
+   "label": "Address"
+  },
+  {
+   "fieldname": "google_map_url",
+   "fieldtype": "Data",
+   "label": "Google Map Url",
+   "length": 500
+  },
+  {
+   "default": "Cambodian",
+   "fieldname": "nationality",
+   "fieldtype": "Link",
+   "label": "Nationality",
+   "options": "Nationality"
+  },
+  {
+   "fieldname": "identity_information_tab",
+   "fieldtype": "Tab Break",
+   "label": "Personal Information"
+  },
+  {
+   "fieldname": "identity_type",
+   "fieldtype": "Link",
+   "label": "Identity Type",
+   "options": "Identity Type"
+  },
+  {
+   "fieldname": "issue_place",
+   "fieldtype": "Link",
+   "label": "Issue Place",
+   "options": "Country"
+  },
+  {
+   "fieldname": "column_break_obpl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "identity_number",
+   "fieldtype": "Data",
+   "label": "Identity Number"
+  },
+  {
+   "fieldname": "column_break_jqpf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "issue_date",
+   "fieldtype": "Date",
+   "label": "Issue Date"
+  },
+  {
+   "fieldname": "column_break_bcgi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "expired_date",
+   "fieldtype": "Date",
+   "label": "Expired Date"
+  },
+  {
+   "fieldname": "other_identity_information_section",
+   "fieldtype": "Section Break",
+   "label": "Other Identity Information"
+  },
+  {
+   "fieldname": "table_knil",
+   "fieldtype": "Table",
+   "options": "Employee Identity"
+  },
+  {
+   "fieldname": "emergency_contact_section",
+   "fieldtype": "Section Break",
+   "label": "Emergency Contact"
+  },
+  {
+   "fieldname": "emergency_contact_name",
+   "fieldtype": "Data",
+   "label": "Emergency Contact Name"
+  },
+  {
+   "fieldname": "column_break_zsvk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "emergency_contact_phone_number",
+   "fieldtype": "Data",
+   "label": "Emergency Contact Phone Number"
+  },
+  {
+   "fieldname": "column_break_fhyu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "emergency_contact_relation",
+   "fieldtype": "Data",
+   "label": "Relation"
+  },
+  {
+   "default": "Single",
+   "fieldname": "marital_status",
+   "fieldtype": "Select",
+   "label": "Marital Status",
+   "options": "Single\nMarried\nDivorced\nWindowed"
+  },
+  {
+   "fieldname": "blood_group",
+   "fieldtype": "Select",
+   "label": "Blood Group",
+   "options": "A+\nA-\nB+\nB-\nAB+\nAB-\nO+\nO-"
+  },
+  {
+   "fieldname": "column_break_httv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "health_detail",
+   "fieldtype": "Small Text",
+   "label": "Health Detail"
+  },
+  {
+   "fieldname": "section_break_pmrw",
+   "fieldtype": "Section Break",
+   "label": "Identity Information"
+  },
+  {
+   "fieldname": "profile_tab",
+   "fieldtype": "Tab Break",
+   "label": "Profile"
+  },
+  {
+   "fieldname": "bio_information",
+   "fieldtype": "Text Editor",
+   "label": "Bio Information"
+  },
+  {
+   "fieldname": "attendance_and_leaves_tab",
+   "fieldtype": "Tab Break",
+   "label": "Attendance and Leaves"
+  },
+  {
+   "fieldname": "attendance_device_id",
+   "fieldtype": "Data",
+   "label": "Attendance Device ID (Biometric/RF tag ID)"
+  },
+  {
+   "fieldname": "column_break_kict",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "leave_approver",
+   "fieldtype": "Link",
+   "label": "Leave Approver",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "leave_setting_section",
+   "fieldtype": "Section Break",
+   "label": "Leave Setting"
+  },
+  {
+   "fieldname": "leave_setting",
+   "fieldtype": "Table",
+   "options": "Employee Attendance Leave Count"
+  },
+  {
+   "fieldname": "login_information_tab",
+   "fieldtype": "Tab Break",
+   "label": "Login Information"
+  },
+  {
+   "default": "0",
+   "fieldname": "allow_login",
+   "fieldtype": "Check",
+   "label": "Allow Login"
+  },
+  {
+   "fieldname": "username",
+   "fieldtype": "Data",
+   "label": "Username"
+  },
+  {
+   "fieldname": "password",
+   "fieldtype": "Data",
+   "label": "Password"
+  },
+  {
+   "fieldname": "column_break_nrwk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "role_profile",
+   "fieldtype": "Link",
+   "label": "Role Profile",
+   "options": "Role Profile"
+  },
+  {
+   "fieldname": "module_profile",
+   "fieldtype": "Link",
+   "label": "Module Profile",
+   "options": "Module Profile"
+  },
+  {
+   "fieldname": "personalize_tab",
+   "fieldtype": "Tab Break",
+   "label": "Personalize"
+  },
+  {
+   "fieldname": "profile_background_photo",
+   "fieldtype": "Attach Image",
+   "label": "Profile Background Photo"
+  },
+  {
+   "fieldname": "column_break_tgid",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "image_field": "photo",
+ "index_web_pages_for_search": 1,
+ "is_calendar_and_gantt": 1,
+ "links": [
+  {
+   "group": "Attendance",
+   "link_doctype": "Leave Request",
+   "link_fieldname": "employee"
+  }
+ ],
+ "modified": "2023-09-26 12:47:29.290988",
+ "modified_by": "Administrator",
+ "module": "HR",
+ "name": "Employee",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Admin",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "search_fields": "employee_name",
+ "show_title_field_in_link": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "employee_name",
+ "track_changes": 1
+}

@@ -1,0 +1,33 @@
+{
+ "chart_name": "Leave Taken on Each Day of The Week",
+ "chart_type": "Report",
+ "creation": "2023-09-25 12:14:03.898886",
+ "custom_options": "{\"x_field\": \"attendance_date\", \"chart_type\": \"Bar\", \"y_axis_fields\": [{\"idx\": 1, \"__islocal\": true, \"name\": \"row 1\", \"y_field\": \"total_leave\", \"color\": \"#0095c7\"}], \"y_fields\": [\"total_leave\"], \"colors\": [\"#0095c7\"]}",
+ "docstatus": 0,
+ "doctype": "Dashboard Chart",
+ "filters_json": "{}",
+ "group_by_type": "Count",
+ "idx": 0,
+ "is_public": 0,
+ "is_standard": 1,
+ "modified": "2023-09-25 12:14:03.971253",
+ "modified_by": "Administrator",
+ "module": "HR",
+ "name": "Leave Taken on Each Day of The Week",
+ "number_of_groups": 0,
+ "owner": "Administrator",
+ "report_name": "Leave Taken on Each Day of The Week",
+ "roles": [],
+ "time_interval": "Yearly",
+ "timeseries": 0,
+ "timespan": "Last Year",
+ "type": "Bar",
+ "use_report_chart": 0,
+ "x_field": "attendance_date",
+ "y_axis": [
+  {
+   "color": "#0095c7",
+   "y_field": "total_leave"
+  }
+ ]
+}

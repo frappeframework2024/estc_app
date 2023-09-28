@@ -1,0 +1,24 @@
+{
+ "cards": [],
+ "charts": [
+  {
+   "width": "Half"
+  },
+  {
+   "chart": "Current Employee Leave by Leave Type",
+   "width": "Half"
+  }
+ ],
+ "creation": "2023-09-26 13:15:05.928177",
+ "dashboard_name": "Employee Dashboard",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "modified": "2023-09-26 13:15:21.274818",
+ "modified_by": "Administrator",
+ "module": "HR",
+ "name": "Employee Dashboard",
+ "owner": "Administrator"
+}
