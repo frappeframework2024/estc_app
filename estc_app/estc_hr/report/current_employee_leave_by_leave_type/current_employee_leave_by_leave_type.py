@@ -1,7 +1,7 @@
 # Copyright (c) 2023, Tes Pheakdey and contributors
 # For license information, please see license.txt
 
-from estc_app.hr.doctype.employee.employee import get_currency_employee
+from estc_app.estc_hr.doctype.employee.employee import get_currency_employee
 import frappe
 
 
