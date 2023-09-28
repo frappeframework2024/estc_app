@@ -80,7 +80,7 @@ class LeaveRequest(Document):
 
 		
 
-		frappe.enqueue("estc_app.hr.doctype.leave_request.leave_request.update_leave_balance", queue='short', self =self)
+		frappe.enqueue("estc_app.estc_hr.doctype.leave_request.leave_request.update_leave_balance", queue='short', self =self)
 
 @frappe.whitelist()
 def update_leave_balance(self):

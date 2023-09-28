@@ -13,8 +13,8 @@ class Employee(Document):
 
 	def on_update(self):
 		 
-		frappe.enqueue("estc_app.hr.doctype.employee.employee.update_user_information", queue='short', self =self)
-		frappe.enqueue("estc_app.hr.doctype.employee.employee.update_leave_balance", queue='short', self =self)
+		frappe.enqueue("estc_app.estc_hr.doctype.employee.employee.update_user_information", queue='short', self =self)
+		frappe.enqueue("estc_app.estc_hr.doctype.employee.employee.update_leave_balance", queue='short', self =self)
 
 @frappe.whitelist()
 def update_user_information(self):
