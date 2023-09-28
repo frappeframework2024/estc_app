@@ -26,6 +26,16 @@
    "unique": 1
   },
   {
+   "fieldname": "column_break_gwmd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_default",
+   "fieldtype": "Check",
+   "label": "Is Default"
+  },
+  {
    "fieldname": "section_break_soij",
    "fieldtype": "Section Break"
   },
@@ -56,23 +66,13 @@
    "fieldname": "table_dxjl",
    "fieldtype": "Table",
    "options": "Holiday"
-  },
-  {
-   "fieldname": "column_break_gwmd",
-   "fieldtype": "Column Break"
-  },
-  {
-   "default": "0",
-   "fieldname": "is_default",
-   "fieldtype": "Check",
-   "label": "Is Default"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-09-25 17:48:02.273593",
+ "modified": "2023-09-28 15:20:50.543570",
  "modified_by": "Administrator",
- "module": "System Setting",
+ "module": "ESTC System Setting",
  "name": "Fiscal Year",
  "naming_rule": "By fieldname",
  "owner": "Administrator",
