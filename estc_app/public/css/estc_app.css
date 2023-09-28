@@ -9,3 +9,9 @@
 .widget.custom-block-widget-box{
     padding: 0 !important;
 }
+.btn-primary{
+    background: #d3aa68 !important;
+}
+.navbar {
+    background: #d3aa68 !important;
+}
