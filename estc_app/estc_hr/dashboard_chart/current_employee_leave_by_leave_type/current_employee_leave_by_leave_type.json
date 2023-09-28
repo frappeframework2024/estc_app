@@ -1,0 +1,32 @@
+{
+ "chart_name": "Current Employee Leave by Leave Type",
+ "chart_type": "Report",
+ "creation": "2023-09-26 13:15:21.161283",
+ "custom_options": "{\"x_field\": \"leave_type\", \"chart_type\": \"Pie\", \"y_axis_fields\": [{\"idx\": 1, \"__islocal\": true, \"name\": \"row 1\", \"y_field\": \"total_leave\"}], \"y_fields\": [\"total_leave\"], \"colors\": [null]}",
+ "docstatus": 0,
+ "doctype": "Dashboard Chart",
+ "filters_json": "{}",
+ "group_by_type": "Count",
+ "idx": 26,
+ "is_public": 0,
+ "is_standard": 1,
+ "modified": "2023-09-28 14:40:07.324270",
+ "modified_by": "Administrator",
+ "module": "ESTC HR",
+ "name": "Current Employee Leave by Leave Type",
+ "number_of_groups": 0,
+ "owner": "Administrator",
+ "report_name": "Current Employee Leave by Leave Type",
+ "roles": [],
+ "time_interval": "Yearly",
+ "timeseries": 0,
+ "timespan": "Last Year",
+ "type": "Pie",
+ "use_report_chart": 0,
+ "x_field": "leave_type",
+ "y_axis": [
+  {
+   "y_field": "total_leave"
+  }
+ ]
+}

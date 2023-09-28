@@ -1,0 +1,237 @@
+{
+ "charts": [
+  {
+   "chart_name": "Leave Taken on Each Day of The Week",
+   "label": "Leave Taken on Each Day of The Week"
+  },
+  {
+   "chart_name": "Employee By Gender",
+   "label": "Employee By Gender"
+  },
+  {
+   "chart_name": "Monthly Attendance",
+   "label": "Monthly Attendance"
+  }
+ ],
+ "content": "[{\"id\":\"J9UtkvIRk5\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Employee\",\"col\":3}},{\"id\":\"LeHJ301Ve1\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Leave Pending Approval\",\"col\":3}},{\"id\":\"YIVnCq3HeC\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Today On Leave\",\"col\":3}},{\"id\":\"5cak-PgOQJ\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Next week On Leave\",\"col\":3}},{\"id\":\"2XB2Tgm0LI\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Monthly Attendance\",\"col\":12}},{\"id\":\"A6B_DAs3KM\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Employee By Gender\",\"col\":6}},{\"id\":\"hiduKbgQdF\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Leave Taken on Each Day of The Week\",\"col\":6}},{\"id\":\"M8FTs00JuJ\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h5\\\">Your shortcut</span>\",\"col\":12}},{\"id\":\"XQppAz6TFf\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Emplyee\",\"col\":3}},{\"id\":\"ypbUurOd2p\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Leave Request\",\"col\":3}},{\"id\":\"3P2pGjIg43\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Leave Calendar\",\"col\":3}},{\"id\":\"Fjc4_UPk4Y\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Attendance Record\",\"col\":3}},{\"id\":\"p-PdMf3ols\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"HR Dashboard\",\"col\":3}},{\"id\":\"A29atSWMaA\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"N_nPFOCH8-\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Employee Recent Leave Request List\",\"col\":4}},{\"id\":\"o7dxo0uWsD\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Employee on Leave Today\",\"col\":4}},{\"id\":\"q_JK9O-dyi\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Upcoming Employee On Leave\",\"col\":4}},{\"id\":\"ppc4NL5cWt\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"mBGJ0B7LUO\",\"type\":\"card\",\"data\":{\"card_name\":\"Setting\",\"col\":4}},{\"id\":\"mfn_EgmSRI\",\"type\":\"card\",\"data\":{\"card_name\":\"Reports\",\"col\":4}}]",
+ "creation": "2023-09-24 18:16:51.031615",
+ "custom_blocks": [
+  {
+   "custom_block_name": "Employee on Leave Today",
+   "label": "Employee on Leave Today"
+  },
+  {
+   "custom_block_name": "Employee Recent Leave Request List",
+   "label": "Employee Recent Leave Request List"
+  },
+  {
+   "custom_block_name": "Upcoming Employee On Leave",
+   "label": "Upcoming Employee On Leave"
+  }
+ ],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "HR",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Setting",
+   "link_count": 8,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Department",
+   "link_count": 0,
+   "link_to": "Department",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Employee Type",
+   "link_count": 0,
+   "link_to": "Employee Type",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Position",
+   "link_count": 0,
+   "link_to": "Position",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Nationality",
+   "link_count": 0,
+   "link_to": "Nationality",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Country",
+   "link_count": 0,
+   "link_to": "Country",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Identity Type",
+   "link_count": 0,
+   "link_to": "Identity Type",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Fiscal Year",
+   "link_count": 0,
+   "link_to": "Fiscal Year",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Leave Type",
+   "link_count": 0,
+   "link_to": "Leave Type",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Reports",
+   "link_count": 3,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Employee Report",
+   "link_count": 0,
+   "link_to": "Employee Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Leave Request Report",
+   "link_count": 0,
+   "link_to": "Leave Request Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Attendance Report",
+   "link_count": 0,
+   "link_to": "Attendance Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2023-09-28 14:34:38.651147",
+ "modified_by": "Administrator",
+ "module": "ESTC HR",
+ "name": "HR",
+ "number_cards": [
+  {
+   "label": "Next week On Leave",
+   "number_card_name": "Next week On Leave"
+  },
+  {
+   "label": "Leave Pending Approval",
+   "number_card_name": "Leave Pending Approval"
+  },
+  {
+   "label": "Total Employee",
+   "number_card_name": "Total Employee"
+  },
+  {
+   "label": "Today On Leave",
+   "number_card_name": "Today On Leave"
+  }
+ ],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 2.0,
+ "shortcuts": [
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "Emplyee",
+   "link_to": "Employee",
+   "stats_filter": "{\"status\":[\"=\",\"Active\"]}",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "HR Dashboard",
+   "link_to": "HR Dashboard",
+   "type": "Dashboard"
+  },
+  {
+   "color": "Orange",
+   "doc_view": "List",
+   "format": "{} Requested",
+   "label": "Leave Request",
+   "link_to": "Leave Request",
+   "stats_filter": "{\"docstatus\":[\"=\",\"1\"],\"status\":[\"=\",\"Request\"]}",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "Calendar",
+   "label": "Leave Calendar",
+   "link_to": "Leave Request",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Attendance Record",
+   "link_to": "Attendance",
+   "stats_filter": "{\"attendance_date\":[\"Timespan\",\"today\"]}",
+   "type": "DocType"
+  }
+ ],
+ "title": "HR"
+}
