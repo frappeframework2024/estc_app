@@ -25,3 +25,7 @@
         max-width: 50%;
     }
 }
+.navbar-home img{
+    width: 45px !important;
+    max-height: unset !important;
+}
