@@ -18,3 +18,10 @@
 .desk-sidebar .standard-sidebar-item.selected{
     background-color: #d3aa688f!important;
 }
+@media (max-width: 1500px) and (min-width: 768px){
+    .ce-block.col-xs-12.col-sm-6.col-md-4, 
+    .ce-block.col-xs-12.col-sm-5{
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
