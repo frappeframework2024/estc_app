@@ -1,0 +1,195 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2023-09-29 09:02:27.444204",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "posting_date",
+  "applicant_type",
+  "column_break_rejg",
+  "applicant",
+  "applicant_name",
+  "section_break_xvbc",
+  "interest_rate",
+  "loan_amount",
+  "repayment_method",
+  "column_break_dblo",
+  "repayment_period",
+  "monthly_repayment",
+  "repayment_start_date",
+  "repayment_schedule_section",
+  "repayment_schedule",
+  "totals_section",
+  "total_amount",
+  "total_paid_principal",
+  "total_write_off",
+  "column_break_qbbm",
+  "total_interest",
+  "total_paid_amount"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "ACC-.######"
+  },
+  {
+   "fieldname": "applicant_type",
+   "fieldtype": "Select",
+   "label": "Applicant Type",
+   "options": "Customer\nEmployee"
+  },
+  {
+   "fieldname": "applicant",
+   "fieldtype": "Dynamic Link",
+   "in_list_view": 1,
+   "label": "Applicant",
+   "options": "applicant_type",
+   "reqd": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Posting Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "applicant_name",
+   "fieldtype": "Data",
+   "label": "Applicant Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_rejg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_xvbc",
+   "fieldtype": "Section Break",
+   "label": "Loan Details"
+  },
+  {
+   "fieldname": "interest_rate",
+   "fieldtype": "Percent",
+   "label": "Interest Rate",
+   "read_only_depends_on": "eval:doc.repayment_method == \"Repay Fixed Amount per Period\""
+  },
+  {
+   "fieldname": "loan_amount",
+   "fieldtype": "Float",
+   "label": "Loan Amount",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_dblo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "repayment_method",
+   "fieldtype": "Select",
+   "label": "Repayment Method",
+   "options": "Manual Scheduling\nRepay Fixed Amount per Period\nRepay Over Number of Periods\nRepay Over Number of Periods(Fixed Principal)",
+   "reqd": 1
+  },
+  {
+   "fieldname": "repayment_period",
+   "fieldtype": "Float",
+   "label": "Repayment Period",
+   "mandatory_depends_on": "eval:doc.repayment_method == \"Repay Over Number of Periods\" ||\ndoc.repayment_method == \"Repay Over Number of Periods(Fixed Principal)\"",
+   "read_only_depends_on": "eval:doc.repayment_method == \"Repay Fixed Amount per Period\" ||\ndoc.repayment_method == \"Manual Scheduling\""
+  },
+  {
+   "fieldname": "monthly_repayment",
+   "fieldtype": "Float",
+   "label": "Monthly Repayment",
+   "mandatory_depends_on": "eval:doc.repayment_method == \"Repay Fixed Amount per Period\"",
+   "read_only_depends_on": "eval:doc.repayment_method != \"Repay Fixed Amount per Period\""
+  },
+  {
+   "fieldname": "repayment_schedule_section",
+   "fieldtype": "Section Break",
+   "label": "Repayment Schedule"
+  },
+  {
+   "fieldname": "repayment_schedule",
+   "fieldtype": "Table",
+   "label": "Repayment Schedule",
+   "mandatory_depends_on": "eval:doc.repayment_method == \"Manual Scheduling\"",
+   "options": "Repayment Schedule",
+   "reqd": 1
+  },
+  {
+   "fieldname": "totals_section",
+   "fieldtype": "Section Break",
+   "label": "Totals"
+  },
+  {
+   "fieldname": "total_amount",
+   "fieldtype": "Currency",
+   "label": "Total Amount"
+  },
+  {
+   "fieldname": "column_break_qbbm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_interest",
+   "fieldtype": "Currency",
+   "label": "Total Interest"
+  },
+  {
+   "fieldname": "total_paid_principal",
+   "fieldtype": "Currency",
+   "label": "Total Paid Principal"
+  },
+  {
+   "fieldname": "total_write_off",
+   "fieldtype": "Currency",
+   "label": "Total Write Off"
+  },
+  {
+   "fieldname": "total_paid_amount",
+   "fieldtype": "Currency",
+   "label": "Total Paid Amount"
+  },
+  {
+   "fieldname": "repayment_start_date",
+   "fieldtype": "Date",
+   "label": "Repayment Start Date",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-09-29 17:22:06.795495",
+ "modified_by": "Administrator",
+ "module": "ESTC Loan",
+ "name": "Loan",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

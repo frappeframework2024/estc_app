@@ -1,7 +1,7 @@
 # Copyright (c) 2023, Tes Pheakdey and contributors
 # For license information, please see license.txt
 
-import frappe
+import frappe 
 from frappe.model.document import Document
 from frappe.utils.data import add_to_date, getdate
 
@@ -14,7 +14,6 @@ class LeaveRequest(Document):
 		if leave_count:
 			for d in leave_count:
 				leave_day = d.use_leave + self.total_leave_days
-				# frappe.throw(str(leave_day))
 				if leave_day > d.max_leave:
 					if leave_type.allow_negative == 1:
 						pass
@@ -76,6 +75,7 @@ class LeaveRequest(Document):
 
 				frappe.get_doc(doc).insert()
 				date = add_to_date(date,days=1)
+				
 		# update_leave_balance(self)
 
 		
@@ -87,7 +87,7 @@ def update_leave_balance(self):
 	employee_attendance = frappe.db.sql("select * from `tabEmployee Attendance Leave Count` where parent='{}' and fiscal_year='{}'".format(self.employee, self.fiscal_year),as_dict=1)
 	 
 	for e in employee_attendance:
-		total_leave = frappe.db.sql("select sum(attendance_value) total_leave from `tabAttendance` where employee='{}' and leave_type='{}' and fiscal_yeart='{}'".format(self.employee,e.leave_type,e.fiscal_year),as_dict=1)[0]["total_leave"] or 0
+		total_leave = frappe.db.sql("select sum(attendance_value) total_leave from `tabAttendance` where employee='{}' and leave_type='{}' and fiscal_year='{}'".format(self.employee,e.leave_type,e.fiscal_year),as_dict=1)[0]["total_leave"] or 0
 		
 		sql="update `tabEmployee Attendance Leave Count` set use_leave={0}, balance=max_leave-{0} where name='{1}'"
 		sql = sql.format(total_leave, e.name)
