@@ -10,15 +10,16 @@ class LeaveRequest(Document):
 	def validate(self):
 		leave_type = frappe.get_doc("Leave Type", self.leave_type)
 		leave_count = frappe.db.sql("select * from `tabEmployee Attendance Leave Count` where parent='{}' and leave_type = '{}' and fiscal_year='{}'".format(self.employee, self.leave_type, self.fiscal_year),as_dict=1)
-		# frappe.throw(str(leave_count))
+		
+		# frappe.throw(str(leave_type.allow_negative))
 		if leave_count:
 			for d in leave_count:
+				total_leave = frappe.db.sql("select sum(max_leave) total_leave from `tabEmployee Attendance Leave Count` where parent='{}' and fiscal_year='{}'".format(self.employee,d.fiscal_year),as_dict=1)[0]["total_leave"] or 0
 				leave_day = d.use_leave + self.total_leave_days
-				if leave_day > d.max_leave:
-					if leave_type.allow_negative == 1:
-						pass
-					else:
-						frappe.throw("You use all your leave day on <strong>{}</strong>".format(self.leave_type))
+				if leave_type.allow_negative == 1 and leave_day < total_leave:
+					pass
+				if leave_type.allow_negative == 0 and leave_day > d.max_leave:
+					frappe.throw("You use all your leave day on <strong>{}</strong>".format(self.leave_type))
 		else:
 			frappe.throw("Please update max leave for {} in employee detail".format(self.leave_type))
 
@@ -96,6 +97,37 @@ def update_leave_balance(self):
 		 
 
 	frappe.db.commit()
+
+@frappe.whitelist()
+def get_events(start, end, filters=None):
+	from frappe.desk.calendar import get_event_conditions
+	
+	conditions = get_event_conditions("Leave Request", [["Leave Request","status","in",["Approved","Request"],False]])
+	sql = """
+			select 
+   				start_date as start,
+				to_date as end,
+				name,
+				color as backgroundColor,
+				CONCAT(`name`,"-",`employee_name`, ' ', `leave_type`) as title,
+				status as leave_status
+    		from `tabLeave Request` 
+      		where start_date between "{start}" and "{end}" 
+        		{conditions}
+		""".format(conditions=conditions,start=start,end=end)
+	holiday_holiday="""
+			select 
+   				min(date) as start,
+      			max(date) as end,
+      			description as title,
+				"red" as backgroundColor
+      		from `tabHoliday` 
+			where date between "{start}" and "{end}" 
+        	group by description
+		""".format(start=start,end=end)
+	holiday = frappe.db.sql(holiday_holiday,as_dict=True)
+	data = frappe.db.sql(sql,as_dict=True)
+	return data+holiday
 
 
 

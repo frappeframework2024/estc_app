@@ -1,12 +1,12 @@
 frappe.views.calendar['Leave Request'] = {
     field_map: {
-        start: 'start_date',
-        end: 'to_date',
+        start: 'start',
+        end: 'end',
         id: 'name',
-        // allDay: 'all_day',
-        title: 'employee_name',
-        status: 'status',
-        color: 'color'
+        title: 'title',
+        status: 'leave_status',
+        color: 'backgroundColor'
     },
-    // get_events_method: 'frappe.desk.doctype.event.event.get_events'
+    gantt: false,
+    get_events_method: 'estc_app.estc_hr.doctype.leave_request.leave_request.get_events'
 }

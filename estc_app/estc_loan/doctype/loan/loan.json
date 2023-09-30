@@ -26,11 +26,10 @@
   "repayment_schedule",
   "totals_section",
   "total_amount",
-  "total_paid_principal",
-  "total_write_off",
+  "total_paid_amount",
   "column_break_qbbm",
   "total_interest",
-  "total_paid_amount"
+  "total_write_off"
  ],
  "fields": [
   {
@@ -146,11 +145,6 @@
    "label": "Total Interest"
   },
   {
-   "fieldname": "total_paid_principal",
-   "fieldtype": "Currency",
-   "label": "Total Paid Principal"
-  },
-  {
    "fieldname": "total_write_off",
    "fieldtype": "Currency",
    "label": "Total Write Off"
@@ -169,7 +163,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-09-29 17:29:04.876139",
+ "modified": "2023-09-30 11:37:15.207609",
  "modified_by": "Administrator",
  "module": "ESTC Loan",
  "name": "Loan",
