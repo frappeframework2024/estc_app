@@ -123,7 +123,7 @@
    "fieldtype": "Table",
    "label": "Repayment Schedule",
    "mandatory_depends_on": "eval:doc.repayment_method == \"Manual Scheduling\"",
-   "options": "Repayment Schedule",
+   "options": "Loan Repayment Schedule",
    "reqd": 1
   },
   {
@@ -169,7 +169,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-09-29 17:22:06.795495",
+ "modified": "2023-09-29 17:29:04.876139",
  "modified_by": "Administrator",
  "module": "ESTC Loan",
  "name": "Loan",

@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class RepaymentSchedule(Document):
+class LoanRepayment(Document):
 	pass

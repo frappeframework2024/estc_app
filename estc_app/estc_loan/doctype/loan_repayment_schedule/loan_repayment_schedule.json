@@ -65,7 +65,7 @@
  "modified": "2023-09-29 09:11:18.505917",
  "modified_by": "Administrator",
  "module": "ESTC Loan",
- "name": "Repayment Schedule",
+ "name": "Loan Repayment Schedule",
  "owner": "Administrator",
  "permissions": [],
  "quick_entry": 1,

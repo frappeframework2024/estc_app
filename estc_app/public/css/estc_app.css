@@ -29,3 +29,6 @@
     width: 45px !important;
     max-height: unset !important;
 }
+.nav-item.dropdown.dropdown-help.dropdown-mobile.d-none.d-lg-block{
+    display: none !important;
+}

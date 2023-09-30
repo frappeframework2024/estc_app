@@ -1,0 +1,93 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-09-29 17:31:31.959672",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "loan",
+  "applicant_type",
+  "applicant",
+  "column_break_jywp",
+  "posting_date",
+  "payment_details_section",
+  "total_amount",
+  "column_break_zoho",
+  "payment_amount"
+ ],
+ "fields": [
+  {
+   "fieldname": "loan",
+   "fieldtype": "Link",
+   "label": "Loan",
+   "options": "Loan"
+  },
+  {
+   "fieldname": "column_break_jywp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fetch_from": "loan.applicant_type",
+   "fieldname": "applicant_type",
+   "fieldtype": "Data",
+   "label": "Applicant Type"
+  },
+  {
+   "fetch_from": "loan.applicant_name",
+   "fieldname": "applicant",
+   "fieldtype": "Data",
+   "label": "Applicant"
+  },
+  {
+   "fieldname": "payment_details_section",
+   "fieldtype": "Section Break",
+   "label": "Payment Details"
+  },
+  {
+   "fieldname": "total_amount",
+   "fieldtype": "Currency",
+   "label": "Total Amount"
+  },
+  {
+   "fieldname": "column_break_zoho",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "payment_amount",
+   "fieldtype": "Currency",
+   "label": "Payment Amount"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-09-29 17:34:42.616128",
+ "modified_by": "Administrator",
+ "module": "ESTC Loan",
+ "name": "Loan Repayment",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
