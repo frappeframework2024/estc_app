@@ -52,6 +52,13 @@ def update_user_information(self):
 					
 				}
 			).insert()
+			doc = frappe.get_doc({
+				'doctype':"User Permission",
+				'user':self.company_email,
+				'allow':self.doctype,
+				'for_value':self.name,
+				'apply_to_all_doctypes':1,
+		}).insert()
 			
 	else:
 		if frappe.db.exists("User",self.company_email):
