@@ -43,7 +43,7 @@ class LeaveRequest(Document):
 			frappe.db.sql("delete from `tabAttendance` where leave_request='{}'".format(self.name))
 	 
 		if leave_status.create_attendance_record==1:
-			
+
 			date = getdate(self.start_date)
 			 
 			while date<=getdate(self.to_date):
@@ -57,18 +57,26 @@ class LeaveRequest(Document):
 					
 					"reason":self.reason
 				}
-				if date == getdate(self.start_date) and self.is_start_date_half_day==1:
+				if date == getdate(self.start_date) and self.is_start_date_half_day == 1 and self.is_start_date_period == "AM":
 					doc["attendance_value"] = 0.5
-					doc["status"] = "On Leave Half Day"
+					doc["status"] = "On Leave Half Day AM"
+
+				elif date == getdate(self.start_date) and self.is_start_date_half_day == 1 and self.is_start_date_period == "PM":
+					doc["attendance_value"] = 0.5
+					doc["status"] = "On Leave Half Day PM"
 
 				else:
 					doc["attendance_value"] =1
 					doc["status"] = "On Leave"
 					
 				
-				if date == getdate(self.to_date) and self.is_to_date_half_day==1:
+				if date == getdate(self.to_date) and self.is_to_date_half_day==1 and self.to_date_period=="AM":
 					doc["attendance_value"] = 0.5
-					doc["status"] = "On Leave Half Day"
+					doc["status"] = "On Leave Half Day AM"
+
+				elif date == getdate(self.to_date) and self.is_to_date_half_day==1 and self.to_date_period=="PM":
+					doc["attendance_value"] = 0.5
+					doc["status"] = "On Leave Half Day PM"
 
 				else:
 					doc["attendance_value"] =1

@@ -10,18 +10,21 @@
  "field_order": [
   "naming_series",
   "posting_date",
-  "applicant_type",
+  "loan_application",
   "column_break_rejg",
+  "applicant_type",
   "applicant",
   "applicant_name",
   "section_break_xvbc",
+  "loan_type",
   "interest_rate",
   "loan_amount",
-  "repayment_method",
+  "disbursed_amount",
   "column_break_dblo",
   "repayment_period",
   "monthly_repayment",
   "repayment_start_date",
+  "repayment_method",
   "repayment_schedule_section",
   "repayment_schedule",
   "totals_section",
@@ -29,12 +32,14 @@
   "total_paid_amount",
   "column_break_qbbm",
   "total_interest",
-  "total_write_off"
+  "total_write_off",
+  "amended_from"
  ],
  "fields": [
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Naming Series",
    "options": "ACC-.######"
   },
@@ -159,11 +164,38 @@
    "fieldtype": "Date",
    "label": "Repayment Start Date",
    "reqd": 1
+  },
+  {
+   "fieldname": "loan_application",
+   "fieldtype": "Link",
+   "label": "Loan Application",
+   "options": "Loan Application"
+  },
+  {
+   "fieldname": "loan_type",
+   "fieldtype": "Link",
+   "label": "Loan Type",
+   "options": "Loan Type"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Loan",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "disbursed_amount",
+   "fieldtype": "Currency",
+   "label": "Disbursed Amount"
   }
  ],
  "index_web_pages_for_search": 1,
+ "is_submittable": 1,
  "links": [],
- "modified": "2023-09-30 11:37:15.207609",
+ "modified": "2023-10-02 13:57:28.986487",
  "modified_by": "Administrator",
  "module": "ESTC Loan",
  "name": "Loan",

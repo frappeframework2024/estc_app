@@ -50,24 +50,30 @@ frappe.ui.form.on("Leave Request", {
         }  
     },
     is_start_date_half_day(frm){
-        frm.doc.total_leave_days = frappe.datetime.get_diff( frm.doc.to_date, frm.doc.start_date ) + 1
+        if(frm.doc.start_date && frm.doc.to_date){
+            frm.doc.total_leave_days = frappe.datetime.get_diff( frm.doc.to_date, frm.doc.start_date ) + 1
             if(frm.doc.is_start_date_half_day){
                 frm.doc.total_leave_days = frm.doc.total_leave_days - 0.5
             }
-            // if(frm.doc.is_to_date_half_day){
-            //     frm.doc.total_leave_days = frm.doc.total_leave_days - 0.5
-            // }
-            refresh_field('total_leave_days');
-    },
-    is_to_date_half_day(frm){
-        frm.doc.total_leave_days = frappe.datetime.get_diff( frm.doc.to_date, frm.doc.start_date ) + 1
             if(frm.doc.is_to_date_half_day){
                 frm.doc.total_leave_days = frm.doc.total_leave_days - 0.5
             }
-            // if(frm.doc.is_start_date_half_day){
-            //     frm.doc.total_leave_days = frm.doc.total_leave_days - 0.5
-            // }
             refresh_field('total_leave_days');
+        }
+        
+    },
+    is_to_date_half_day(frm){
+        if(frm.doc.start_date && frm.doc.to_date){
+            frm.doc.total_leave_days = frappe.datetime.get_diff( frm.doc.to_date, frm.doc.start_date ) + 1
+            if(frm.doc.is_to_date_half_day){
+                frm.doc.total_leave_days = frm.doc.total_leave_days - 0.5
+            }
+            if(frm.doc.is_start_date_half_day){
+                frm.doc.total_leave_days = frm.doc.total_leave_days - 0.5
+            }
+            refresh_field('total_leave_days');
+        }
+        
     }
     
 });

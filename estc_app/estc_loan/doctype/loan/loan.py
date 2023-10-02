@@ -114,3 +114,16 @@ def add_single_month(date):
 		return get_last_day(add_months(date, 1))
 	else:
 		return add_months(date, 1)
+
+@frappe.whitelist()
+def make_loan_disbursement(loan, applicant_type, applicant, pending_amount=0, as_dict=0):
+	disbursement_entry = frappe.new_doc("Loan Disbursement")
+	disbursement_entry.loan = loan
+	disbursement_entry.applicant_type = applicant_type
+	disbursement_entry.applicant = applicant
+	disbursement_entry.posting_date = nowdate()
+	disbursement_entry.disbursed_amount = pending_amount
+	if as_dict:
+		return disbursement_entry.as_dict()
+	else:
+		return disbursement_entry

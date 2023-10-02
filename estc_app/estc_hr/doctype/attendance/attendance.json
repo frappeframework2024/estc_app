@@ -14,6 +14,7 @@
   "employee_name",
   "leave_request",
   "leave_type",
+  "checkin_log_id",
   "column_break_thgw",
   "fiscal_year",
   "attendance_date",
@@ -42,7 +43,7 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "Present\nAbsent\nOn Leave\nOn Leave Half Day"
+   "options": "Present (AM)\nPresent (PM)\nAbsent\nOn Leave\nOn Leave Half Day AM\nOn Leave Half Day PM"
   },
   {
    "fetch_from": "employee.employee_name",
@@ -104,12 +105,18 @@
    "fieldtype": "Float",
    "hidden": 1,
    "label": "Attendance Value"
+  },
+  {
+   "fetch_from": "leave_request.leave_type",
+   "fieldname": "checkin_log_id",
+   "fieldtype": "Data",
+   "label": "Checkin Log ID"
   }
  ],
  "image_field": "photo",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-09-28 14:31:22.689932",
+ "modified": "2023-10-02 11:47:03.291103",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Attendance",

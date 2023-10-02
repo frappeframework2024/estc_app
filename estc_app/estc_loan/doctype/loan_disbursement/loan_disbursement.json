@@ -1,0 +1,94 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-10-02 11:53:24.348280",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "loan",
+  "applicant_type",
+  "column_break_rdah",
+  "applicant",
+  "disbursement_detail_section",
+  "posting_date",
+  "disbursed_amount",
+  "column_break_llik",
+  "note"
+ ],
+ "fields": [
+  {
+   "fieldname": "loan",
+   "fieldtype": "Link",
+   "label": "Loan",
+   "options": "Loan"
+  },
+  {
+   "fetch_from": "loan.applicant_type",
+   "fieldname": "applicant_type",
+   "fieldtype": "Data",
+   "label": "Applicant Type",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_rdah",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "loan.applicant_name",
+   "fieldname": "applicant",
+   "fieldtype": "Data",
+   "label": "Applicant",
+   "read_only": 1
+  },
+  {
+   "fieldname": "disbursement_detail_section",
+   "fieldtype": "Section Break",
+   "label": "Disbursement Detail"
+  },
+  {
+   "fieldname": "posting_date",
+   "fieldtype": "Datetime",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "column_break_llik",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "note",
+   "fieldtype": "Long Text",
+   "label": "Note"
+  },
+  {
+   "fieldname": "disbursed_amount",
+   "fieldtype": "Currency",
+   "label": "Disbursed Amount"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-10-02 14:04:36.965830",
+ "modified_by": "Administrator",
+ "module": "ESTC Loan",
+ "name": "Loan Disbursement",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
