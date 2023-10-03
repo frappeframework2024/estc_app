@@ -9,6 +9,9 @@
  "engine": "InnoDB",
  "field_order": [
   "employee_device_id",
+  "employee",
+  "employee_name",
+  "photo",
   "title",
   "check_in_time",
   "shift_name",
@@ -52,11 +55,26 @@
    "fieldname": "device_id",
    "fieldtype": "Data",
    "label": "Device ID"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Data",
+   "label": "Employee"
+  },
+  {
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name"
+  },
+  {
+   "fieldname": "photo",
+   "fieldtype": "Data",
+   "label": "Photo"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-10-02 10:58:46.429133",
+ "modified": "2023-10-02 18:43:03.331379",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Employee Check In Log",

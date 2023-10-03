@@ -1,0 +1,159 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:title",
+ "creation": "2023-10-02 19:08:14.696185",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "fiscal_year",
+  "column_break_nire",
+  "start_date",
+  "end_date",
+  "working_day_section",
+  "monday",
+  "column_break_jmvh",
+  "tuesday",
+  "column_break_hhid",
+  "wednesday",
+  "column_break_qixs",
+  "thursday",
+  "column_break_sxfv",
+  "friday",
+  "column_break_ikiv",
+  "saturday",
+  "column_break_kbez",
+  "sunday"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "unique": 1
+  },
+  {
+   "fieldname": "column_break_nire",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fiscal_year",
+   "fieldtype": "Link",
+   "label": "Fiscal Year",
+   "options": "Fiscal Year"
+  },
+  {
+   "fetch_from": "fiscal_year.start_date",
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date",
+   "options": "Fiscal Year"
+  },
+  {
+   "fetch_from": "fiscal_year.end_date",
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "End Date",
+   "options": "Fiscal Year"
+  },
+  {
+   "fieldname": "working_day_section",
+   "fieldtype": "Section Break",
+   "label": "Working Day"
+  },
+  {
+   "default": "1",
+   "fieldname": "monday",
+   "fieldtype": "Check",
+   "label": "Monday"
+  },
+  {
+   "fieldname": "column_break_jmvh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "fieldname": "tuesday",
+   "fieldtype": "Check",
+   "label": "Tuesday"
+  },
+  {
+   "fieldname": "column_break_hhid",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "fieldname": "wednesday",
+   "fieldtype": "Check",
+   "label": "Wednesday"
+  },
+  {
+   "fieldname": "column_break_qixs",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "fieldname": "thursday",
+   "fieldtype": "Check",
+   "label": "Thursday"
+  },
+  {
+   "fieldname": "column_break_sxfv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "fieldname": "friday",
+   "fieldtype": "Check",
+   "label": "Friday"
+  },
+  {
+   "fieldname": "column_break_ikiv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "saturday",
+   "fieldtype": "Check",
+   "label": "Saturday"
+  },
+  {
+   "fieldname": "column_break_kbez",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "sunday",
+   "fieldtype": "Check",
+   "label": "Sunday"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-10-02 19:13:02.903091",
+ "modified_by": "Administrator",
+ "module": "ESTC HR",
+ "name": "Holiday Setting",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
