@@ -10,25 +10,29 @@
  "field_order": [
   "naming_series",
   "loan",
+  "payment_date",
   "posting_date",
   "column_break_jywp",
   "applicant_type",
   "applicant",
   "payment_details_section",
   "total_amount",
-  "penalty_amount",
-  "column_break_zoho",
-  "payment_amount",
   "write_off_amount",
+  "column_break_zoho",
+  "penalty_amount",
+  "payment_amount",
   "section_break_cxzk",
-  "note"
+  "note",
+  "amended_from"
  ],
  "fields": [
   {
    "fieldname": "loan",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Loan",
-   "options": "Loan"
+   "options": "Loan",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_jywp",
@@ -38,7 +42,9 @@
    "default": "Today",
    "fieldname": "posting_date",
    "fieldtype": "Date",
-   "label": "Posting Date"
+   "in_list_view": 1,
+   "label": "Posting Date",
+   "reqd": 1
   },
   {
    "fetch_from": "loan.applicant_type",
@@ -60,7 +66,8 @@
   {
    "fieldname": "total_amount",
    "fieldtype": "Currency",
-   "label": "Total Amount"
+   "label": "Total Amount",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_zoho",
@@ -69,12 +76,18 @@
   {
    "fieldname": "payment_amount",
    "fieldtype": "Currency",
-   "label": "Payment Amount"
+   "in_list_view": 1,
+   "label": "Payment Amount",
+   "non_negative": 1,
+   "reqd": 1
   },
   {
+   "default": "0",
    "fieldname": "write_off_amount",
    "fieldtype": "Currency",
-   "label": "Write Off Amount"
+   "in_list_view": 1,
+   "label": "Write Off Amount",
+   "non_negative": 1
   },
   {
    "fieldname": "section_break_cxzk",
@@ -88,18 +101,38 @@
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Naming Series",
-   "options": "LP-.#####"
+   "options": "LRP-.#####"
   },
   {
+   "default": "0",
    "fieldname": "penalty_amount",
    "fieldtype": "Currency",
-   "label": "Penalty Amount"
+   "label": "Penalty Amount",
+   "non_negative": 1
+  },
+  {
+   "fetch_from": ".",
+   "fieldname": "payment_date",
+   "fieldtype": "Date",
+   "label": "Payment Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Loan Repayment",
+   "print_hide": 1,
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
+ "is_submittable": 1,
  "links": [],
- "modified": "2023-09-30 11:46:09.302776",
+ "modified": "2023-10-03 15:04:16.757580",
  "modified_by": "Administrator",
  "module": "ESTC Loan",
  "name": "Loan Repayment",

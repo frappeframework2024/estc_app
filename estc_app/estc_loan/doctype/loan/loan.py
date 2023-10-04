@@ -10,6 +10,9 @@ from frappe.utils import add_months, flt, get_last_day, getdate, now_datetime, n
 class Loan(Document):
 
 	def validate(self):
+		loan_type =  frappe.get_doc("Loan Type", self.loan_type)
+		if self.loan_amount >= loan_type.maximum_loan_amount:
+			frappe.throw("Loan Exceed Maximum Amount Of {}".format(loan_type.maximum_loan_amount))
 		self.make_repayment_schedule()
 		self.repayment_period = len(self.repayment_schedule)
 		self.update_summary()
@@ -44,6 +47,10 @@ class Loan(Document):
 				principal_amount =  round(total_amount - interest_amount,currency_precision)
 				balance_amount =  round(balance_amount - principal_amount,currency_precision)
 				total_payment =  round(principal_amount + interest_amount,currency_precision)
+				if count == self.repayment_period:
+					principal_amount = principal_amount + balance_amount
+					total_payment = total_payment + balance_amount
+					balance_amount = 0
 				self.append(
 					"repayment_schedule",
 					{
@@ -52,6 +59,7 @@ class Loan(Document):
 						"interest_amount": interest_amount,
 						"total_payment": total_payment,
 						"balance_loan_amount": balance_amount,
+						"balance":total_payment
 					},
 				)
 				next_payment_date = add_single_month(payment_date)
@@ -65,6 +73,10 @@ class Loan(Document):
 			balance_amount =  round(self.loan_amount - principal_amount,currency_precision)
 			while count<= self.repayment_period:
 				total_payment =  round(principal_amount + interest_amount,currency_precision)
+				if count == self.repayment_period:
+					principal_amount = principal_amount + balance_amount
+					total_payment = total_payment + balance_amount
+					balance_amount = 0
 				self.append(
 					"repayment_schedule",
 					{
@@ -73,6 +85,7 @@ class Loan(Document):
 						"interest_amount": interest_amount,
 						"total_payment": total_payment,
 						"balance_loan_amount": balance_amount,
+						"balance":total_payment
 					},
 				)
 				interest_amount = round(balance_amount * (self.interest_rate / 100),currency_precision)
@@ -88,7 +101,6 @@ class Loan(Document):
 			while count <= repayment_period:
 				total_payment =  round(self.monthly_repayment,currency_precision)
 				principal_amount = total_payment
-				
 				if count == repayment_period:
 					principal_amount = last_row_balance
 					total_payment = principal_amount
@@ -101,6 +113,7 @@ class Loan(Document):
 						"interest_amount": 0,
 						"total_payment": total_payment,
 						"balance_loan_amount": balance_amount,
+						"balance":total_payment
 					},
 				)
 				last_row_balance = balance_amount

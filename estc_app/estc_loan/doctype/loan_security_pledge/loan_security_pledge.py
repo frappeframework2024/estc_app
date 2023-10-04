@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class ShiftTimetable(Document):
+class LoanSecurityPledge(Document):
 	pass

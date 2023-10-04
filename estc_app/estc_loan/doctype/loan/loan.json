@@ -30,6 +30,7 @@
   "totals_section",
   "total_amount",
   "total_paid_amount",
+  "total_penalty_amount",
   "column_break_qbbm",
   "total_interest",
   "total_write_off",
@@ -81,14 +82,14 @@
    "label": "Loan Details"
   },
   {
+   "fetch_from": ".interest_rate",
    "fieldname": "interest_rate",
    "fieldtype": "Percent",
-   "label": "Interest Rate",
-   "read_only_depends_on": "eval:doc.repayment_method == \"Repay Fixed Amount per Period\""
+   "label": "Interest Rate"
   },
   {
    "fieldname": "loan_amount",
-   "fieldtype": "Float",
+   "fieldtype": "Currency",
    "label": "Loan Amount",
    "reqd": 1
   },
@@ -112,7 +113,7 @@
   },
   {
    "fieldname": "monthly_repayment",
-   "fieldtype": "Float",
+   "fieldtype": "Currency",
    "label": "Monthly Repayment",
    "mandatory_depends_on": "eval:doc.repayment_method == \"Repay Fixed Amount per Period\"",
    "read_only_depends_on": "eval:doc.repayment_method != \"Repay Fixed Amount per Period\""
@@ -150,14 +151,18 @@
    "label": "Total Interest"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "total_write_off",
    "fieldtype": "Currency",
-   "label": "Total Write Off"
+   "label": "Total Write Off",
+   "read_only": 1
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "total_paid_amount",
    "fieldtype": "Currency",
-   "label": "Total Paid Amount"
+   "label": "Total Paid Amount",
+   "read_only": 1
   },
   {
    "fieldname": "repayment_start_date",
@@ -175,7 +180,8 @@
    "fieldname": "loan_type",
    "fieldtype": "Link",
    "label": "Loan Type",
-   "options": "Loan Type"
+   "options": "Loan Type",
+   "reqd": 1
   },
   {
    "fieldname": "amended_from",
@@ -189,13 +195,21 @@
   {
    "fieldname": "disbursed_amount",
    "fieldtype": "Currency",
-   "label": "Disbursed Amount"
+   "label": "Disbursed Amount",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "total_penalty_amount",
+   "fieldtype": "Currency",
+   "label": "Total Penalty Amount",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-10-02 13:57:28.986487",
+ "modified": "2023-10-03 15:18:38.917467",
  "modified_by": "Administrator",
  "module": "ESTC Loan",
  "name": "Loan",

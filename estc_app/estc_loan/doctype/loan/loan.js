@@ -4,8 +4,13 @@
 frappe.ui.form.on("Loan", {
 	
 	refresh: function(frm) {
-		if (frm.doc.docstatus == 1) {
+		if (frm.doc.docstatus == 1 && frm.doc.disbursed_amount<frm.doc.loan_amount) {
 			frm.add_custom_button(__('Loan Disbursement'), function() {
+				frm.trigger("make_loan_disbursement");
+			},__('Create'));
+		}
+		if (frm.doc.docstatus == 1 && frm.doc.disbursed_amount == frm.doc.loan_amount) {
+			frm.add_custom_button(__('Loan Repayment'), function() {
 				frm.trigger("make_loan_disbursement");
 			},__('Create'));
 		}
@@ -26,7 +31,7 @@ frappe.ui.form.on("Loan", {
 			args: {
 				"loan": frm.doc.name,
 				"applicant_type": frm.doc.applicant_type,
-				"applicant": frm.doc.applicant,
+				"applicant": frm.doc.applicant_name,
 				"pending_amount": frm.doc.loan_amount - frm.doc.disbursed_amount > 0 ? frm.doc.loan_amount - frm.doc.disbursed_amount : 0,
 				"as_dict": 1
 			},
@@ -67,6 +72,13 @@ frappe.ui.form.on("Loan", {
 				frm.set_value("loan_type",doc.loan_type);
 				frm.set_value("interest_rate",doc.interest_rate);
 				frm.set_value("loan_amount",doc.loan_amount);
+			});	
+		}   
+	},
+	loan_type: function(frm) {
+		if (frm.doc.loan_type) {
+			frappe.db.get_doc("Loan Type", frm.doc.loan_type).then(doc => {
+				frm.set_value("interest_rate",doc.interest_rate);
 			});	
 		}   
 	}

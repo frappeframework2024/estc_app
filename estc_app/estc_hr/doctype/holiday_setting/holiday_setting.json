@@ -26,7 +26,10 @@
   "column_break_ikiv",
   "saturday",
   "column_break_kbez",
-  "sunday"
+  "sunday",
+  "section_break_boxm",
+  "holidays",
+  "weekend"
  ],
  "fields": [
   {
@@ -129,11 +132,28 @@
    "fieldname": "sunday",
    "fieldtype": "Check",
    "label": "Sunday"
+  },
+  {
+   "fieldname": "section_break_boxm",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "holidays",
+   "fieldtype": "Table",
+   "label": "Holidays",
+   "options": "Holiday Schedule"
+  },
+  {
+   "fieldname": "weekend",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "Weekends",
+   "options": "Holiday Schedule"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-10-02 19:13:02.903091",
+ "modified": "2023-10-03 12:07:31.613913",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Holiday Setting",
@@ -153,7 +173,9 @@
    "write": 1
   }
  ],
+ "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "fiscal_year"
 }

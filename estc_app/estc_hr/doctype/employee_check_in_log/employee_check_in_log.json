@@ -8,19 +8,26 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "employee_info_section",
   "employee_device_id",
   "employee",
+  "department",
+  "column_break_vkrc",
   "employee_name",
   "photo",
+  "position",
+  "checkin_info_section",
   "title",
   "check_in_time",
-  "shift_name",
-  "log_type",
   "timestamp",
-  "device_id"
+  "column_break_cwkg",
+  "device_id",
+  "shift_name",
+  "log_type"
  ],
  "fields": [
   {
+   "fetch_from": "employee.employee_name",
    "fieldname": "title",
    "fieldtype": "Data",
    "label": "Title"
@@ -28,6 +35,7 @@
   {
    "fieldname": "check_in_time",
    "fieldtype": "Datetime",
+   "in_list_view": 1,
    "label": "Check In Time",
    "read_only": 1
   },
@@ -58,23 +66,63 @@
   },
   {
    "fieldname": "employee",
-   "fieldtype": "Data",
-   "label": "Employee"
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee"
   },
   {
+   "fetch_from": "employee.employee_name",
    "fieldname": "employee_name",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Employee Name"
   },
   {
+   "fetch_from": "employee.photo",
    "fieldname": "photo",
-   "fieldtype": "Data",
+   "fieldtype": "Attach Image",
+   "hidden": 1,
    "label": "Photo"
+  },
+  {
+   "fieldname": "column_break_vkrc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "checkin_info_section",
+   "fieldtype": "Section Break",
+   "label": "Checkin Info"
+  },
+  {
+   "fieldname": "column_break_cwkg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "employee_info_section",
+   "fieldtype": "Section Break",
+   "label": "Employee Info"
+  },
+  {
+   "fetch_from": "employee.position",
+   "fieldname": "position",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Position",
+   "options": "Position"
+  },
+  {
+   "fetch_from": "employee.department",
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Department",
+   "options": "Department"
   }
  ],
+ "image_field": "photo",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-10-02 18:43:03.331379",
+ "modified": "2023-10-03 10:08:08.733776",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Employee Check In Log",
@@ -94,7 +142,9 @@
    "write": 1
   }
  ],
+ "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "title"
 }

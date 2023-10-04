@@ -2,23 +2,21 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "naming_series:",
- "creation": "2023-10-02 11:53:24.348280",
+ "creation": "2023-10-03 10:29:40.167958",
  "default_view": "List",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "naming_series",
   "loan",
-  "applicant_type",
-  "column_break_rdah",
-  "applicant",
-  "disbursement_detail_section",
   "posting_date",
-  "disbursed_amount",
-  "amended_from",
-  "column_break_llik",
-  "note"
+  "naming_series",
+  "column_break_abcp",
+  "applicant_type",
+  "applicant",
+  "loan_security_pledge_detail_section",
+  "table_vuhg",
+  "amended_from"
  ],
  "fields": [
   {
@@ -28,15 +26,16 @@
    "options": "Loan"
   },
   {
-   "fetch_from": "loan.applicant_type",
-   "fieldname": "applicant_type",
-   "fieldtype": "Data",
-   "label": "Applicant Type",
-   "read_only": 1
+   "fieldname": "column_break_abcp",
+   "fieldtype": "Column Break"
   },
   {
-   "fieldname": "column_break_rdah",
-   "fieldtype": "Column Break"
+   "fetch_from": "loan.applicant_type",
+   "fieldname": "applicant_type",
+   "fieldtype": "Select",
+   "label": "Applicant Type",
+   "options": "Customer\nEmployee",
+   "read_only": 1
   },
   {
    "fetch_from": "loan.applicant_name",
@@ -46,52 +45,45 @@
    "read_only": 1
   },
   {
-   "fieldname": "disbursement_detail_section",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Naming Series",
+   "options": "LSP-.#####"
+  },
+  {
+   "fieldname": "loan_security_pledge_detail_section",
    "fieldtype": "Section Break",
-   "label": "Disbursement Detail"
+   "label": "Loan Security Pledge Detail"
   },
   {
-   "fieldname": "posting_date",
-   "fieldtype": "Datetime",
-   "label": "Posting Date"
-  },
-  {
-   "fieldname": "column_break_llik",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "note",
-   "fieldtype": "Long Text",
-   "label": "Note"
-  },
-  {
-   "fieldname": "disbursed_amount",
-   "fieldtype": "Currency",
-   "label": "Disbursed Amount"
+   "fieldname": "table_vuhg",
+   "fieldtype": "Table",
+   "options": "Loan Security Pledge Detail"
   },
   {
    "fieldname": "amended_from",
    "fieldtype": "Link",
    "label": "Amended From",
    "no_copy": 1,
-   "options": "Loan Disbursement",
+   "options": "Loan Security Pledge",
    "print_hide": 1,
    "read_only": 1
   },
   {
-   "fieldname": "naming_series",
-   "fieldtype": "Select",
-   "label": "Naming Series",
-   "options": "LDB-.#####"
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-10-02 14:19:36.685149",
+ "modified": "2023-10-03 10:47:48.241107",
  "modified_by": "Administrator",
  "module": "ESTC Loan",
- "name": "Loan Disbursement",
+ "name": "Loan Security Pledge",
  "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [

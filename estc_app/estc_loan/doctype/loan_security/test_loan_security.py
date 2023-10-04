@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestShiftTimetable(FrappeTestCase):
+class TestLoanSecurity(FrappeTestCase):
 	pass

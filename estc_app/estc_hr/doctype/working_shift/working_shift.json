@@ -1,36 +1,32 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:title",
+ "autoname": "field:shift_name",
  "creation": "2023-10-02 12:05:30.413515",
  "default_view": "List",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "title",
+  "shift_name",
   "on_duty_time",
-  "late_time",
-  "leave_early_time",
   "off_duty_time",
+  "late_time",
+  "is_haft_working_day",
+  "must_checkin",
+  "must_checkout",
+  "column_break_mrzy",
   "beginning_in",
   "ending_in",
   "beginning_out",
   "ending_out",
-  "count_as_workday",
-  "must_checkin",
-  "must_checkout"
+  "leave_early_time"
  ],
  "fields": [
   {
-   "fieldname": "title",
-   "fieldtype": "Data",
-   "label": "Title",
-   "unique": 1
-  },
-  {
    "fieldname": "on_duty_time",
    "fieldtype": "Time",
+   "in_list_view": 1,
    "label": "On Duty Time"
   },
   {
@@ -46,16 +42,19 @@
   {
    "fieldname": "off_duty_time",
    "fieldtype": "Time",
+   "in_list_view": 1,
    "label": "Off Duty Time"
   },
   {
    "fieldname": "beginning_in",
    "fieldtype": "Time",
+   "in_list_view": 1,
    "label": "Beginning In"
   },
   {
    "fieldname": "ending_in",
    "fieldtype": "Time",
+   "in_list_view": 1,
    "label": "Ending In"
   },
   {
@@ -69,29 +68,43 @@
    "label": "Ending Out"
   },
   {
-   "fieldname": "count_as_workday",
-   "fieldtype": "Time",
-   "label": "Count As Workday"
-  },
-  {
-   "default": "0",
+   "default": "1",
    "fieldname": "must_checkin",
    "fieldtype": "Check",
+   "hidden": 1,
    "label": "Must CheckIn"
   },
   {
-   "default": "0",
+   "default": "1",
    "fieldname": "must_checkout",
    "fieldtype": "Check",
+   "hidden": 1,
    "label": "Must Checkout"
+  },
+  {
+   "fieldname": "shift_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Shift Name",
+   "unique": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_haft_working_day",
+   "fieldtype": "Check",
+   "label": "Is Haft Working Day"
+  },
+  {
+   "fieldname": "column_break_mrzy",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-10-02 12:05:30.413515",
+ "modified": "2023-10-03 15:43:30.799662",
  "modified_by": "Administrator",
  "module": "ESTC HR",
- "name": "Shift Timetable",
+ "name": "Working Shift",
  "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
@@ -110,5 +123,6 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "track_changes": 1
 }

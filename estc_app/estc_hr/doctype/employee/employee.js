@@ -10,6 +10,6 @@ frappe.ui.form.on("Employee", {
             r.message.balance   = frm.dashboard.add_indicator(__("Balance: {0}",[sum.reduce((n, d) => n + d.balance,0)]) ,"blue") 
                 
                 
-              })
+    })
 	},
 });
