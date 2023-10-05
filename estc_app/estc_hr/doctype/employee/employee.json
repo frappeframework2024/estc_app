@@ -2,7 +2,7 @@
  "actions": [],
  "allow_events_in_timeline": 1,
  "allow_rename": 1,
- "autoname": "field:employee_code",
+ "autoname": "naming_series:",
  "creation": "2023-09-24 18:56:02.213771",
  "default_view": "List",
  "doctype": "DocType",
@@ -10,9 +10,9 @@
  "engine": "InnoDB",
  "field_order": [
   "naming_series",
-  "employee_code",
   "title",
   "employee_name",
+  "employee_name_kh",
   "gender",
   "nationality",
   "photo",
@@ -76,13 +76,6 @@
  ],
  "fields": [
   {
-   "fieldname": "employee_code",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Employee Code",
-   "unique": 1
-  },
-  {
    "default": "Mr",
    "fieldname": "title",
    "fieldtype": "Select",
@@ -93,7 +86,7 @@
    "fieldname": "employee_name",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Employee Name",
+   "label": "Employee Name En",
    "reqd": 1
   },
   {
@@ -419,10 +412,17 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "EMP-.YYYY.-",
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "label": "Naming Series",
-   "options": "EMP-.YYYY."
+   "options": "EMP-.YYYY.-"
+  },
+  {
+   "fieldname": "employee_name_kh",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Employee Name Kh"
   }
  ],
  "image_field": "photo",
@@ -435,11 +435,11 @@
    "link_fieldname": "employee"
   }
  ],
- "modified": "2023-10-05 17:24:51.151069",
+ "modified": "2023-10-05 17:37:14.434494",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Employee",
- "naming_rule": "By fieldname",
+ "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [
   {
