@@ -9,6 +9,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "naming_series",
   "employee_code",
   "title",
   "employee_name",
@@ -417,6 +418,12 @@
   {
    "fieldname": "column_break_tgid",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "EMP-.-.YYYY."
   }
  ],
  "image_field": "photo",
@@ -429,7 +436,7 @@
    "link_fieldname": "employee"
   }
  ],
- "modified": "2023-09-29 08:52:26.920496",
+ "modified": "2023-10-05 16:59:48.057390",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Employee",
