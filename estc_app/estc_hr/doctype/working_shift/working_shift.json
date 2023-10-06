@@ -1,13 +1,14 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:shift_name",
+ "autoname": "naming_series:",
  "creation": "2023-10-02 12:05:30.413515",
  "default_view": "List",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "naming_series",
   "shift_name",
   "on_duty_time",
   "off_duty_time",
@@ -20,7 +21,9 @@
   "ending_in",
   "beginning_out",
   "ending_out",
-  "leave_early_time"
+  "leave_early_time",
+  "holiday",
+  "amended_from"
  ],
  "fields": [
   {
@@ -97,15 +100,38 @@
   {
    "fieldname": "column_break_mrzy",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "holiday",
+   "fieldtype": "Link",
+   "label": "Holiday",
+   "options": "Holiday Setting"
+  },
+  {
+   "default": "WS-.{shift_name}.-.YYYY.-",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "WS-.{shift_name}.-.YYYY.-"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Working Shift",
+   "print_hide": 1,
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
+ "is_submittable": 1,
  "links": [],
- "modified": "2023-10-03 15:43:30.799662",
+ "modified": "2023-10-05 10:44:18.581409",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Working Shift",
- "naming_rule": "By fieldname",
+ "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [
   {

@@ -12,7 +12,6 @@
   "shift",
   "employee",
   "column_break_pfwz",
-  "holiday",
   "start_date",
   "end_date",
   "amended_from"
@@ -50,12 +49,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "holiday",
-   "fieldtype": "Link",
-   "label": "Holiday",
-   "options": "Holiday Setting"
-  },
-  {
    "fetch_from": "holiday.start_date",
    "fieldname": "start_date",
    "fieldtype": "Date",
@@ -71,7 +64,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-10-03 17:16:47.498095",
+ "modified": "2023-10-04 15:47:23.183000",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Shift Assignment",

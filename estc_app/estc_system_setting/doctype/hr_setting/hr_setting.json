@@ -1,0 +1,63 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-10-05 18:50:40.707110",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "annual_leave_type",
+  "sick_leave_type",
+  "ot_leave_type",
+  "annual_leave_setting"
+ ],
+ "fields": [
+  {
+   "fieldname": "annual_leave_type",
+   "fieldtype": "Link",
+   "label": "Annual Leave Type",
+   "options": "Leave Type"
+  },
+  {
+   "fieldname": "sick_leave_type",
+   "fieldtype": "Link",
+   "label": "Sick Leave Type",
+   "options": "Leave Type"
+  },
+  {
+   "fieldname": "ot_leave_type",
+   "fieldtype": "Link",
+   "label": "OT Leave Type",
+   "options": "Leave Type"
+  },
+  {
+   "fieldname": "annual_leave_setting",
+   "fieldtype": "Table",
+   "label": "Annual leave Setting",
+   "options": "Annual Leave Count Setting"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2023-10-06 10:22:10.507987",
+ "modified_by": "Administrator",
+ "module": "ESTC System Setting",
+ "name": "HR Setting",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

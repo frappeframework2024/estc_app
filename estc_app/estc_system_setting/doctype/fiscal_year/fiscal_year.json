@@ -16,7 +16,9 @@
   "column_break_ojgg",
   "end_date",
   "holiday_date_section",
-  "table_dxjl"
+  "table_dxjl",
+  "employee_annual_leave_count_tab",
+  "leave_count"
  ],
  "fields": [
   {
@@ -66,11 +68,22 @@
    "fieldname": "table_dxjl",
    "fieldtype": "Table",
    "options": "Holiday"
+  },
+  {
+   "fieldname": "employee_annual_leave_count_tab",
+   "fieldtype": "Tab Break",
+   "label": "Employee Annual Leave Count"
+  },
+  {
+   "fieldname": "leave_count",
+   "fieldtype": "Table",
+   "label": "Leave Count",
+   "options": "Employee Annual Leave"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-09-28 15:20:50.543570",
+ "modified": "2023-10-05 18:47:04.055910",
  "modified_by": "Administrator",
  "module": "ESTC System Setting",
  "name": "Fiscal Year",

@@ -1,0 +1,45 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-10-05 18:52:54.030767",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "from_year",
+  "to_year",
+  "total_annual_leave"
+ ],
+ "fields": [
+  {
+   "fieldname": "from_year",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "From Year"
+  },
+  {
+   "fieldname": "to_year",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "To Year"
+  },
+  {
+   "fieldname": "total_annual_leave",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total Annual Leave"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-10-05 18:53:03.966365",
+ "modified_by": "Administrator",
+ "module": "ESTC System Setting",
+ "name": "Annual Leave Count Setting",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
