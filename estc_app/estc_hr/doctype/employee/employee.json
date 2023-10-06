@@ -44,6 +44,11 @@
   "blood_group",
   "column_break_httv",
   "health_detail",
+  "dependence_section",
+  "spouse",
+  "emergency_contact",
+  "column_break_oavr",
+  "children",
   "section_break_pmrw",
   "identity_type",
   "issue_place",
@@ -61,6 +66,8 @@
   "attendance_device_id",
   "column_break_kict",
   "leave_approver",
+  "approve_by_supervisor",
+  "approve_by_head_department",
   "leave_setting_section",
   "leave_setting",
   "login_information_tab",
@@ -72,7 +79,8 @@
   "module_profile",
   "personalize_tab",
   "profile_background_photo",
-  "column_break_tgid"
+  "column_break_tgid",
+  "tab_7_tab"
  ],
  "fields": [
   {
@@ -347,6 +355,7 @@
   {
    "fieldname": "leave_approver",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Leave Approver",
    "options": "Employee"
   },
@@ -423,6 +432,47 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Employee Name Kh"
+  },
+  {
+   "fieldname": "approve_by_supervisor",
+   "fieldtype": "Link",
+   "label": "Approve By Supervisor",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "approve_by_head_department",
+   "fieldtype": "Link",
+   "label": "Approve By Head Department",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "tab_7_tab",
+   "fieldtype": "Tab Break",
+   "label": "Tab 7"
+  },
+  {
+   "fieldname": "dependence_section",
+   "fieldtype": "Section Break",
+   "label": "Dependence"
+  },
+  {
+   "fieldname": "spouse",
+   "fieldtype": "Data",
+   "label": "Spouse"
+  },
+  {
+   "fieldname": "emergency_contact",
+   "fieldtype": "Data",
+   "label": "Emergency Contact"
+  },
+  {
+   "fieldname": "column_break_oavr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "children",
+   "fieldtype": "Int",
+   "label": "Children"
   }
  ],
  "image_field": "photo",
@@ -435,7 +485,7 @@
    "link_fieldname": "employee"
   }
  ],
- "modified": "2023-10-05 17:37:14.434494",
+ "modified": "2023-10-06 17:35:28.332129",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Employee",
