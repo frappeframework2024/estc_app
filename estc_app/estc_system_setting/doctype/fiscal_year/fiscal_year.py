@@ -12,7 +12,8 @@ class FiscalYear(Document):
 		if self.is_new():
 			employee_list= frappe.db.get_list('Employee', fields=['name', 'date_of_joining'])
 			for emp in employee_list:
-				start_date = emp['date_of_joining']
+
+				start_date = emp['date_of_joining'] or datetime.date(datetime.now())
 				current_date = datetime.date(datetime.now())
 				diff = current_date - start_date
 				self.append("leave_count", {
