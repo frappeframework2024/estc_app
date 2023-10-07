@@ -8,6 +8,7 @@ from frappe.utils.data import add_to_date, getdate
 
 class LeaveRequest(Document):
 	def validate(self):
+		self.fiscal_year = frappe.db.get_value("Fiscal Year", {'default': 1},"name")
 		leave_type = frappe.get_doc("Leave Type", self.leave_type)
 		leave_count = frappe.db.sql("select * from `tabEmployee Attendance Leave Count` where parent='{}' and leave_type = '{}' and fiscal_year='{}'".format(self.employee, self.leave_type, self.fiscal_year),as_dict=1)
 		
@@ -25,7 +26,19 @@ class LeaveRequest(Document):
 
 		if self.docstatus==0:
 			self.status ='Draft'
-			
+		employee = frappe.db.get_value("Employee",self.employee,['approve_by_supervisor','approve_by_head_department', 'name'], as_dict=1)
+		head_department = frappe.db.get_value("Employee",employee.approve_by_head_department,['approve_by_supervisor','employee_name','approve_by_head_department', 'name','company_email'],as_dict=1)
+		supervisor = frappe.db.get_value("Employee",employee.approve_by_supervisor,['approve_by_supervisor','employee_name','approve_by_head_department', 'name','company_email'],as_dict=1)
+		self.head_department_approver = head_department.name
+		self.head_department_approver_name = head_department.employee_name
+		self.head_department_approver_email = head_department.company_email
+		if supervisor:
+			self.supervisor_approver = supervisor.name
+			self.supervisor_approver_name = supervisor.employee_name
+			self.supervisor_approver_email = supervisor.company_email
+		self.fiscal_year = frappe.db.get_value("Fiscal Year", {'default': 1},"name")
+
+
 	def on_submit(self):
 		pass
 		# frappe.sendmail(recipients=[self.approver_email],

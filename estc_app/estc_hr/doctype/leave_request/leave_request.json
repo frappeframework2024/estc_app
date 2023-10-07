@@ -11,9 +11,9 @@
   "naming_series",
   "employee",
   "employee_name",
-  "approver",
-  "approver_name",
-  "approver_email",
+  "head_department_approver",
+  "head_department_approver_name",
+  "head_department_approver_email",
   "column_break_uoqh",
   "leave_type",
   "status",
@@ -21,8 +21,8 @@
   "supervisor_approver_name",
   "supervisor_approver_email",
   "column_break_xohl",
-  "fiscal_year",
   "posting_date",
+  "fiscal_year",
   "color",
   "photo",
   "amended_from",
@@ -41,6 +41,7 @@
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
+   "hidden": 1,
    "in_global_search": 1,
    "label": "Document Number",
    "options": "LR.-.YYYY.####"
@@ -54,23 +55,6 @@
    "options": "Employee",
    "reqd": 1,
    "search_index": 1
-  },
-  {
-   "fetch_from": "approver.employee_name",
-   "fieldname": "approver_name",
-   "fieldtype": "Data",
-   "label": "Approver Name",
-   "read_only": 1,
-   "reqd": 1
-  },
-  {
-   "fetch_from": "approver.company_email",
-   "fieldname": "approver_email",
-   "fieldtype": "Link",
-   "label": "Approver Email",
-   "options": "User",
-   "read_only": 1,
-   "reqd": 1
   },
   {
    "fieldname": "column_break_uoqh",
@@ -102,23 +86,15 @@
    "label": "Employee Name"
   },
   {
-   "fetch_from": "employee.leave_approver",
-   "fieldname": "approver",
-   "fieldtype": "Link",
-   "hidden": 1,
-   "label": "Approver",
-   "options": "Employee"
-  },
-  {
    "fieldname": "column_break_xohl",
    "fieldtype": "Column Break"
   },
   {
    "fieldname": "fiscal_year",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Fiscal Year",
-   "options": "Fiscal Year",
-   "reqd": 1
+   "options": "Fiscal Year"
   },
   {
    "default": "Today",
@@ -215,27 +191,51 @@
    "options": "AM\nPM"
   },
   {
-   "fetch_from": "employee.approve_by_supervisor",
+   "fetch_from": ".",
    "fieldname": "supervisor_approver",
-   "fieldtype": "Link",
+   "fieldtype": "Data",
    "hidden": 1,
-   "label": "Supervisor Approver",
-   "options": "Employee"
+   "ignore_user_permissions": 1,
+   "label": "Supervisor Approver"
   },
   {
-   "fetch_from": "supervisor_approver.employee_name",
+   "fetch_from": ".employee_name",
    "fieldname": "supervisor_approver_name",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Supervisor Approver Name"
   },
   {
-   "fetch_from": "supervisor_approver.company_email",
+   "fetch_from": ".",
    "fieldname": "supervisor_approver_email",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Supervisor Approver Email",
    "options": "User",
-   "read_only": 1,
-   "reqd": 1
+   "read_only": 1
+  },
+  {
+   "fetch_from": ".approve_by_head_department",
+   "fieldname": "head_department_approver",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "ignore_user_permissions": 1,
+   "label": "Head Department Approver"
+  },
+  {
+   "fetch_from": ".",
+   "fieldname": "head_department_approver_name",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Head Department Approver Name"
+  },
+  {
+   "fetch_from": ".company_email",
+   "fieldname": "head_department_approver_email",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Head Department Approver Email",
+   "options": "User"
   }
  ],
  "image_field": "photo",
@@ -249,7 +249,7 @@
    "link_fieldname": "leave_request"
   }
  ],
- "modified": "2023-10-07 14:53:09.413982",
+ "modified": "2023-10-07 18:08:20.853131",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Leave Request",

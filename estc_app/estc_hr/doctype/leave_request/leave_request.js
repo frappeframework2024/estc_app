@@ -2,6 +2,14 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("Leave Request", {
+    onload(frm){
+        frappe.call({
+            "method": 'estc_app.estc_hr.doctype.employee.employee.get_currency_employee',
+            callback: function (r) {
+                frm.set_value('employee',r.message.employee.name)
+            }
+        });
+    },
 	refresh(frm) {
         if (frm.doc.status=='Draft') {
             frm.set_intro('Please click on <strong>Actions</strong> Menu=><strong>Submit for Approval</strong> to submit your leave request', 'blue');
@@ -17,7 +25,7 @@ frappe.ui.form.on("Leave Request", {
             frappe.set_route("/app/leave-request/view/calendar/default")
         });
       
-
+        
 	},
     before_workflow_action: async (frm) => {
         frappe.dom.unfreeze()  
