@@ -2,9 +2,6 @@
  "cards": [],
  "charts": [
   {
-   "width": "Half"
-  },
-  {
    "chart": "Current Employee Leave by Leave Type-1",
    "width": "Half"
   }
@@ -16,7 +13,7 @@
  "idx": 0,
  "is_default": 0,
  "is_standard": 1,
- "modified": "2023-09-28 15:36:16.255594",
+ "modified": "2023-10-07 14:16:37.949190",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Employee Dashboard",

@@ -10,13 +10,16 @@
  "field_order": [
   "naming_series",
   "employee",
+  "employee_name",
+  "approver",
   "approver_name",
   "approver_email",
   "column_break_uoqh",
   "leave_type",
   "status",
-  "employee_name",
-  "approver",
+  "supervisor_approver",
+  "supervisor_approver_name",
+  "supervisor_approver_email",
   "column_break_xohl",
   "fiscal_year",
   "posting_date",
@@ -45,12 +48,12 @@
   {
    "fieldname": "employee",
    "fieldtype": "Link",
-   "in_global_search": 1,
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Employee",
    "options": "Employee",
-   "reqd": 1
+   "reqd": 1,
+   "search_index": 1
   },
   {
    "fetch_from": "approver.employee_name",
@@ -210,6 +213,29 @@
    "fieldtype": "Select",
    "label": "Period",
    "options": "AM\nPM"
+  },
+  {
+   "fetch_from": "employee.approve_by_supervisor",
+   "fieldname": "supervisor_approver",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Supervisor Approver",
+   "options": "Employee"
+  },
+  {
+   "fetch_from": "supervisor_approver.employee_name",
+   "fieldname": "supervisor_approver_name",
+   "fieldtype": "Data",
+   "label": "Supervisor Approver Name"
+  },
+  {
+   "fetch_from": "supervisor_approver.company_email",
+   "fieldname": "supervisor_approver_email",
+   "fieldtype": "Link",
+   "label": "Supervisor Approver Email",
+   "options": "User",
+   "read_only": 1,
+   "reqd": 1
   }
  ],
  "image_field": "photo",
@@ -223,7 +249,7 @@
    "link_fieldname": "leave_request"
   }
  ],
- "modified": "2023-09-30 15:38:19.449187",
+ "modified": "2023-10-07 14:48:09.379947",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Leave Request",
