@@ -9,7 +9,14 @@
  "engine": "InnoDB",
  "field_order": [
   "department",
-  "note"
+  "supervisor",
+  "head_department",
+  "note",
+  "lft",
+  "rgt",
+  "is_group",
+  "old_parent",
+  "parent_department"
  ],
  "fields": [
   {
@@ -22,18 +29,79 @@
    "fieldname": "note",
    "fieldtype": "Small Text",
    "label": "Note"
+  },
+  {
+   "fieldname": "lft",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Left",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "rgt",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Right",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_group",
+   "fieldtype": "Check",
+   "label": "Is Group"
+  },
+  {
+   "fieldname": "old_parent",
+   "fieldtype": "Link",
+   "label": "Old Parent",
+   "options": "Department"
+  },
+  {
+   "fieldname": "parent_department",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Parent Department",
+   "options": "Department"
+  },
+  {
+   "fieldname": "supervisor",
+   "fieldtype": "Link",
+   "label": "Supervisor",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "head_department",
+   "fieldtype": "Link",
+   "label": "Head Department",
+   "options": "Employee"
   }
  ],
  "index_web_pages_for_search": 1,
- "istable": 1,
+ "is_tree": 1,
  "links": [],
- "modified": "2023-10-07 16:34:51.349160",
+ "modified": "2023-10-07 16:43:09.820449",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Department",
  "naming_rule": "By fieldname",
+ "nsm_parent_field": "parent_department",
  "owner": "Administrator",
- "permissions": [],
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

@@ -65,8 +65,9 @@
   "attendance_and_leaves_tab",
   "attendance_device_id",
   "column_break_kict",
-  "leave_approver",
+  "leave_approver_section",
   "approve_by_supervisor",
+  "column_break_tovd",
   "approve_by_head_department",
   "leave_setting_section",
   "leave_setting",
@@ -353,12 +354,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "leave_approver",
-   "fieldtype": "Link",
-   "label": "Leave Approver",
-   "options": "Employee"
-  },
-  {
    "fieldname": "leave_setting_section",
    "fieldtype": "Section Break",
    "label": "Leave Setting"
@@ -433,16 +428,21 @@
    "label": "Employee Name Kh"
   },
   {
+   "fetch_from": "department.supervisor",
+   "fetch_if_empty": 1,
    "fieldname": "approve_by_supervisor",
    "fieldtype": "Link",
-   "label": "Approve By Supervisor",
+   "ignore_user_permissions": 1,
+   "label": "Supervisor",
    "options": "Employee"
   },
   {
+   "fetch_from": "department.head_department",
+   "fetch_if_empty": 1,
    "fieldname": "approve_by_head_department",
    "fieldtype": "Link",
-   "hidden": 1,
-   "label": "Approve By Head Department",
+   "ignore_user_permissions": 1,
+   "label": "Head Department",
    "options": "Employee"
   },
   {
@@ -473,10 +473,18 @@
    "fieldname": "children",
    "fieldtype": "Int",
    "label": "Children"
+  },
+  {
+   "fieldname": "leave_approver_section",
+   "fieldtype": "Section Break",
+   "label": "Leave Approver"
+  },
+  {
+   "fieldname": "column_break_tovd",
+   "fieldtype": "Column Break"
   }
  ],
  "image_field": "photo",
- "index_web_pages_for_search": 1,
  "is_calendar_and_gantt": 1,
  "links": [
   {
@@ -485,7 +493,7 @@
    "link_fieldname": "employee"
   }
  ],
- "modified": "2023-10-07 11:09:15.642401",
+ "modified": "2023-10-07 16:57:03.085197",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Employee",
