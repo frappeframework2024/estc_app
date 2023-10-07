@@ -347,7 +347,8 @@
   {
    "fieldname": "attendance_device_id",
    "fieldtype": "Data",
-   "label": "Attendance Device ID (Biometric/RF tag ID)"
+   "label": "Attendance Device ID (Biometric/RF tag ID)",
+   "permlevel": 1
   },
   {
    "fieldname": "column_break_kict",
@@ -434,7 +435,8 @@
    "fieldtype": "Link",
    "ignore_user_permissions": 1,
    "label": "Supervisor",
-   "options": "Employee"
+   "options": "Employee",
+   "permlevel": 1
   },
   {
    "fetch_from": "department.head_department",
@@ -443,7 +445,8 @@
    "fieldtype": "Link",
    "ignore_user_permissions": 1,
    "label": "Head Department",
-   "options": "Employee"
+   "options": "Employee",
+   "permlevel": 1
   },
   {
    "fieldname": "tab_7_tab",
@@ -493,7 +496,7 @@
    "link_fieldname": "employee"
   }
  ],
- "modified": "2023-10-07 16:57:03.085197",
+ "modified": "2023-10-07 18:24:21.047078",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Employee",

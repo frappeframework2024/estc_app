@@ -41,9 +41,9 @@ def update_employee_data(fiscal_year_name):
 	sick_leave_type = frappe.db.get_single_value("HR Setting","sick_leave_type")
 	for emp in fiscal_year.leave_count:
 		doc = frappe.get_doc("Employee",emp.employee)
+		
 		#annual leave
 		leave_data=[d for d in doc.leave_setting if d.fiscal_year==fiscal_year_name]
-		
 		if leave_data:
 			leave_data[0].max_leave = (emp.annual_leave or 0) + (emp.carry_over or 0)
 		else:
@@ -64,6 +64,5 @@ def update_employee_data(fiscal_year_name):
 				"max_leave":(emp.sick_leave or 0)
 			})
 		doc.save()
-	return "Employee Infor update success"
 
 		
