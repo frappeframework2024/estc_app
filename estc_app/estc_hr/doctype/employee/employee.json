@@ -355,7 +355,6 @@
   {
    "fieldname": "leave_approver",
    "fieldtype": "Link",
-   "hidden": 1,
    "label": "Leave Approver",
    "options": "Employee"
   },
@@ -442,6 +441,7 @@
   {
    "fieldname": "approve_by_head_department",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Approve By Head Department",
    "options": "Employee"
   },
@@ -485,7 +485,7 @@
    "link_fieldname": "employee"
   }
  ],
- "modified": "2023-10-06 17:35:28.332129",
+ "modified": "2023-10-07 11:09:15.642401",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Employee",
