@@ -36,7 +36,7 @@ class LeaveRequest(Document):
 			self.supervisor_approver = supervisor.name
 			self.supervisor_approver_name = supervisor.employee_name
 			self.supervisor_approver_email = supervisor.company_email
-		self.fiscal_year = frappe.db.get_value("Fiscal Year", {'default': 1},"name")
+		self.fiscal_year = frappe.db.get_value("Fiscal Year", {'is_default': 1},"name")
 
 
 	def on_submit(self):
