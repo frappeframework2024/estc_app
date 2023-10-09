@@ -12,7 +12,7 @@ class HolidaySetting(Document):
 			generate_holiday(self)
 			#generl public holiday
 			fiscal_year = frappe.get_doc('Fiscal Year',self.fiscal_year)
-			for holiday in fiscal_year.get_all_children():
+			for holiday in fiscal_year.holidays:
 				self.append("holidays", {
 					"date": holiday.date, 
 					"day": holiday.date.strftime('%A'),

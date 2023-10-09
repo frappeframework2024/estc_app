@@ -151,10 +151,16 @@ def get_events(start, end, filters=None):
 	data = frappe.db.sql(sql,as_dict=True)
 	return data+holiday
 
-
-
-
-
-		
-
-
+@frappe.whitelist()
+def get_leave_count(start,end,fiscal_year):
+	holiday_setting = frappe.db.get_value("Holiday Setting",{'fiscal_year':fiscal_year})
+	sql = """
+		select 
+  			date 
+     	from 
+    	`tabHoliday Schedule` 
+     	where 
+      	date between '{0}' and '{1}' and parent = '{2}'
+    """.format(start,end,holiday_setting)
+	result =  frappe.db.sql(sql)
+	return result or []
