@@ -8,7 +8,7 @@ from frappe.utils.data import add_to_date, getdate
 
 class LeaveRequest(Document):
 	def validate(self):
-		self.fiscal_year = frappe.db.get_value("Fiscal Year", {'default': 1},"name")
+		self.fiscal_year = frappe.db.get_value("Fiscal Year", {'is_default': 1},"name")
 		leave_type = frappe.get_doc("Leave Type", self.leave_type)
 		leave_count = frappe.db.sql("select * from `tabEmployee Attendance Leave Count` where parent='{}' and leave_type = '{}' and fiscal_year='{}'".format(self.employee, self.leave_type, self.fiscal_year),as_dict=1)
 		
@@ -36,7 +36,6 @@ class LeaveRequest(Document):
 			self.supervisor_approver = supervisor.name
 			self.supervisor_approver_name = supervisor.employee_name
 			self.supervisor_approver_email = supervisor.company_email
-		self.fiscal_year = frappe.db.get_value("Fiscal Year", {'is_default': 1},"name")
 
 
 	def on_submit(self):
