@@ -9,6 +9,11 @@ frappe.ui.form.on("Leave Request", {
                 frm.set_value('employee',r.message.employee.name)
             }
         });
+        if(frm.is_new()){
+            current =new Date();
+			frm.set_value("posting_date", current);
+        }
+        
     },
 	refresh(frm) {
         if (frm.doc.status=='Draft') {

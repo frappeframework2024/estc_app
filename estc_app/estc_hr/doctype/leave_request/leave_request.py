@@ -122,8 +122,9 @@ def update_leave_balance(self):
 @frappe.whitelist()
 def get_events(start, end, filters=None):
 	from frappe.desk.calendar import get_event_conditions
+	department = frappe.db.get_list("Department",pluck='name')
+	conditions = get_event_conditions("Leave Request", [["Leave Request","department","in",department],["Leave Request","status","in",["Approved","Request"]]])
 	
-	conditions = get_event_conditions("Leave Request", [["Leave Request","status","in",["Approved","Request"],False]])
 	sql = """
 			select 
    				start_date as start,
@@ -136,6 +137,7 @@ def get_events(start, end, filters=None):
       		where start_date between "{start}" and "{end}" 
         		{conditions}
 		""".format(conditions=conditions,start=start,end=end)
+
 	holiday_holiday="""
 			select 
    				min(date) as start,

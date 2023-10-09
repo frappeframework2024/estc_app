@@ -25,6 +25,7 @@
   "fiscal_year",
   "color",
   "photo",
+  "department",
   "amended_from",
   "date_and_reason_section",
   "start_date",
@@ -236,6 +237,14 @@
    "hidden": 1,
    "label": "Head Department Approver Email",
    "options": "User"
+  },
+  {
+   "fetch_from": "employee.department",
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Department",
+   "options": "Department"
   }
  ],
  "image_field": "photo",
@@ -249,7 +258,7 @@
    "link_fieldname": "leave_request"
   }
  ],
- "modified": "2023-10-07 18:08:20.853131",
+ "modified": "2023-10-09 09:46:07.210112",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Leave Request",
