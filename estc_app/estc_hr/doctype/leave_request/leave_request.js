@@ -3,15 +3,17 @@
 
 frappe.ui.form.on("Leave Request", {
     onload(frm){
-        frappe.call({
-            "method": 'estc_app.estc_hr.doctype.employee.employee.get_currency_employee',
-            callback: function (r) {
-                frm.set_value('employee',r.message.employee.name)
-            }
-        });
         if(frm.is_new()){
-            current =new Date();
-			frm.set_value("posting_date", current);
+            frappe.call({
+                "method": 'estc_app.estc_hr.doctype.employee.employee.get_currency_employee',
+                callback: function (r) {
+                    frm.set_value('employee',r.message.employee.name)
+                    current =new Date();
+			        frm.set_value("posting_date", current);
+                }
+            });
+            
+            
         }
         
     },
