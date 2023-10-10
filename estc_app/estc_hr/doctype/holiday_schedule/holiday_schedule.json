@@ -10,7 +10,8 @@
   "date",
   "day",
   "column_break_cjic",
-  "description"
+  "description",
+  "is_day_off"
  ],
  "fields": [
   {
@@ -23,7 +24,8 @@
    "fieldname": "day",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Day"
+   "label": "Day",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_cjic",
@@ -34,12 +36,19 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Description"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_day_off",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Is Day Off"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-10-03 12:18:20.251795",
+ "modified": "2023-10-10 08:50:33.116908",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Holiday Schedule",

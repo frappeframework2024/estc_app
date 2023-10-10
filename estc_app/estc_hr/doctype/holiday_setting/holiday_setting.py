@@ -16,8 +16,10 @@ class HolidaySetting(Document):
 				self.append("holidays", {
 					"date": holiday.date, 
 					"day": holiday.date.strftime('%A'),
+					"is_day_off": holiday.is_day_off,
 					"description": holiday.description
 				})
+		
 
 
 def generate_holiday(self):

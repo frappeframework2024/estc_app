@@ -108,7 +108,8 @@ def get_report_data(filters):
 			company_email,
 			date_of_joining,
 			contract_end_date,
-			status
+			status,
+   			concat(approve_by_head_department,'-' , 'head department name') as approve_by_head_department
 		from `tabEmployee` emp
 		where
 			1=1  
@@ -140,6 +141,7 @@ def get_group_by_column(filters):
 def group_by_columns():
 	
 	return [
+		{"fieldname":"group_by","data_field":"approve_by_head_department", "label":"Head Department","fieldtype":"Data"},
 		{"fieldname":"group_by","data_field":"title", "label":"Title","fieldtype":"Data"},
 		{"fieldname":"group_by","data_field":"marital_status", "label":"Marital Status" ,"fieldtype":"Data" },
 		{"fieldname":"group_by","data_field":"department", "label":"Department" ,"fieldtype":"Data" },

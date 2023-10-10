@@ -37,7 +37,7 @@ frappe.query_reports["Employee Report"] = {
 			"fieldname": "group_by",
 			"label": __("Group By"),
 			"fieldtype": "Select",
-			"options":"\nTitle\nMarital Status\nDepartment\nPosition\nStatus\nGender\nEmployee Type\nNationality\nBlood Group",
+			"options":"\nTitle\nMarital Status\nDepartment\nHead Department\nPosition\nStatus\nGender\nEmployee Type\nNationality\nBlood Group",
 		},
 		{
 			"fieldname": "order_by",
