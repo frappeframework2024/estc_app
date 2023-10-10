@@ -45,6 +45,10 @@
   {
    "chart": "Leave Taken on Each Day of The Week",
    "width": "Half"
+  },
+  {
+   "chart": "Leave Request By Department",
+   "width": "Half"
   }
  ],
  "creation": "2023-09-25 09:39:35.846654",
@@ -54,7 +58,7 @@
  "idx": 7,
  "is_default": 0,
  "is_standard": 1,
- "modified": "2023-10-10 11:26:19.303842",
+ "modified": "2023-10-10 11:43:50.111681",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "HR Dashboard",
