@@ -19,19 +19,33 @@ frappe.ui.form.on("Leave Request", {
         
     },
 	refresh(frm) {
-        if (frm.doc.status=='Draft') {
-            frm.set_intro('Please click on <strong>Actions</strong> Menu=><strong>Submit for Approval</strong> to submit your leave request', '#ed246a');
+        
+        if(!frm.is_new()){
+            let html_message="";
+            if (frm.doc.status=='Request') {
+                html_message=get_mesage("Leave request has been <strong>Requested</strong>",frm.doc);
+                
+            }
+            if (frm.doc.status=='Draft') {
+                html_message=get_mesage("Please click on <strong>Actions</strong> Menu=><strong>Submit for Approval</strong> to submit your leave request",frm.doc)
+            }
+            if (frm.doc.status=='Approved') {
+                html_message=get_message("Leave request has been <strong>Approved</strong>",frm.doc)
+            }
+            if (frm.doc.status=='Supervisor Approved') {
+                html_message=get_message("Leave request has been <strong>Supervisor Approved</strong>",frm.doc)
+            }
+            if (frm.doc.status=='Rejected') {
+                html_message=get_message("Leave request has been <strong>Rejected</strong>",frm.doc)
+            }
+            frm.fields_dict.intro.$wrapper.html(html_message)
         }
-        if (frm.doc.status=='Approved') {
-            frm.set_intro('Leave request has been <strong>Approved</strong>', 'green');
-        }
-        if (frm.doc.status=='Rejected') {
-            frm.set_intro('Leave request has been <strong>Rejected</strong>', 'red');
-        }
+        
 
         frm.add_custom_button(__("View Leave Calendar"), () => {
             frappe.set_route("/app/leave-request/view/calendar/default")
         });
+        
       if (frm.is_new()){
         frappe.db.get_value(
             "Fiscal Year",
@@ -128,3 +142,18 @@ frappe.ui.form.on("Leave Request", {
     
 });
 
+
+function get_mesage(text,doc){
+    return `
+        <div class="form-message" style="background:${doc.color}4D;color: ${doc.color};">
+            <div>
+                ${text}
+            </div>
+            <div class="close-message">
+                <svg class="icon  icon-sm" style="">
+                    <use class="" href="#icon-close"></use>
+                </svg>
+            </div>
+        </div>
+    `
+}

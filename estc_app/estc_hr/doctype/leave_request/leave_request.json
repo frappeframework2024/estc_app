@@ -8,6 +8,8 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "intro",
+  "section_break_wlek",
   "naming_series",
   "employee",
   "employee_name",
@@ -245,6 +247,15 @@
    "hidden": 1,
    "label": "Department",
    "options": "Department"
+  },
+  {
+   "fieldname": "intro",
+   "fieldtype": "HTML",
+   "label": "Intro"
+  },
+  {
+   "fieldname": "section_break_wlek",
+   "fieldtype": "Section Break"
   }
  ],
  "image_field": "photo",
@@ -258,7 +269,7 @@
    "link_fieldname": "leave_request"
   }
  ],
- "modified": "2023-10-09 14:21:42.700605",
+ "modified": "2023-10-11 12:21:24.859511",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Leave Request",
