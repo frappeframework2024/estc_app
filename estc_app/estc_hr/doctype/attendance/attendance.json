@@ -10,14 +10,15 @@
  "field_order": [
   "naming_series",
   "employee",
-  "status",
   "employee_name",
+  "status",
   "leave_request",
   "leave_type",
   "checkin_log_id",
   "column_break_thgw",
   "fiscal_year",
   "attendance_date",
+  "late",
   "department",
   "photo",
   "reason",
@@ -37,13 +38,14 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Employee",
-   "options": "Employee"
+   "options": "Employee",
+   "search_index": 1
   },
   {
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "Present (AM)\nPresent (PM)\nAbsent\nOn Leave\nOn Leave Half Day AM\nOn Leave Half Day PM"
+   "options": "Present\nPresent (AM)\nPresent (PM)\nAbsent\nOn Leave\nOn Leave Half Day AM\nOn Leave Half Day PM"
   },
   {
    "fetch_from": "employee.employee_name",
@@ -56,7 +58,8 @@
    "fieldname": "leave_request",
    "fieldtype": "Link",
    "label": "Leave Request",
-   "options": "Leave Request"
+   "options": "Leave Request",
+   "search_index": 1
   },
   {
    "fetch_from": "leave_request.leave_type",
@@ -103,20 +106,25 @@
    "default": "1",
    "fieldname": "attendance_value",
    "fieldtype": "Float",
-   "hidden": 1,
    "label": "Attendance Value"
   },
   {
    "fetch_from": "leave_request.leave_type",
    "fieldname": "checkin_log_id",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Checkin Log ID"
+  },
+  {
+   "fieldname": "late",
+   "fieldtype": "Time",
+   "label": "Late (Min)"
   }
  ],
  "image_field": "photo",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-10-02 11:47:03.291103",
+ "modified": "2023-10-12 14:18:18.822264",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Attendance",

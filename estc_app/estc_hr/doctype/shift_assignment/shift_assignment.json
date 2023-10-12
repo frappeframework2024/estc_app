@@ -11,10 +11,12 @@
   "naming_series",
   "shift",
   "employee",
+  "holiday",
   "column_break_pfwz",
   "start_date",
   "end_date",
-  "amended_from"
+  "amended_from",
+  "fiscal_year"
  ],
  "fields": [
   {
@@ -52,19 +54,37 @@
    "fetch_from": "holiday.start_date",
    "fieldname": "start_date",
    "fieldtype": "Date",
+   "hidden": 1,
    "label": "Start Date"
   },
   {
    "fetch_from": "holiday.end_date",
    "fieldname": "end_date",
    "fieldtype": "Date",
+   "hidden": 1,
    "label": "End Date"
+  },
+  {
+   "fetch_from": "shift.holiday",
+   "fieldname": "holiday",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Holiday",
+   "options": "Holiday Setting"
+  },
+  {
+   "fetch_from": "holiday.fiscal_year",
+   "fieldname": "fiscal_year",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Fiscal Year",
+   "options": "Fiscal Year"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-10-04 15:47:23.183000",
+ "modified": "2023-10-11 15:27:29.215622",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Shift Assignment",
