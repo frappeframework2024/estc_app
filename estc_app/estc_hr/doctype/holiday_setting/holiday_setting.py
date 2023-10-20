@@ -26,7 +26,8 @@ def generate_holiday(self):
 	weekend_list = generate_dates_on_specific_days(str(self.start_date),str(self.end_date),get_days(self))
 	for weekend in weekend_list:
 		self.append("weekend", {
-			"date": weekend['date'], 
+			"date": weekend['date'],
+			"is_day_off":1,
 			"day": weekend['day']
 		})
 

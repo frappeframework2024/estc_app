@@ -15,10 +15,14 @@
   "leave_request",
   "leave_type",
   "checkin_log_id",
+  "log_type",
+  "shift",
   "column_break_thgw",
   "fiscal_year",
   "attendance_date",
   "late",
+  "leave_early",
+  "checkin_time",
   "department",
   "photo",
   "reason",
@@ -116,15 +120,41 @@
    "label": "Checkin Log ID"
   },
   {
+   "depends_on": "eval:doc.checkin_log_id",
    "fieldname": "late",
    "fieldtype": "Time",
-   "label": "Late (Min)"
+   "label": "Late (Mins)"
+  },
+  {
+   "depends_on": "eval:doc.checkin_log_id",
+   "fieldname": "leave_early",
+   "fieldtype": "Time",
+   "label": "Leave Early (Mins)"
+  },
+  {
+   "depends_on": "eval:doc.checkin_log_id",
+   "fieldname": "log_type",
+   "fieldtype": "Data",
+   "label": "Log Type"
+  },
+  {
+   "depends_on": "eval:doc.checkin_log_id",
+   "fieldname": "shift",
+   "fieldtype": "Link",
+   "label": "Shift",
+   "options": "Working Shift"
+  },
+  {
+   "depends_on": "eval:doc.checkin_log_id",
+   "fieldname": "checkin_time",
+   "fieldtype": "Datetime",
+   "label": "CheckIn Time"
   }
  ],
  "image_field": "photo",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-10-12 14:18:18.822264",
+ "modified": "2023-10-20 09:14:35.095553",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Attendance",

@@ -8,7 +8,7 @@ from frappe.model.document import Document
 class ShiftAssignment(Document):
 	def validate(self):
 		if self.is_new():
-			exs = frappe.db.exists("Shift Assignment", {"employee": self.employee,"shift": self.shift})
+			exs = frappe.db.exists("Shift Assignment", {"employee": self.employee,"shift": self.shift,"docstastus":1})
 			if exs:
 				frappe.throw(f"Employee {frappe.db.get_value('Employee',self.employee,'employee_name')} could not add to {self.shift} aleady exist")
 

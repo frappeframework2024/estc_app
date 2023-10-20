@@ -13,6 +13,7 @@
   "employee",
   "department",
   "column_break_vkrc",
+  "posting_date",
   "employee_name",
   "photo",
   "position",
@@ -117,12 +118,18 @@
    "in_list_view": 1,
    "label": "Department",
    "options": "Department"
+  },
+  {
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date",
+   "read_only": 1
   }
  ],
  "image_field": "photo",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-10-03 10:08:08.733776",
+ "modified": "2023-10-18 09:16:35.789879",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Employee Check In Log",
