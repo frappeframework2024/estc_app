@@ -128,7 +128,12 @@ app_include_js = "/assets/estc_app/js/estc_app.js"
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
+scheduler_events = {
+    "cron": {
+		"*/10 * * * *":[
+				"estc_app.estc_hr.doctype.attendance.attendance.insert_absent_attendance",
+		]
+	}
 #	"all": [
 #		"estc_app.tasks.all"
 #	],
@@ -144,7 +149,7 @@ app_include_js = "/assets/estc_app/js/estc_app.js"
 #	"monthly": [
 #		"estc_app.tasks.monthly"
 #	],
-# }
+}
 
 # Testing
 # -------
@@ -214,7 +219,9 @@ app_include_js = "/assets/estc_app/js/estc_app.js"
 # auth_hooks = [
 #	"estc_app.auth.validate"
 # ]
-
+pdf_header_html = "estc_app.utils.pdf.pdf_header_html"
+pdf_body_html = "estc_app.utils.pdf.pdf_body_html"
+pdf_footer_html = "estc_app.utils.pdf.pdf_footer_html"
 
 fixtures = [
     {"dt": "Custom HTML Block"},
