@@ -126,7 +126,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-10-20 16:47:25.801509",
+ "modified": "2023-10-20 16:49:39.504279",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Working Shift",
@@ -146,6 +146,7 @@
    "write": 1
   }
  ],
+ "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
