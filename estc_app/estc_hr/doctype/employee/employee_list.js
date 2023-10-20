@@ -16,7 +16,9 @@ frappe.listview_settings['Employee'] = {
                         'fieldtype': 'MultiSelectList',
                         'fieldname': 'shifts',
                         get_data: function (txt) {
-                            return frappe.db.get_link_options('Working Shift', txt);
+                            return frappe.db.get_link_options('Working Shift', txt,{
+                                docstatus: 1,
+                            });
 
                         },
                     },
