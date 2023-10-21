@@ -219,9 +219,6 @@ scheduler_events = {
 # auth_hooks = [
 #	"estc_app.auth.validate"
 # ]
-pdf_header_html = "estc_app.utils.pdf.pdf_header_html"
-pdf_body_html = "estc_app.utils.pdf.pdf_body_html"
-pdf_footer_html = "estc_app.utils.pdf.pdf_footer_html"
 
 fixtures = [
     {"dt": "Custom HTML Block"},
