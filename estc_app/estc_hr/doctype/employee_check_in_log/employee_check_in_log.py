@@ -132,12 +132,13 @@ def employee_checked_in(employee_device_id,
 	return doc
 
 def get_attendance_punch(check_time,working_shift):
-	check_time = timedelta(hours=check_time.hour,minutes=check_time.minute,seconds=check_time.second)
-	beginning_in = working_shift.beginning_in
-	ending_in =working_shift.ending_in
-	beginning_out = working_shift.beginning_out
-	ending_out =working_shift.ending_out
-	if beginning_in <= check_time <= ending_in:
-		return "IN"
-	if beginning_out <= check_time <= ending_out:
-		return 'OUT'
+	if working_shift:
+		check_time = timedelta(hours=check_time.hour,minutes=check_time.minute,seconds=check_time.second)
+		beginning_in = working_shift.beginning_in
+		ending_in =working_shift.ending_in
+		beginning_out = working_shift.beginning_out
+		ending_out =working_shift.ending_out
+		if beginning_in <= check_time <= ending_in:
+			return "IN"
+		if beginning_out <= check_time <= ending_out:
+			return 'OUT'
