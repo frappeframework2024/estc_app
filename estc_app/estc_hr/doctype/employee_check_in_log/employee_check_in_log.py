@@ -32,9 +32,21 @@ class EmployeeCheckInLog(Document):
 		shift=[d.shift for d in shift_assignment]
 		working_shift=frappe.db.get_list("Working Shift",filters=[['name', 'in', shift]],fields=['name','late_time','is_haft_working_day','on_duty_time','off_duty_time','beginning_in','ending_in','beginning_out','ending_out','leave_early_time','holiday'])
 		
-		filtered_shift = (d for d in working_shift if timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second) >= d.beginning_in and timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second)<= d.ending_in)
-		working_shift=next(filtered_shift,None)
-		if get_attendance_punch(check_date.time(),working_shift) == "IN":
+		punch_direction = None
+		check_in_shift={}
+		for d in working_shift:
+			timedelta_finger_print = timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second)
+			if d.beginning_in <= timedelta_finger_print <= d.ending_in:
+				punch_direction = "IN"
+				check_in_shift=d
+				break
+			elif d.beginning_out <= timedelta_finger_print <= d.ending_out:
+				punch_direction = "OUT"
+				check_in_shift=d
+				break
+		
+		working_shift=check_in_shift
+		if punch_direction == "IN":
 			if working_shift:
 				on_duty_in_hour = working_shift.on_duty_time.total_seconds() // 3600 # will return on 8h
 				on_duty_in_mins = (working_shift.on_duty_time.total_seconds() % 3600) // 60 + working_shift.late_time #will return 10mins		
@@ -76,12 +88,9 @@ class EmployeeCheckInLog(Document):
 						attendance.status = 'Present'
 						attendance.checkin_log_id = self.name
 						attendance.save()
-		elif get_attendance_punch(check_date.time(),working_shift) == "OUT":
+		elif punch_direction == "OUT":
 			check_out_early=0
 			attendance_status = "Present"
-			filtered_shift = (d for d in working_shift if timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second) >= d.beginning_out - timedelta(minutes=d.leave_early_time) and timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second)<= d.ending_out)
-			working_shift=next(filtered_shift,None)
-			
 			if working_shift:
 				begin_out_hour = working_shift.off_duty_time.total_seconds() // 3600 # will return on 8h
 				begin_out_mins = (working_shift.off_duty_time.total_seconds() % 3600*6) // 60 - working_shift.leave_early_time #will return 10mins
