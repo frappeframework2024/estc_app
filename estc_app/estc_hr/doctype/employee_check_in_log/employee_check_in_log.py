@@ -93,7 +93,7 @@ class EmployeeCheckInLog(Document):
 			attendance_status = "Present"
 			if working_shift:
 				begin_out_hour = working_shift.off_duty_time.total_seconds() // 3600 # will return on 8h
-				begin_out_mins = (working_shift.off_duty_time.total_seconds() % 3600*6) // 60 - working_shift.leave_early_time #will return 10mins
+				begin_out_mins = ((working_shift.off_duty_time.total_seconds() % 3600*6) // 60) - working_shift.leave_early_time #will return in mins
 				#check if employee check on duty time
 				if timedelta(hours=begin_out_hour,minutes=begin_out_mins) > timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second):	
 					#check if employee check in late

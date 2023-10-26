@@ -69,8 +69,6 @@
   "approve_by_supervisor",
   "column_break_tovd",
   "approve_by_head_department",
-  "leave_setting_section",
-  "leave_setting",
   "login_information_tab",
   "allow_login",
   "username",
@@ -117,7 +115,6 @@
    "fieldname": "photo",
    "fieldtype": "Attach Image",
    "hidden": 1,
-   "in_list_view": 0,
    "label": "Photo"
   },
   {
@@ -363,16 +360,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "leave_setting_section",
-   "fieldtype": "Section Break",
-   "label": "Leave Setting"
-  },
-  {
-   "fieldname": "leave_setting",
-   "fieldtype": "Table",
-   "options": "Employee Attendance Leave Count"
-  },
-  {
    "fieldname": "login_information_tab",
    "fieldtype": "Tab Break",
    "label": "Login Information"
@@ -505,50 +492,13 @@
    "link_fieldname": "employee"
   }
  ],
- "modified": "2023-10-07 18:33:28.395920",
+ "modified": "2023-10-26 16:02:48.824582",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Employee",
  "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
- "permissions": [
-  {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "System Manager",
-   "share": 1,
-   "write": 1
-  },
-  {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "HR Manager",
-   "share": 1,
-   "write": 1
-  },
-  {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "System Admin",
-   "share": 1,
-   "write": 1
-  }
- ],
+ "permissions": [],
  "search_fields": "employee_name",
  "show_title_field_in_link": 1,
  "sort_field": "modified",

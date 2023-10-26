@@ -4,28 +4,41 @@
 import frappe
 from frappe.model.document import Document
 from datetime import datetime
-import json
 
 
 class FiscalYear(Document):
 	def before_save(self):
 		if self.is_new():
+			last_fiscal_year = frappe.get_last_doc('Fiscal Year')
 			employee_list= frappe.db.get_list('Employee', fields=['name', 'date_of_joining'])
+			employee_leave_balance = frappe.db.get_list("Employee Attendance Leave Count", 
+                    	filters={
+								'docstatus': 1,
+								'fiscal_year':last_fiscal_year.name
+							},
+                    	fields=['sum(balance) as carry_over_balance', 'employee'],
+                    	group_by='employee')
 			for emp in employee_list:
-
 				start_date = emp['date_of_joining'] or datetime.date(datetime.now())
 				current_date = datetime.date(datetime.now())
 				diff = current_date - start_date
+				
 				self.append("leave_count", {
 						"employee":emp['name'],
 						"date_of_joining":start_date or 0,
 						"duration":diff.days/365,
 						"annual_leave":0,
 						"sick_leave":0,
-						"carry_over":0,
+						"carry_over": get_carry_over_balance(emp['name'],employee_leave_balance),
 						"monthly_accrual":0,
 					})
-   
+
+def get_carry_over_balance(employee,employee_leave_balance):
+	carry_over=[d.carry_over_balance for d in employee_leave_balance if d.employee==employee]
+	if len(carry_over)>0:
+		return carry_over[0]
+	return 0
+
 @frappe.whitelist()
 def get_annual_leave_setting():
 	annual_leave_settings = frappe.db.get_all('Annual Leave Count Setting',fields=['*'])
@@ -33,11 +46,8 @@ def get_annual_leave_setting():
 
 @frappe.whitelist()
 def update_employee_data(fiscal_year_name):
-    
 	fiscal_year = frappe.get_doc("Fiscal Year",fiscal_year_name)
-	
 	annual_leave_type = frappe.db.get_single_value("HR Setting","annual_leave_type")
-	# frappe.throw(annual_leave_type)
 	sick_leave_type = frappe.db.get_single_value("HR Setting","sick_leave_type")
 	for emp in fiscal_year.leave_count:
 		doc = frappe.get_doc("Employee",emp.employee)

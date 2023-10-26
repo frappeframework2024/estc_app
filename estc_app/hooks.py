@@ -130,7 +130,7 @@ app_include_js = "/assets/estc_app/js/estc_app.js"
 
 scheduler_events = {
     "cron": {
-		"*/10 * * * *":[
+		"*/10 10-20 * * *":[
 				"estc_app.estc_hr.doctype.attendance.attendance.insert_absent_attendance",
 		]
 	}
