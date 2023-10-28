@@ -3,15 +3,6 @@
 
 frappe.ui.form.on("Fiscal Year", {
 	onload(frm) {
-        frappe.call({
-            method: "estc_app.estc_system_setting.doctype.fiscal_year.fiscal_year.get_annual_leave_setting",
-            callback: function (r) {
-                console.log(frm.doc)
-            }
-        })
-       
-            
-        
 
 	},
     refresh(frm){
