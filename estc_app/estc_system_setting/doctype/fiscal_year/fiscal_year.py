@@ -50,29 +50,41 @@ def update_employee_data(fiscal_year_name):
 	annual_leave_type = frappe.db.get_single_value("HR Setting","annual_leave_type")
 	sick_leave_type = frappe.db.get_single_value("HR Setting","sick_leave_type")
 	for emp in fiscal_year.leave_count:
-		doc = frappe.get_doc("Employee",emp.employee)
-		
+		emp_leave_count = frappe.db.get_list(
+						"Employee Attendance Leave Count",
+						filters={
+									'employee':emp.employee,
+									'fiscal_year':fiscal_year.name
+                          		},
+               			fields=['name','empoyee','leave_type','fiscal_year','max_leave'])
 		#annual leave
-		leave_data=[d for d in doc.leave_setting if d.fiscal_year==fiscal_year_name]
-		if leave_data:
+
+		leave_data=[d for d in emp_leave_count if d.fiscal_year==fiscal_year_name and d.leave_type == annual_leave_type]
+
+		if len(leave_data) > 0:
 			leave_data[0].max_leave = (emp.annual_leave or 0) + (emp.carry_over or 0)
+			
+			frappe.db.set_value('Employee Attendance Leave Count',leave_data[0].name,'max_leave',leave_data[0].max_leave)
 		else:
-			doc.append("leave_setting", {
-				"leave_type":annual_leave_type,
-				"fiscal_year":fiscal_year_name,
-				"max_leave":(emp.annual_leave or 0) + (emp.carry_over or 0)
-			})
+			doc = frappe.new_doc("Employee Attendance Leave Count")
+			doc.employee = emp.employee
+			doc.leave_type=annual_leave_type
+			doc.fiscal_year=fiscal_year_name
+			doc.max_leave = (emp.annual_leave or 0) + (emp.carry_over or 0)
+			doc.insert()
 
 		#sick leave
-		leave_data=[d for d in doc.leave_setting if d.fiscal_year==fiscal_year_name and d.leave_type==sick_leave_type]
-		if leave_data:
+		leave_data=[d for d in emp_leave_count if d.fiscal_year==fiscal_year_name and d.leave_type==sick_leave_type]
+		if len(leave_data) > 0:
 			leave_data[0].max_leave = (emp.sick_leave or 0)
+			frappe.db.set_value('Employee Attendance Leave Count',leave_data[0].name,'max_leave',leave_data[0].max_leave)
 		else:
-			doc.append("leave_setting", {
-				"leave_type":sick_leave_type,
-				"fiscal_year":fiscal_year_name,
-				"max_leave":(emp.sick_leave or 0)
-			})
-		doc.save()
+			doc = frappe.new_doc("Employee Attendance Leave Count")
+			doc.employee = emp.employee
+			doc.leave_type=sick_leave_type
+			doc.fiscal_year=fiscal_year_name
+			doc.max_leave = (emp.annual_leave or 0) + (emp.carry_over or 0)
+			doc.insert()
+		frappe.db.commit()
 
 		
