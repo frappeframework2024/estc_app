@@ -83,7 +83,7 @@ def update_employee_data(fiscal_year_name):
 			doc.employee = emp.employee
 			doc.leave_type=sick_leave_type
 			doc.fiscal_year=fiscal_year_name
-			doc.max_leave = (emp.annual_leave or 0) + (emp.carry_over or 0)
+			doc.max_leave = (emp.sick_leave)
 			doc.insert()
 		frappe.db.commit()
 
