@@ -145,14 +145,9 @@ frappe.ui.form.on("Leave Request", {
 
 function get_message(text,doc){
     return `
-        <div class="form-message" style="background:${doc.color}4D;color: ${doc.color};">
+        <div class="form-message" style="background:${doc.color}21;color: ${doc.color};">
             <div>
                 ${text}
-            </div>
-            <div class="close-message">
-                <svg class="icon  icon-sm" style="">
-                    <use class="" href="#icon-close"></use>
-                </svg>
             </div>
         </div>
     `
