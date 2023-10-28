@@ -67,7 +67,8 @@
    "fieldtype": "Link",
    "label": "Employee",
    "options": "Employee",
-   "reqd": 1
+   "reqd": 1,
+   "search_index": 1
   },
   {
    "fetch_from": "employee.employee_name",
@@ -90,9 +91,8 @@
   }
  ],
  "index_web_pages_for_search": 1,
- "is_submittable": 1,
  "links": [],
- "modified": "2023-10-26 16:05:43.951286",
+ "modified": "2023-10-28 11:28:31.139754",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Employee Attendance Leave Count",
@@ -112,7 +112,9 @@
    "write": 1
   }
  ],
+ "search_fields": "leave_type,employee",
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "employee"
 }

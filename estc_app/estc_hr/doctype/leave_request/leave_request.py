@@ -2,6 +2,7 @@
 # For license information, please see license.txt
 
 import frappe 
+from frappe import _
 from frappe.model.document import Document
 from frappe.utils.data import add_to_date, getdate
 
@@ -10,12 +11,12 @@ class LeaveRequest(Document):
 	def validate(self):
 		self.fiscal_year = frappe.db.get_value("Fiscal Year", {'is_default': 1},"name")
 		leave_type = frappe.get_doc("Leave Type", self.leave_type)
-		leave_count = frappe.db.sql("select * from `tabEmployee Attendance Leave Count` where parent='{}' and leave_type = '{}' and fiscal_year='{}'".format(self.employee, self.leave_type, self.fiscal_year),as_dict=1)
+		leave_count = frappe.db.sql("select * from `tabEmployee Attendance Leave Count` where employee='{}' and leave_type = '{}' and fiscal_year='{}'".format(self.employee, self.leave_type, self.fiscal_year),as_dict=1)
 		
 		# frappe.throw(str(leave_type.allow_negative))
 		if leave_count:
 			for d in leave_count:
-				total_leave = frappe.db.sql("select sum(max_leave) total_leave from `tabEmployee Attendance Leave Count` where parent='{}' and fiscal_year='{}'".format(self.employee,d.fiscal_year),as_dict=1)[0]["total_leave"] or 0
+				total_leave = frappe.db.sql("select sum(max_leave) total_leave from `tabEmployee Attendance Leave Count` where employee='{}' and fiscal_year='{}'".format(self.employee,d.fiscal_year),as_dict=1)[0]["total_leave"] or 0
 				leave_day = d.use_leave + self.total_leave_days
 				if leave_type.allow_negative == 1 and leave_day < total_leave:
 					pass
@@ -26,9 +27,12 @@ class LeaveRequest(Document):
 
 		if self.docstatus==0:
 			self.status ='Draft'
-		employee = frappe.db.get_value("Employee",self.employee,['approve_by_supervisor','approve_by_head_department', 'name'], as_dict=1)
+		employee = frappe.db.get_value("Employee",self.employee,['approve_by_supervisor','approve_by_head_department', 'name','employee_name'], as_dict=1)
 		head_department = frappe.db.get_value("Employee",employee.approve_by_head_department,['approve_by_supervisor','employee_name','approve_by_head_department', 'name','company_email'],as_dict=1)
 		supervisor = frappe.db.get_value("Employee",employee.approve_by_supervisor,['approve_by_supervisor','employee_name','approve_by_head_department', 'name','company_email'],as_dict=1)
+		
+		if not head_department:
+			frappe.throw(_(f'Count not find head department for {frappe.bold(employee.employee_name)}'))
 		self.head_department_approver = head_department.name
 		self.head_department_approver_name = head_department.employee_name
 		self.head_department_approver_email = head_department.company_email
@@ -36,14 +40,6 @@ class LeaveRequest(Document):
 			self.supervisor_approver = supervisor.name
 			self.supervisor_approver_name = supervisor.employee_name
 			self.supervisor_approver_email = supervisor.company_email
-
-
-	def on_submit(self):
-		pass
-		# frappe.sendmail(recipients=[self.approver_email],
-		# 	subject="Leave approval",
-		# 	message= "Pls approve my leave requeast"
-		# )
 	
 	def on_update_after_submit(self):
 		 

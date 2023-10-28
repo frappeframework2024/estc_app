@@ -6,4 +6,5 @@ from frappe.model.document import Document
 
 
 class EmployeeAttendanceLeaveCount(Document):
-	pass
+	def validate(self):
+		self.balance = (self.max_leave or 0) - (self.use_leave or 0)

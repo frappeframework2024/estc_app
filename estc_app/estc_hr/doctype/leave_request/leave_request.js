@@ -6,7 +6,7 @@ frappe.ui.form.on("Leave Request", {
         if(frm.is_new()){
             
             frappe.call({
-                "method": 'estc_app.estc_hr.doctype.employee.employee.get_currency_employee',
+                "method": 'estc_app.estc_hr.doctype.employee.employee.get_current_employee',
                 callback: function (r) {
                     frm.set_value('employee',r.message.employee.name)
                     current =new Date();
@@ -23,11 +23,11 @@ frappe.ui.form.on("Leave Request", {
         if(!frm.is_new()){
             let html_message="";
             if (frm.doc.status=='Request') {
-                html_message=get_mesage("Leave request has been <strong>Requested</strong>",frm.doc);
+                html_message=get_message("Leave request has been <strong>Requested</strong>",frm.doc);
                 
             }
             if (frm.doc.status=='Draft') {
-                html_message=get_mesage("Please click on <strong>Actions</strong> Menu=><strong>Submit for Approval</strong> to submit your leave request",frm.doc)
+                html_message=get_message("Please click on <strong>Actions</strong> Menu=><strong>Submit for Approval</strong> to submit your leave request",frm.doc)
             }
             if (frm.doc.status=='Approved') {
                 html_message=get_message("Leave request has been <strong>Approved</strong>",frm.doc)
@@ -143,7 +143,7 @@ frappe.ui.form.on("Leave Request", {
 });
 
 
-function get_mesage(text,doc){
+function get_message(text,doc){
     return `
         <div class="form-message" style="background:${doc.color}4D;color: ${doc.color};">
             <div>

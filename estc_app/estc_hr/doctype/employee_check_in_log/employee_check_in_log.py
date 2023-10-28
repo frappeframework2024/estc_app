@@ -4,12 +4,12 @@
 import frappe
 from frappe.model.document import Document
 from datetime import datetime,timedelta
+from frappe import background
 
 
 class EmployeeCheckInLog(Document):
 	def before_insert(self):
 
-		#frappe.enqueue('')
 		employee = frappe.db.get_value("Employee",{"attendance_device_id":self.employee_device_id},["employee_name","employee_code","department","name","position","photo"],as_dict=1)
 		if employee:
 			self.employee_name = employee.employee_name

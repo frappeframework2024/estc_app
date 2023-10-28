@@ -490,9 +490,14 @@
    "group": "Attendance",
    "link_doctype": "Leave Request",
    "link_fieldname": "employee"
+  },
+  {
+   "group": "Leave Count",
+   "link_doctype": "Employee Attendance Leave Count",
+   "link_fieldname": "employee"
   }
  ],
- "modified": "2023-10-26 16:02:48.824582",
+ "modified": "2023-10-27 14:56:54.065023",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Employee",

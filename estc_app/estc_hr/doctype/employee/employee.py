@@ -7,9 +7,6 @@ from frappe.utils.data import today
 
 
 class Employee(Document):
-	def validate(self):
-		for d in self.leave_setting:
-			d.balance = (d.max_leave or 0) - (d.use_leave or 0)
 
 	def on_update(self):
 		 
@@ -85,7 +82,7 @@ def update_leave_balance(self):
 	
 
 @frappe.whitelist()
-def get_currency_employee(include_last_leave=None):
+def get_current_employee(include_last_leave=None):
 	data = frappe.db.sql("select name from `tabEmployee` where company_email='{}'".format(frappe.session.user),as_dict=1)
 	if data:
 		doc =frappe.get_doc("Employee",data[0]["name"])
@@ -151,8 +148,8 @@ def get_current_employee_leave_balance(name=None):
 
 @frappe.whitelist()
 def get_recent_leave_request():
-	employee = get_currency_employee()
-	data = frappe.db.sql("select name,start_date,to_date, leave_type, color,posting_date,status from `tabLeave Request` where employee='{}' and docstatus=1 order by start_date desc limit 5".format(employee["employee"].name),as_dict=1)
+	employee = get_current_employee()
+	data = frappe.db.sql("select name,start_date,to_date, leave_type, color,posting_date,status from `tabLeave Request` where employee='{}' and docstatus=1 order by start_date desc limit 5".format(employee["employee"].name if 'name' in employee["employee"] else ''),as_dict=1)
 	return data
 
 
