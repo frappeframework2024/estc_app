@@ -34,7 +34,6 @@ def insert_absent_attendance():
 		if shift_assignment:
 			day_off = frappe.db.sql("""select name from `tabHoliday Schedule` where parent = '{0}' and date = '{1}' and is_day_off = 1""".format(shift_assignment.holiday,datetime.now().date()))
 			working_shift=frappe.db.get_value("Working Shift",shift_assignment.shift,['name','late_time','is_haft_working_day','on_duty_time','off_duty_time','beginning_in','ending_in','beginning_out','ending_out','leave_early_time'],as_dict=1)
-			frappe.throw(str(day_off))
 			if len(day_off)==0:
 				frappe.get_doc(
 					{
