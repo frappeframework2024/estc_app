@@ -43,22 +43,20 @@ class LeaveRequest(Document):
 	
 	def on_update_after_submit(self):
 		 
-		# frappe.throw(self.status)
+		#frappe.throw(self.status)
 		# to do add rescord to attench list
 		leave_status = frappe.get_doc("Leave Status", self.status)
-
+		
 		if leave_status.delete_attendance_record==1:
 			frappe.db.sql("delete from `tabAttendance` where leave_request='{}'".format(self.name))
 	 
 		if leave_status.create_attendance_record==1:
 
 			date = getdate(self.start_date)
-			
 			holiday_list = frappe.db.sql(f"select date from `tabHoliday Schedule` where date between '{self.start_date}' and '{self.to_date}' and is_day_off=1",as_dict=1)
 			while date<=getdate(self.to_date):
 				holiday_date = any(item['date'] == date for item in holiday_list)
-				if not holiday_date:
-				# frappe.throw(self.employee)
+				if holiday_date is None:
 					doc = {
 						"doctype":"Attendance",
 						"fiscal_year":self.fiscal_year,
@@ -91,15 +89,12 @@ class LeaveRequest(Document):
 					else:
 						doc["attendance_value"] =1
 						doc["status"] = "On Leave"
-
+				
 					frappe.get_doc(doc).insert()
 					date = add_to_date(date,days=1)
 				
-		update_leave_balance(self)
-
-		
-
-		#frappe.enqueue("estc_app.estc_hr.doctype.leave_request.leave_request.update_leave_balance", queue='short', self =self)
+			
+		frappe.enqueue("estc_app.estc_hr.doctype.leave_request.leave_request.update_leave_balance", queue='short', self =self)
 
 @frappe.whitelist()
 def update_leave_balance(self):
