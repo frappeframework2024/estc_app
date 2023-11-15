@@ -69,6 +69,7 @@ def update_user_information(self):
 			
 @frappe.whitelist()
 def update_leave_balance(self):
+    
 	for d in self.leave_setting:
 		sql = "select sum(attendance_value) total_leave from `tabAttendance` where employee='{}' and leave_type='{}' and fiscal_year='{}'".format(self.name,d.leave_type,d.fiscal_year)
 
@@ -91,7 +92,6 @@ def get_current_employee(include_last_leave=None):
 			last_leave = frappe.db.sql("select name, leave_type, start_date, to_date from `tabLeave Request` where status='Approved' and employee='{}' order by start_date desc limit 1".format(doc.name),as_dict=1 )
 			if last_leave:
 				response_data["last_leave"] = last_leave[0]
-
 		return response_data
 	else:
 		user = frappe.get_doc("User",frappe.session.user)
@@ -129,7 +129,13 @@ def get_current_employee_leave_balance(name=None):
 				doc = frappe.get_doc("Employee", data[0]["name"])
 	
 		if doc:
-			attendance_count =[d  for d in  doc.leave_setting if d.fiscal_year==fiscal_year]
+			leave_setting = frappe.db.get_list("Employee Attendance Leave Count",filters=
+            {
+				'employee': doc.name,
+				'fiscal_year':fiscal_year
+    		},fields=['max_leave','balance','use_leave','employee'])
+			
+			attendance_count =[d  for d in  leave_setting]
 			return {
 				"max_leave":sum([d.max_leave  for d in attendance_count]),
 				"use_leave":sum([d.use_leave  for d in attendance_count]),
@@ -149,7 +155,11 @@ def get_current_employee_leave_balance(name=None):
 @frappe.whitelist()
 def get_recent_leave_request():
 	employee = get_current_employee()
-	data = frappe.db.sql("select name,start_date,to_date, leave_type, color,posting_date,status from `tabLeave Request` where employee='{}' and docstatus=1 order by start_date desc limit 5".format(employee["employee"].name if 'name' in employee["employee"] else ''),as_dict=1)
+	if isinstance(employee, dict):
+		employee_name = employee.get("employee", {}).get("name", '')
+	else:
+		employee_name = ''
+	data = frappe.db.sql("select name,start_date,to_date, leave_type, color,posting_date,status from `tabLeave Request` where employee='{}' and docstatus=1 order by start_date desc limit 5".format(employee_name),as_dict=1)
 	return data
 
 

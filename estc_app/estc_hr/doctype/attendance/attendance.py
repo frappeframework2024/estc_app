@@ -20,7 +20,7 @@ def insert_absent_attendance():
 			department,
 			photo
 		from `tabEmployee`
-  		where 
+  		where
     		name not in (select 
       						employee 
             			from `tabAttendance` 

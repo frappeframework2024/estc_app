@@ -202,6 +202,7 @@
   {
    "fieldname": "personal_email",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Personal Email"
   },
   {
@@ -250,8 +251,9 @@
   },
   {
    "fieldname": "emergency_contact_relation",
-   "fieldtype": "Data",
-   "label": "Relation"
+   "fieldtype": "Select",
+   "label": "Relation",
+   "options": "Spouse\nParents\nSibling\nOther"
   },
   {
    "fieldname": "identity_information_tab",
@@ -268,6 +270,7 @@
   {
    "fieldname": "blood_group",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Blood Group",
    "options": "A+\nA-\nB+\nB-\nAB+\nAB-\nO+\nO-"
   },
@@ -278,6 +281,7 @@
   {
    "fieldname": "health_detail",
    "fieldtype": "Small Text",
+   "hidden": 1,
    "label": "Health Detail"
   },
   {
@@ -452,6 +456,7 @@
   {
    "fieldname": "dependence_section",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Dependence"
   },
   {
@@ -497,7 +502,7 @@
    "link_fieldname": "employee"
   }
  ],
- "modified": "2023-10-27 14:56:54.065023",
+ "modified": "2023-11-14 15:45:48.711913",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Employee",
