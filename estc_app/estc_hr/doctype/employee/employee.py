@@ -133,7 +133,7 @@ def get_current_employee_leave_balance(name=None):
             {
 				'employee': doc.name,
 				'fiscal_year':fiscal_year
-    		},fields=['max_leave','balance','use_leave','employee','leave_type'])
+    		},fields=['max_leave','balance','use_leave','employee','leave_type','color'])
 			attendance_count =[d  for d in  leave_setting]
 			return {
 				"max_leave":sum([d.max_leave  for d in attendance_count]),
