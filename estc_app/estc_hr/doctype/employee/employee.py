@@ -132,10 +132,8 @@ def get_current_employee_leave_balance(name=None):
 			leave_setting = frappe.db.get_list("Employee Attendance Leave Count",filters=
             {
 				'employee': doc.name,
-				'fiscal_year':fiscal_year,
-				'docstatus':1
+				'fiscal_year':fiscal_year
     		},fields=['max_leave','balance','use_leave','employee','leave_type'])
-			
 			attendance_count =[d  for d in  leave_setting]
 			return {
 				"max_leave":sum([d.max_leave  for d in attendance_count]),
