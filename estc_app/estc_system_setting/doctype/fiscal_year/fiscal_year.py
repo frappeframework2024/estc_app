@@ -18,6 +18,7 @@ class FiscalYear(Document):
 							},
                     	fields=['sum(balance) as carry_over_balance', 'employee'],
                     	group_by='employee')
+			annual_leave_setting = frappe.db.sql("""select * from `tabAnnual Leave Count Setting`""",as_dict=1)
 			for emp in employee_list:
 				start_date = emp['date_of_joining'] or datetime.date(datetime.now())
 				current_date = datetime.date(datetime.now())
@@ -27,7 +28,7 @@ class FiscalYear(Document):
 						"employee":emp['name'],
 						"date_of_joining":start_date or 0,
 						"duration":diff.days/365,
-						"annual_leave":0,
+						"annual_leave":get_annual_leave_count(annual_leave_setting,diff.days/365),
 						"sick_leave":0,
 						"carry_over": get_carry_over_balance(emp['name'],employee_leave_balance),
 						"monthly_accrual":0,
@@ -38,6 +39,14 @@ def get_carry_over_balance(employee,employee_leave_balance):
 	if len(carry_over)>0:
 		return carry_over[0]
 	return 0
+
+
+def get_annual_leave_count(leave_settings,duration):
+	annual_leave_count = 0
+	for leave in leave_settings:
+		if duration >= leave.from_year and duration<=leave.to_year:
+			annual_leave_count=leave.total_annual_leave
+	return annual_leave_count
 
 @frappe.whitelist()
 def get_annual_leave_setting():
