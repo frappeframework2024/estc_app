@@ -18,9 +18,9 @@ frappe.query_reports["User Permission"] = {
 			reqd: 1,
 			get_query: function () {
 				return {
-					query: "frappe.core.report.permitted_documents_for_user.permitted_documents_for_user.query_doctypes",
+					query: "estc_app.api.api.query_doctypes",
 					filters: {
-						user: frappe.query_report.get_filter_value("user"),
+						user: frappe.query_report.get_filter_value("user")
 					},
 				};
 			},

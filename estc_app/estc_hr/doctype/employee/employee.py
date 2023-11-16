@@ -129,7 +129,7 @@ def get_current_employee_leave_balance(name=None):
 				doc = frappe.get_doc("Employee", data[0]["name"])
 	
 		if doc:
-			leave_setting = frappe.db.get_list("Employee Attendance Leave Count",filters=
+			leave_setting = frappe.db.get_all("Employee Attendance Leave Count",filters=
             {
 				'employee': doc.name,
 				'fiscal_year':fiscal_year
