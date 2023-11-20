@@ -5,6 +5,7 @@ import frappe
 from frappe import _
 from frappe.model.document import Document
 from frappe.utils.data import add_to_date, getdate
+from datetime import datetime
 
 
 class LeaveRequest(Document):
@@ -40,7 +41,18 @@ class LeaveRequest(Document):
 			self.supervisor_approver = supervisor.name
 			self.supervisor_approver_name = supervisor.employee_name
 			self.supervisor_approver_email = supervisor.company_email
-	
+
+	def before_insert(self):
+		validates = frappe.db.get_all('Leave Request Days Validate', fields=['min_leave_days', 'max_leave_days','request_days'])
+		#frappe.throw(f'{self.start_date} {getdate()}')
+		current_date = datetime.strptime(str(getdate()), "%Y-%m-%d")
+		start_date = datetime.strptime(self.start_date, "%Y-%m-%d")
+		date_diff = start_date - current_date
+		request_valid =[d for d in validates if d.min_leave_days < self.total_leave_days <= d.max_leave_days]
+		if len(request_valid) > 0:
+			if date_diff.days < request_valid[0].request_days:
+				frappe.throw(f'Your request not allow. Please request {frappe.bold(request_valid[0].request_days)} days or more before request')
+
 	def on_update_after_submit(self):
 		
 		#frappe.throw(self.status)

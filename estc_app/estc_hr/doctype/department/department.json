@@ -68,12 +68,14 @@
   {
    "fieldname": "supervisor",
    "fieldtype": "Link",
+   "ignore_user_permissions": 1,
    "label": "Supervisor",
    "options": "Employee"
   },
   {
    "fieldname": "head_department",
    "fieldtype": "Link",
+   "ignore_user_permissions": 1,
    "label": "Head Department",
    "options": "Employee"
   }
@@ -81,7 +83,7 @@
  "index_web_pages_for_search": 1,
  "is_tree": 1,
  "links": [],
- "modified": "2023-10-07 16:43:09.820449",
+ "modified": "2023-11-20 15:50:34.934952",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Department",

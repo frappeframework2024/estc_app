@@ -174,7 +174,7 @@
    "type": "Link"
   }
  ],
- "modified": "2023-11-15 10:46:16.196455",
+ "modified": "2023-11-20 14:51:17.330315",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "HR",
@@ -200,7 +200,11 @@
  "parent_page": "",
  "public": 1,
  "quick_lists": [],
- "roles": [],
+ "roles": [
+  {
+   "role": "HR Manager"
+  }
+ ],
  "sequence_id": 2.0,
  "shortcuts": [
   {

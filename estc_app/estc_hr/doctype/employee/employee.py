@@ -133,12 +133,19 @@ def get_current_employee_leave_balance(name=None):
             {
 				'employee': doc.name,
 				'fiscal_year':fiscal_year
-    		},fields=['max_leave','balance','use_leave','employee','leave_type','color'])
+    		},fields=['max_leave','balance','use_leave','employee','leave_type','color']
+            )
 			attendance_count =[d  for d in  leave_setting]
+			annual_leave_type = frappe.db.get_single_value("HR Setting","annual_leave_type")
+			sick_leave_type = frappe.db.get_single_value("HR Setting","sick_leave_type")
+
 			return {
-				"max_leave":sum([d.max_leave  for d in attendance_count]),
-				"use_leave":sum([d.use_leave  for d in attendance_count]),
-				"balance":sum([d.balance  for d in attendance_count]),
+				"max_leave":sum([d.max_leave  for d in attendance_count if d.leave_type == annual_leave_type]),
+				"use_leave":sum([d.use_leave  for d in attendance_count if d.leave_type == annual_leave_type]),
+				"balance":sum([d.balance  for d in attendance_count if d.leave_type == annual_leave_type]),
+				"max_sick_leave":sum([d.max_leave  for d in attendance_count if d.leave_type == sick_leave_type]),
+				"use_sick_leave":sum([d.use_leave  for d in attendance_count if d.leave_type == sick_leave_type]),
+				"sick_leave_balance":sum([d.balance  for d in attendance_count if d.leave_type == sick_leave_type]),
 				"leave_data":attendance_count
 			}
 	
@@ -164,7 +171,12 @@ def get_recent_leave_request():
 
 @frappe.whitelist()
 def get_employee_on_leave_today():
-	sql="""select 
+	department = frappe.db.get_list("Department")
+	result = ''
+	if len(department) > 0:
+		names = [entry['name'] for entry in department]
+		result = "department in ('" + "','".join(names) + "') and "
+	sql=f"""select 
 			name,
 			photo,
 			employee,
@@ -176,19 +188,23 @@ def get_employee_on_leave_today():
 		from 
 		`tabLeave Request` a 
 		where
-		
-			a.name in (select leave_request from `tabAttendance` where  attendance_date='{0}') 
+			{result}
+			a.name in (select leave_request from `tabAttendance` where  attendance_date='{today()}') 
 
-		""".format(
-			today()
-		)
+		"""
 	data = frappe.db.sql(sql,as_dict=1)
 	return data
 
 
 @frappe.whitelist()
 def get_upcomming_employee_on_leave():
-	sql="""select 
+	department = frappe.db.get_list("Department")
+	result = ''
+	if len(department) > 0:
+		names = [entry['name'] for entry in department]
+		result = "department in ('" + "','".join(names) + "') and "
+
+	sql=f"""select 
 			name,
 			photo,
 			employee,
@@ -200,11 +216,11 @@ def get_upcomming_employee_on_leave():
 		from 
 		`tabLeave Request` a 
 		where
-			a.name in (select leave_request from `tabAttendance` where  attendance_date>'{0}') 
-		""".format(
-			today()
-		)
+			{result}
+			a.name in (select leave_request from `tabAttendance` where  attendance_date>'{today()}') 
+		"""
 	data = frappe.db.sql(sql,as_dict=1)
+	
 	return data
 
 
