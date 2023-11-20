@@ -1,0 +1,48 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "hash",
+ "creation": "2023-11-20 08:31:11.325805",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "min_leave_days",
+  "max_leave_days",
+  "request_days"
+ ],
+ "fields": [
+  {
+   "fieldname": "max_leave_days",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Max Leave Days"
+  },
+  {
+   "fieldname": "min_leave_days",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Min Leave Days"
+  },
+  {
+   "fieldname": "request_days",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Request Days"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-11-20 10:45:34.951907",
+ "modified_by": "Administrator",
+ "module": "ESTC System Setting",
+ "name": "Leave Request Days Validate",
+ "naming_rule": "Random",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

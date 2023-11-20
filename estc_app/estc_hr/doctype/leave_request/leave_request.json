@@ -148,6 +148,7 @@
    "default": "0",
    "fieldname": "is_start_date_half_day",
    "fieldtype": "Check",
+   "hidden": 1,
    "label": "Is Start Date Half Day"
   },
   {
@@ -160,6 +161,7 @@
    "default": "0",
    "fieldname": "is_to_date_half_day",
    "fieldtype": "Check",
+   "hidden": 1,
    "label": "Is To Date Half Day"
   },
   {
@@ -268,7 +270,7 @@
    "link_fieldname": "leave_request"
   }
  ],
- "modified": "2023-10-11 13:46:31.520430",
+ "modified": "2023-11-20 09:35:57.072765",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Leave Request",
