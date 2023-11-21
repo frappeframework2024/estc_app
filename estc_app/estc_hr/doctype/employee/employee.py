@@ -69,8 +69,22 @@ def update_user_information(self):
 			
 @frappe.whitelist()
 def update_leave_balance(self):
-    
-	for d in self.leave_setting:
+	fiscal_year_data = frappe.db.sql("select name from `tabFiscal Year` where is_default=1",as_dict=1)
+	fiscal_year_data = frappe.db.sql("select name from `tabFiscal Year` where is_default=1",as_dict=1)
+
+	fiscal_year = ""
+	if fiscal_year_data:
+		fiscal_year = fiscal_year_data[0]["name"]
+	else:
+		fiscal_year_data = frappe.get_last_doc('Fiscal Year')
+		if fiscal_year_data:
+			fiscal_year = fiscal_year_data.name
+	leave_setting = frappe.db.get_all("Employee Attendance Leave Count",filters=
+            {
+				'employee': self.name,
+				'fiscal_year':fiscal_year
+    		},fields=['max_leave','balance','use_leave','employee','leave_type','color'])
+	for d in leave_setting:
 		sql = "select sum(attendance_value) total_leave from `tabAttendance` where employee='{}' and leave_type='{}' and fiscal_year='{}'".format(self.name,d.leave_type,d.fiscal_year)
 
 		
