@@ -6,6 +6,10 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "employee_profile_background_section",
+  "employee_background",
+  "column_break_nfyg",
+  "section_break_ofpp",
   "annual_leave_type",
   "sick_leave_type",
   "ot_leave_type",
@@ -42,12 +46,29 @@
    "fieldtype": "Table",
    "label": "Leave Days Validate",
    "options": "Leave Request Days Validate"
+  },
+  {
+   "fieldname": "employee_profile_background_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_nfyg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_ofpp",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "employee_background",
+   "fieldtype": "Attach",
+   "label": "Employee Profile Background"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-11-20 08:34:02.318256",
+ "modified": "2023-11-21 08:45:50.925856",
  "modified_by": "Administrator",
  "module": "ESTC System Setting",
  "name": "HR Setting",

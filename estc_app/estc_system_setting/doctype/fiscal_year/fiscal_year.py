@@ -3,11 +3,12 @@
 
 import frappe
 from frappe.model.document import Document
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 class FiscalYear(Document):
 	def before_save(self):
+		
 		if self.is_new():
 			last_fiscal_year = frappe.get_last_doc('Fiscal Year')
 			employee_list= frappe.db.get_list('Employee', fields=['name', 'date_of_joining'])
@@ -33,6 +34,9 @@ class FiscalYear(Document):
 						"carry_over": get_carry_over_balance(emp['name'],employee_leave_balance),
 						"monthly_accrual":0,
 					})
+
+	def on_update(self):
+		frappe.enqueue('estc_app.estc_system_setting.doctype.fiscal_year.fiscal_year.generate_holidays',self=self)
 
 def get_carry_over_balance(employee,employee_leave_balance):
 	carry_over=[d.carry_over_balance for d in employee_leave_balance if d.employee==employee]
@@ -96,4 +100,19 @@ def update_employee_data(fiscal_year_name):
 			doc.insert()
 		frappe.db.commit()
 
-		
+def generate_holidays(self):
+	frappe.db.sql(f"delete from `tabHoliday` where parent = '{self.name}'")
+	for temp in self.temp_holiday:
+			start_date = datetime.strptime(temp.start_date, '%Y-%m-%d')
+			end_date = datetime.strptime(temp.end_date, '%Y-%m-%d')
+			current_date = start_date
+			while current_date <= end_date:
+				holiday = frappe.new_doc('Holiday')
+				holiday.parenttype='Fiscal Year'
+				holiday.parentfield ='holidays'
+				holiday.description=temp.description
+				holiday.parent = self.name
+				holiday.is_day_off = temp.is_day_off
+				holiday.date = current_date.strftime('%Y-%m-%d')
+				holiday.save()
+				current_date += timedelta(days=1)
