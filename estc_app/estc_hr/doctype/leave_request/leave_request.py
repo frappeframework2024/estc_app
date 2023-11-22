@@ -151,7 +151,7 @@ def get_events(start, end, filters=None):
    				min(date) as start,
       			max(date) as end,
       			description as title,
-				"red" as backgroundColor
+				if(is_day_off=1,"#f52047","#f5cc14") as backgroundColor
       		from `tabHoliday` 
 			where date between "{start}" and "{end}" 
         	group by description
