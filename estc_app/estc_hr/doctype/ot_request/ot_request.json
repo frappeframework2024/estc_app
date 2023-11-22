@@ -1,0 +1,222 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2023-11-21 10:40:49.046275",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "employee",
+  "employee_name",
+  "department",
+  "position",
+  "column_break_ezxe",
+  "fiscal_year",
+  "posting_date",
+  "status",
+  "section_break_ufdx",
+  "request_date",
+  "head_department_approver",
+  "head_department_approver_name",
+  "head_department_approver_email",
+  "purpose",
+  "column_break_drur",
+  "start_time",
+  "to_time",
+  "total_hours",
+  "supervisor_approver",
+  "supervisor_approver_name",
+  "supervisor_approver_email",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "OT.-.YYYY.####",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Naming Series",
+   "options": "OT.-.YYYY.####"
+  },
+  {
+   "fieldname": "column_break_ezxe",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "section_break_ufdx",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "in_list_view": 1,
+   "label": "Employee",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fieldname": "start_time",
+   "fieldtype": "Time",
+   "in_list_view": 1,
+   "label": "Start Time",
+   "reqd": 1
+  },
+  {
+   "fieldname": "to_time",
+   "fieldtype": "Time",
+   "in_list_view": 1,
+   "label": "To Time",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_drur",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Employee Name"
+  },
+  {
+   "fetch_from": ".",
+   "fieldname": "head_department_approver",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "ignore_user_permissions": 1,
+   "label": "Head Department Approver",
+   "options": "Employee"
+  },
+  {
+   "fetch_from": ".",
+   "fieldname": "head_department_approver_name",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Head Department Approver Name"
+  },
+  {
+   "fetch_from": ".company_email",
+   "fieldname": "head_department_approver_email",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Head Department Approver Email"
+  },
+  {
+   "fieldname": "supervisor_approver",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "ignore_user_permissions": 1,
+   "label": "Supervisor Approver",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "supervisor_approver_name",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Supervisor Approver Name"
+  },
+  {
+   "fieldname": "supervisor_approver_email",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Supervisor Approver Email"
+  },
+  {
+   "fieldname": "request_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Request Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "fiscal_year",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Fiscal Year",
+   "options": "Fiscal Year"
+  },
+  {
+   "fetch_from": "employee.department",
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Department",
+   "options": "Department"
+  },
+  {
+   "fetch_from": "employee.position",
+   "fieldname": "position",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Position",
+   "options": "Position"
+  },
+  {
+   "fieldname": "purpose",
+   "fieldtype": "Small Text",
+   "label": "Purpose",
+   "reqd": 1
+  },
+  {
+   "fieldname": "total_hours",
+   "fieldtype": "Time",
+   "label": "Total Hours",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Link",
+   "label": "Status",
+   "options": "Leave Status",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "OT Request",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-11-21 15:46:34.738351",
+ "modified_by": "Administrator",
+ "module": "ESTC HR",
+ "name": "OT Request",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

@@ -59,7 +59,7 @@ frappe.ui.form.on("Leave Request", {
         
 	},
     before_workflow_action: async (frm) => {
-        frappe.dom.unfreeze()  
+        frappe.dom.unfreeze()
         let promise = new Promise((resolve,reject)=>{
             frappe.confirm("Are you sure you want to <strong>" + frm.selected_workflow_action + '</strong> this request?',
             ()=>resolve(),

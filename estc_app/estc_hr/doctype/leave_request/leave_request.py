@@ -68,7 +68,6 @@ class LeaveRequest(Document):
 			holiday_list = frappe.db.sql(f"select date from `tabHoliday Schedule` where date between '{self.start_date}' and '{self.to_date}' and is_day_off=1",as_dict=1)
 			
 			while date<=getdate(self.to_date):
-				frappe.msgprint(f'{any(item["date"] == date for item in holiday_list)}{add_to_date(date,days=1)}')
 				if any(item["date"] == date for item in holiday_list):
 					date = add_to_date(date,days=1)
 					continue
