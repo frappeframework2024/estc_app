@@ -8,5 +8,5 @@ frappe.views.calendar['Leave Request'] = {
         color: 'backgroundColor'
     },
     gantt: false,
-    get_events_method: 'estc_app.estc_hr.doctype.leave_request.leave_request.get_events'
+    get_events_method: 'estc_app.estc_hr.doctype.leave_request.leave_request.get_events',
 }

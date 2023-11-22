@@ -79,6 +79,7 @@
   {
    "fieldname": "holidays",
    "fieldtype": "Table",
+   "hidden": 1,
    "options": "Holiday"
   },
   {
@@ -90,7 +91,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-11-21 09:08:58.178342",
+ "modified": "2023-11-22 10:30:43.373656",
  "modified_by": "Administrator",
  "module": "ESTC System Setting",
  "name": "Fiscal Year",
