@@ -52,7 +52,7 @@ class LeaveRequest(Document):
 		request_valid =[d for d in validates if d.min_leave_days < self.total_leave_days <= d.max_leave_days]
 		if len(request_valid) > 0:
 			if date_diff.days < request_valid[0].request_days:
-				frappe.throw(f'Your request not allow. Please request {frappe.bold(request_valid[0].request_days)} days or more before request')
+				frappe.throw(f'Your request not allow. Please request {frappe.bold(request_valid[0].request_days)} days or more before leave date')
 
 	def on_update_after_submit(self):
 		
