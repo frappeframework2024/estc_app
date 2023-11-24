@@ -21,16 +21,16 @@ def get_employee_leave_balance():
 	aggregate=''
 	for leave_type in leave_types:
 		aggregate = aggregate + f",Coalesce(sum(if(leave_type='{leave_type.name}',balance,0)),0) '{leave_type.name}'"
-		sql = f"""select 
-					CONCAT(employee_name) as employee,
-					department
-					{aggregate} 
-				from `tabEmployee Attendance Leave Count` 
-				where fiscal_year = '{default_fiscal_year}'
-				group by 
-					employee,
-					employee_name,
-					department
-            """
+	sql = f"""select 
+				CONCAT(employee_name) as employee,
+				department
+				{aggregate} 
+			from `tabEmployee Attendance Leave Count` 
+			where fiscal_year = '{default_fiscal_year}'
+			group by 
+				employee,
+				employee_name,
+				department
+		"""
 	data = frappe.db.sql(sql,as_dict=1)
 	return tuple(data)
