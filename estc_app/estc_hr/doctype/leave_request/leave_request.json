@@ -28,7 +28,6 @@
   "posting_date",
   "fiscal_year",
   "color",
-  "photo",
   "department",
   "amended_from",
   "date_and_reason_section",
@@ -116,13 +115,6 @@
    "fieldtype": "Color",
    "hidden": 1,
    "label": "Color"
-  },
-  {
-   "fetch_from": "employee.photo",
-   "fieldname": "photo",
-   "fieldtype": "Attach Image",
-   "hidden": 1,
-   "label": "Photo"
   },
   {
    "fieldname": "amended_from",
@@ -275,7 +267,6 @@
    "options": "User"
   }
  ],
- "image_field": "photo",
  "index_web_pages_for_search": 1,
  "is_calendar_and_gantt": 1,
  "is_submittable": 1,
@@ -286,7 +277,7 @@
    "link_fieldname": "leave_request"
   }
  ],
- "modified": "2023-11-24 08:51:02.152892",
+ "modified": "2023-11-24 16:31:20.951519",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Leave Request",
