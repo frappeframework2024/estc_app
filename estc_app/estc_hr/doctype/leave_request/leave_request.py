@@ -13,7 +13,8 @@ class LeaveRequest(Document):
 		self.fiscal_year = frappe.db.get_value("Fiscal Year", {'is_default': 1},"name")
 		leave_type = frappe.get_doc("Leave Type", self.leave_type)
 		leave_count = frappe.db.sql("select * from `tabEmployee Attendance Leave Count` where employee='{}' and leave_type = '{}' and fiscal_year='{}'".format(self.employee, self.leave_type, self.fiscal_year),as_dict=1)
-		
+		self.hr_email = frappe.db.get_single_value("HR Setting","hr_email")
+		self.director_email = frappe.db.get_single_value("HR Setting","director_email")
 		# frappe.throw(str(leave_type.allow_negative))
 		if leave_count:
 			for d in leave_count:

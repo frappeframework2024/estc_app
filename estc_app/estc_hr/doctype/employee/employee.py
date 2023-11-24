@@ -147,7 +147,8 @@ def get_current_employee_leave_balance(name=None):
             {
 				'employee': doc.name,
 				'fiscal_year':fiscal_year
-    		},fields=['max_leave','balance','use_leave','employee','leave_type','color']
+    		},fields=['max_leave','balance','use_leave','employee','leave_type','color','sort_order'],
+            order_by='sort_order asc',
             )
 			attendance_count =[d  for d in  leave_setting]
 			annual_leave_type = frappe.db.get_single_value("HR Setting","annual_leave_type")
@@ -203,7 +204,8 @@ def get_employee_on_leave_today():
 		`tabLeave Request` a 
 		where
 			{result}
-			a.name in (select leave_request from `tabAttendance` where  attendance_date='{today()}') 
+			a.name in (select leave_request from `tabAttendance` where  attendance_date='{today()}')
+			order by start_date asc
 
 		"""
 	data = frappe.db.sql(sql,as_dict=1)
@@ -232,6 +234,7 @@ def get_upcomming_employee_on_leave():
 		where
 			{result}
 			a.name in (select leave_request from `tabAttendance` where  attendance_date>'{today()}') 
+			order by start_date asc
 		"""
 	data = frappe.db.sql(sql,as_dict=1)
 	

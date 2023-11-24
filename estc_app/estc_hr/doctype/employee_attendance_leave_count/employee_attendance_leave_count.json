@@ -16,7 +16,9 @@
   "column_break_uxgd",
   "fiscal_year",
   "leave_type",
-  "amended_from"
+  "amended_from",
+  "department",
+  "sort_order"
  ],
  "fields": [
   {
@@ -88,11 +90,25 @@
    "options": "Employee Attendance Leave Count",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fetch_from": "employee.department",
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Department",
+   "options": "Department"
+  },
+  {
+   "fetch_from": "leave_type.sort_order",
+   "fieldname": "sort_order",
+   "fieldtype": "Int",
+   "label": "Sort Order"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-11-15 10:07:00.187980",
+ "modified": "2023-11-24 11:12:14.889703",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Employee Attendance Leave Count",

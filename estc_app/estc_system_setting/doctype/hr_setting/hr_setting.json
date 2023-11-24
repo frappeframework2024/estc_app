@@ -13,6 +13,13 @@
   "annual_leave_type",
   "sick_leave_type",
   "ot_leave_type",
+  "column_break_apyx",
+  "leave_status_approved_from_hr",
+  "total_work_per_day",
+  "director_email",
+  "hr_email",
+  "multiply_gain_from_ot",
+  "section_break_rwcx",
   "annual_leave_setting",
   "leave_days_validate"
  ],
@@ -63,12 +70,51 @@
    "fieldname": "employee_background",
    "fieldtype": "Attach",
    "label": "Employee Profile Background"
+  },
+  {
+   "fieldname": "column_break_apyx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "8",
+   "fieldname": "total_work_per_day",
+   "fieldtype": "Int",
+   "label": "Total Work Per Day"
+  },
+  {
+   "fieldname": "section_break_rwcx",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "leave_status_approved_from_hr",
+   "fieldtype": "Link",
+   "label": "Leave Status Approved From HR",
+   "options": "Leave Status"
+  },
+  {
+   "fieldname": "director_email",
+   "fieldtype": "Link",
+   "label": "Director Email",
+   "options": "User"
+  },
+  {
+   "fieldname": "hr_email",
+   "fieldtype": "Link",
+   "label": "HR Email",
+   "options": "User"
+  },
+  {
+   "default": "2",
+   "fieldname": "multiply_gain_from_ot",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Multiply Gain From OT"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-11-21 08:45:50.925856",
+ "modified": "2023-11-24 10:37:01.541110",
  "modified_by": "Administrator",
  "module": "ESTC System Setting",
  "name": "HR Setting",

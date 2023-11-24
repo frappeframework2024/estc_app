@@ -22,6 +22,8 @@
   "supervisor_approver",
   "supervisor_approver_name",
   "supervisor_approver_email",
+  "director_email",
+  "hr_email",
   "column_break_xohl",
   "posting_date",
   "fiscal_year",
@@ -257,6 +259,20 @@
   {
    "fieldname": "section_break_wlek",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "director_email",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Director Email",
+   "options": "User"
+  },
+  {
+   "fieldname": "hr_email",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "HR Email",
+   "options": "User"
   }
  ],
  "image_field": "photo",
@@ -270,7 +286,7 @@
    "link_fieldname": "leave_request"
   }
  ],
- "modified": "2023-11-20 09:35:57.072765",
+ "modified": "2023-11-24 08:51:02.152892",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Leave Request",

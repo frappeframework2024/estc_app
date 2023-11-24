@@ -12,6 +12,8 @@
   "color",
   "column_break_prus",
   "allow_negative",
+  "sort_order",
+  "show_in_profile",
   "section_break_cljz",
   "note"
  ],
@@ -50,11 +52,22 @@
    "fieldname": "note",
    "fieldtype": "Small Text",
    "label": "Note"
+  },
+  {
+   "fieldname": "sort_order",
+   "fieldtype": "Int",
+   "label": "Sort Order"
+  },
+  {
+   "default": "0",
+   "fieldname": "show_in_profile",
+   "fieldtype": "Check",
+   "label": "Show in Profile"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-09-30 11:17:43.762611",
+ "modified": "2023-11-22 17:12:44.776697",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Leave Type",

@@ -132,6 +132,9 @@ scheduler_events = {
     "cron": {
 		"*/10 10-20 * * *":[
 				"estc_app.estc_hr.doctype.attendance.attendance.insert_absent_attendance",
+		],
+		"0 8-20/4 * * *":[
+				"estc_app.api.ftp_backup.execute_backup_command",
 		]
 	}
 #	"all": [

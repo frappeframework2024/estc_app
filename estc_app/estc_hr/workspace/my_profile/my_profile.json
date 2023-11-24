@@ -9,12 +9,16 @@
    "label": "My Attendance"
   }
  ],
- "content": "[{\"id\":\"x-3--FHi2K\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"My Profile\",\"col\":12}},{\"id\":\"aZ73dU6eVx\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"My Information\",\"col\":4}},{\"id\":\"CHonkHR2qU\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Employee Leave Balance\",\"col\":5}},{\"id\":\"1jtUmMZBvc\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Employee Quick Link\",\"col\":3}},{\"id\":\"5u-BI7ohfa\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"r0uoOPKtS7\",\"type\":\"chart\",\"data\":{\"chart_name\":\"My Attendance\",\"col\":6}},{\"id\":\"lOa79jNmoh\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Leave by Leave Type\",\"col\":6}},{\"id\":\"VmIe8AiS_p\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Employee Recent Leave Request List\",\"col\":6}},{\"id\":\"g5BjcKcGBe\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Employee on Leave Today\",\"col\":3}},{\"id\":\"ttSDRIbZWl\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Upcoming Employee On Leave\",\"col\":3}}]",
- "creation": "2023-09-24 21:07:47.908323",
+ "content": "[{\"id\":\"x-3--FHi2K\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"My Profile\",\"col\":12}},{\"id\":\"aZ73dU6eVx\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"My Information\",\"col\":4}},{\"id\":\"CHonkHR2qU\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Employee Leave Balance\",\"col\":5}},{\"id\":\"1jtUmMZBvc\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Employee Quick Link\",\"col\":3}},{\"id\":\"5u-BI7ohfa\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"r0uoOPKtS7\",\"type\":\"chart\",\"data\":{\"chart_name\":\"My Attendance\",\"col\":6}},{\"id\":\"lOa79jNmoh\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Leave by Leave Type\",\"col\":6}},{\"id\":\"VmIe8AiS_p\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Employee Recent Leave Request List\",\"col\":6}},{\"id\":\"g5BjcKcGBe\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Employee on Leave Today\",\"col\":3}},{\"id\":\"ttSDRIbZWl\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Upcoming Employee On Leave\",\"col\":3}},{\"id\":\"j-Kqol0eSD\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Leave Days By Department\",\"col\":12}}]",
+ "creation": "2023-09-28 17:56:46.860972",
  "custom_blocks": [
   {
    "custom_block_name": "My Profile",
    "label": "My Profile"
+  },
+  {
+   "custom_block_name": "Leave Days By Department",
+   "label": "Leave Days By Department"
   },
   {
    "custom_block_name": "Employee on Leave Today",
@@ -46,11 +50,11 @@
  "for_user": "",
  "hide_custom": 0,
  "icon": "heart",
- "idx": 1,
+ "idx": 0,
  "is_hidden": 0,
  "label": "My Profile",
  "links": [],
- "modified": "2023-09-28 15:36:53.160985",
+ "modified": "2023-11-22 16:13:21.356769",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "My Profile",

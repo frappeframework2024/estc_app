@@ -17,6 +17,8 @@
   "fiscal_year",
   "posting_date",
   "status",
+  "director_email",
+  "hr_email",
   "section_break_ufdx",
   "request_date",
   "head_department_approver",
@@ -149,7 +151,6 @@
    "fetch_from": "employee.department",
    "fieldname": "department",
    "fieldtype": "Link",
-   "ignore_user_permissions": 1,
    "label": "Department",
    "options": "Department"
   },
@@ -157,7 +158,6 @@
    "fetch_from": "employee.position",
    "fieldname": "position",
    "fieldtype": "Link",
-   "ignore_user_permissions": 1,
    "label": "Position",
    "options": "Position"
   },
@@ -190,12 +190,26 @@
    "options": "OT Request",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "director_email",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Director Email",
+   "options": "User"
+  },
+  {
+   "fieldname": "hr_email",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "HR Email",
+   "options": "User"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-11-21 15:46:34.738351",
+ "modified": "2023-11-24 09:17:19.704823",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "OT Request",
