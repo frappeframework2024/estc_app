@@ -22,9 +22,9 @@
   "attendance_date",
   "late",
   "leave_early",
+  "photo",
   "checkin_time",
   "department",
-  "photo",
   "reason",
   "attendance_value"
  ],
@@ -95,13 +95,6 @@
    "label": "Department"
   },
   {
-   "fetch_from": "employee.photo",
-   "fieldname": "photo",
-   "fieldtype": "Attach Image",
-   "hidden": 1,
-   "label": "Photo"
-  },
-  {
    "fieldname": "reason",
    "fieldtype": "Small Text",
    "label": "Reason"
@@ -151,12 +144,17 @@
    "fieldtype": "Datetime",
    "label": "CheckIn Time",
    "read_only": 1
+  },
+  {
+   "fieldname": "photo",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Photo"
   }
  ],
- "image_field": "photo",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-10-25 15:51:20.909968",
+ "modified": "2023-11-24 14:39:14.061026",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Attendance",

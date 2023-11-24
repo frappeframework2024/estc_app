@@ -79,9 +79,9 @@
    "label": "Employee Name"
   },
   {
-   "fetch_from": "employee.photo",
+   "fetch_from": "employee.spouse",
    "fieldname": "photo",
-   "fieldtype": "Attach Image",
+   "fieldtype": "Data",
    "hidden": 1,
    "label": "Photo"
   },
@@ -126,10 +126,9 @@
    "read_only": 1
   }
  ],
- "image_field": "photo",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-10-18 09:16:35.789879",
+ "modified": "2023-11-24 14:40:13.494816",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Employee Check In Log",
