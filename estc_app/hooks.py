@@ -133,7 +133,7 @@ scheduler_events = {
 		"*/10 10-20 * * *":[
 			"estc_app.estc_hr.doctype.attendance.attendance.insert_absent_attendance",
 		],
-		"*/10 10-20 * * *":[
+		"0 21 * * *":[
 			"estc_app.estc_hr.doctype.attendance.attendance.insert_out_attendance",
 		],
 		"0 8-20/4 * * *":[
