@@ -65,6 +65,7 @@
   "attendance_and_leaves_tab",
   "attendance_device_id",
   "column_break_kict",
+  "no_device_id",
   "leave_approver_section",
   "approve_by_supervisor",
   "column_break_tovd",
@@ -486,6 +487,12 @@
   {
    "fieldname": "column_break_tovd",
    "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "no_device_id",
+   "fieldtype": "Check",
+   "label": "No Device ID"
   }
  ],
  "image_field": "photo",
@@ -502,7 +509,7 @@
    "link_fieldname": "employee"
   }
  ],
- "modified": "2023-11-14 15:45:48.711913",
+ "modified": "2023-11-25 14:12:58.501661",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Employee",

@@ -15,17 +15,17 @@ class Attendance(Document):
 def insert_absent_attendance():
 	sql = """
 		select 
-  			name,
-     		attendance_device_id,
+			name,
+			attendance_device_id,
 			department,
 			photo
 		from `tabEmployee`
-  		where
-    		name not in (select 
-      						employee 
-            			from `tabAttendance` 
-               			where DATE(attendance_date) = '{}')
-    """.format(datetime.now().date())
+		where
+			name not in (select 
+							employee 
+						from `tabAttendance` 
+						where DATE(attendance_date) = '{}')
+	""".format(datetime.now().date())
 	employee_list_not_check_in = frappe.db.sql(sql,as_dict=1)
 	
 	default_fiscal_year = frappe.db.get_value("Fiscal Year",{"is_default":1})
@@ -49,3 +49,42 @@ def insert_absent_attendance():
 						'photo':emp.photo
 					}).save()
 				frappe.db.commit()
+
+@frappe.whitelist()
+def insert_out_attendance():
+	sql = """
+		select 
+			name,
+			attendance_device_id,
+			department,
+			photo
+		from `tabEmployee`
+		where
+			name not in (select 
+							employee 
+						from `tabAttendance` 
+						where DATE(attendance_date) = '{}' and log_type = 'OUT')
+	""".format(datetime.now().date())
+	employee_list_not_check_out = frappe.db.sql(sql,as_dict=1)
+	fiscal_year = frappe.db.get_value('Fiscal Year', {'is_default': 1})
+	if not fiscal_year:
+		fiscal_year = frappe.get_last_doc('Fiscal Year')
+	for emp in employee_list_not_check_out:
+		working_shift = frappe.db.get_value('Shift Assignment', {'employee': emp,'fiscal_year':fiscal_year}, ['shift'], as_dict=1)
+
+		doc = frappe.new_doc("Attendance")
+		doc.employee=emp
+		doc.attendance = datetime.now().date()
+		doc.log_type = 'OUT'
+		doc.attendance_value = frappe.db.get_value('Working Shift',working_shift.shift,['attendance_value'])
+		doc.working_shift = working_shift.shift
+		att = frappe.db.sql(f"""select employee from `tabAttendance` where DATE(attendance_date) = '{datetime.now().date()}' and log_type = 'IN'""",as_dict=1)
+		#check employee has check in or not in this day
+		if len(att)>0:
+			doc.status = 'Present'
+		else:
+			doc.status = 'Absent'
+		doc.insert()		
+	
+	return employee_list_not_check_out
+	
