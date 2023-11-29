@@ -1,0 +1,190 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2023-10-06 11:43:29.061280",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "loan",
+  "posting_date",
+  "write_off_by",
+  "column_break_adhk",
+  "applicant_type",
+  "applicant",
+  "applicant_name",
+  "account_info_section",
+  "loan_account",
+  "column_break_vbrn",
+  "write_off_account",
+  "loan_details_section",
+  "loan_amount",
+  "paid_amount",
+  "column_break_vzjk",
+  "interest_amount",
+  "balance",
+  "reason_section",
+  "reason",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "loan",
+   "fieldtype": "Link",
+   "label": "Loan",
+   "options": "Loan"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Data",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "column_break_adhk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": ".",
+   "fieldname": "applicant_type",
+   "fieldtype": "Select",
+   "label": "Applicant Type",
+   "options": "Customer\nEmployee"
+  },
+  {
+   "fetch_from": ".applicant",
+   "fieldname": "applicant",
+   "fieldtype": "Dynamic Link",
+   "label": "Applicant",
+   "options": "applicant_type",
+   "read_only": 1
+  },
+  {
+   "fetch_from": ".applicant_name",
+   "fieldname": "applicant_name",
+   "fieldtype": "Data",
+   "label": "Applicant Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reason_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fetch_from": ".loan_amount",
+   "fieldname": "loan_amount",
+   "fieldtype": "Currency",
+   "label": "Loan Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "loan_details_section",
+   "fieldtype": "Section Break",
+   "label": "Loan Details"
+  },
+  {
+   "fieldname": "paid_amount",
+   "fieldtype": "Currency",
+   "label": "Paid Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_vzjk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": ".",
+   "fieldname": "interest_amount",
+   "fieldtype": "Currency",
+   "label": "Interest Amount",
+   "read_only": 1
+  },
+  {
+   "fetch_from": ".",
+   "fieldname": "balance",
+   "fieldtype": "Currency",
+   "label": "Balance",
+   "read_only": 1
+  },
+  {
+   "fieldname": "write_off_account",
+   "fieldtype": "Link",
+   "label": "Write Off Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "account_info_section",
+   "fieldtype": "Section Break",
+   "label": "Account Info"
+  },
+  {
+   "fieldname": "loan_account",
+   "fieldtype": "Link",
+   "label": "Loan Account",
+   "options": "Account",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_vbrn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Loan Write Off",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Naming Series",
+   "options": "LWO-.#####"
+  },
+  {
+   "fieldname": "reason",
+   "fieldtype": "Long Text",
+   "in_list_view": 1,
+   "label": "Reason",
+   "reqd": 1
+  },
+  {
+   "fieldname": "write_off_by",
+   "fieldtype": "Data",
+   "label": "Write Off By",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-10-20 08:46:35.887590",
+ "modified_by": "Administrator",
+ "module": "ESTC Loan",
+ "name": "Loan Write Off",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

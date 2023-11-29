@@ -17,6 +17,7 @@
   "applicant_name",
   "section_break_xvbc",
   "loan_type",
+  "is_secured_loan",
   "interest_rate",
   "loan_amount",
   "disbursed_amount",
@@ -25,6 +26,11 @@
   "monthly_repayment",
   "repayment_start_date",
   "repayment_method",
+  "account_info_section",
+  "loan_account",
+  "disbursement_account",
+  "column_break_sryh",
+  "payment_account",
   "repayment_schedule_section",
   "repayment_schedule",
   "totals_section",
@@ -34,7 +40,11 @@
   "column_break_qbbm",
   "total_interest",
   "total_write_off",
-  "amended_from"
+  "amended_from",
+  "section_break_sfkd",
+  "status",
+  "column_break_sefg",
+  "security_pledge"
  ],
  "fields": [
   {
@@ -204,12 +214,77 @@
    "fieldtype": "Currency",
    "label": "Total Penalty Amount",
    "read_only": 1
+  },
+  {
+   "fieldname": "section_break_sfkd",
+   "fieldtype": "Section Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Status",
+   "options": "Submitted\nDraft\nWrite Off"
+  },
+  {
+   "fieldname": "column_break_sefg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fetch_from": "loan_type.is_secured_loan",
+   "fieldname": "is_secured_loan",
+   "fieldtype": "Check",
+   "label": "Is Secured Loan",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "fieldname": "security_pledge",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Security Pledge"
+  },
+  {
+   "fieldname": "account_info_section",
+   "fieldtype": "Section Break",
+   "label": "Account Info"
+  },
+  {
+   "fieldname": "column_break_sryh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "loan_type.disbursement_account",
+   "fieldname": "disbursement_account",
+   "fieldtype": "Link",
+   "label": "Disbursement Account",
+   "options": "Account",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "loan_type.payment_account",
+   "fieldname": "payment_account",
+   "fieldtype": "Link",
+   "label": "Payment Account",
+   "options": "Account",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "loan_type.loan_account",
+   "fieldname": "loan_account",
+   "fieldtype": "Link",
+   "label": "Loan Account",
+   "options": "Account",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-10-03 15:18:38.917467",
+ "modified": "2023-10-20 10:47:39.075172",
  "modified_by": "Administrator",
  "module": "ESTC Loan",
  "name": "Loan",

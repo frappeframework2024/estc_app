@@ -13,25 +13,35 @@
   "applicant_type",
   "column_break_rdah",
   "applicant",
+  "applicant_name",
+  "section_break_fesw",
+  "loan_account",
+  "column_break_mify",
+  "disbursed_account",
   "disbursement_detail_section",
-  "posting_date",
+  "disbursement_type",
   "disbursed_amount",
-  "amended_from",
   "column_break_llik",
+  "posting_date",
+  "amended_from",
+  "section_break_mcar",
   "note"
  ],
  "fields": [
   {
    "fieldname": "loan",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Loan",
-   "options": "Loan"
+   "options": "Loan",
+   "reqd": 1
   },
   {
    "fetch_from": "loan.applicant_type",
    "fieldname": "applicant_type",
-   "fieldtype": "Data",
+   "fieldtype": "Select",
    "label": "Applicant Type",
+   "options": "Customer\nEmployee",
    "read_only": 1
   },
   {
@@ -39,10 +49,12 @@
    "fieldtype": "Column Break"
   },
   {
-   "fetch_from": "loan.applicant_name",
+   "fetch_from": "loan.applicant",
    "fieldname": "applicant",
-   "fieldtype": "Data",
+   "fieldtype": "Dynamic Link",
+   "in_list_view": 1,
    "label": "Applicant",
+   "options": "applicant_type",
    "read_only": 1
   },
   {
@@ -51,9 +63,12 @@
    "label": "Disbursement Detail"
   },
   {
+   "default": "Today",
    "fieldname": "posting_date",
-   "fieldtype": "Datetime",
-   "label": "Posting Date"
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Posting Date",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_llik",
@@ -61,13 +76,15 @@
   },
   {
    "fieldname": "note",
-   "fieldtype": "Long Text",
+   "fieldtype": "Text",
    "label": "Note"
   },
   {
    "fieldname": "disbursed_amount",
    "fieldtype": "Currency",
-   "label": "Disbursed Amount"
+   "label": "Disbursed Amount",
+   "non_negative": 1,
+   "reqd": 1
   },
   {
    "fieldname": "amended_from",
@@ -81,14 +98,60 @@
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Naming Series",
    "options": "LDB-.#####"
+  },
+  {
+   "fieldname": "disbursement_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Disbursement Type",
+   "options": "Payment Type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_mcar",
+   "fieldtype": "Section Break",
+   "label": "Note"
+  },
+  {
+   "fetch_from": "loan.applicant_name",
+   "fieldname": "applicant_name",
+   "fieldtype": "Data",
+   "label": "Applicant Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_fesw",
+   "fieldtype": "Section Break",
+   "label": "Account Info"
+  },
+  {
+   "fetch_from": "loan.loan_account",
+   "fieldname": "loan_account",
+   "fieldtype": "Link",
+   "label": "Loan Account",
+   "options": "Account",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_mify",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "loan.disbursement_account",
+   "fieldname": "disbursed_account",
+   "fieldtype": "Link",
+   "label": "Disbursed Account",
+   "options": "Account",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-10-02 14:19:36.685149",
+ "modified": "2023-10-20 09:44:21.688246",
  "modified_by": "Administrator",
  "module": "ESTC Loan",
  "name": "Loan Disbursement",

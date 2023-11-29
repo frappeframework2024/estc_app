@@ -9,17 +9,24 @@
  "engine": "InnoDB",
  "field_order": [
   "naming_series",
+  "applicant_type",
+  "applicant",
+  "applicant_name",
+  "column_break_jywp",
   "loan",
   "payment_date",
   "posting_date",
-  "column_break_jywp",
-  "applicant_type",
-  "applicant",
+  "section_break_vsyd",
+  "column_break_iugv",
+  "loan_account",
+  "column_break_nhjq",
+  "payment_account",
   "payment_details_section",
   "total_amount",
+  "penalty_amount",
   "write_off_amount",
   "column_break_zoho",
-  "penalty_amount",
+  "payment_type",
   "payment_amount",
   "section_break_cxzk",
   "note",
@@ -49,14 +56,17 @@
   {
    "fetch_from": "loan.applicant_type",
    "fieldname": "applicant_type",
-   "fieldtype": "Data",
-   "label": "Applicant Type"
+   "fieldtype": "Select",
+   "label": "Applicant Type",
+   "options": "Customer\nEmployee"
   },
   {
-   "fetch_from": "loan.applicant_name",
+   "fetch_from": "loan.applicant",
    "fieldname": "applicant",
-   "fieldtype": "Data",
-   "label": "Applicant"
+   "fieldtype": "Dynamic Link",
+   "label": "Applicant",
+   "options": "applicant_type",
+   "read_only": 1
   },
   {
    "fieldname": "payment_details_section",
@@ -127,12 +137,54 @@
    "options": "Loan Repayment",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fetch_from": "loan.applicant_name",
+   "fieldname": "applicant_name",
+   "fieldtype": "Data",
+   "label": "Applicant Name"
+  },
+  {
+   "fieldname": "payment_type",
+   "fieldtype": "Link",
+   "label": "Payment Type",
+   "options": "Payment Type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_vsyd",
+   "fieldtype": "Section Break",
+   "label": "Account Info"
+  },
+  {
+   "fieldname": "column_break_iugv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_nhjq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "loan.loan_account",
+   "fieldname": "loan_account",
+   "fieldtype": "Link",
+   "label": "Loan Account",
+   "options": "Account",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "loan.payment_account",
+   "fieldname": "payment_account",
+   "fieldtype": "Link",
+   "label": "Payment Account",
+   "options": "Account",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-10-03 15:04:16.757580",
+ "modified": "2023-10-19 15:44:12.678253",
  "modified_by": "Administrator",
  "module": "ESTC Loan",
  "name": "Loan Repayment",

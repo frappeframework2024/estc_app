@@ -11,8 +11,13 @@
   "loan_type_name",
   "maximum_loan_amount",
   "interest_rate",
+  "is_secured_loan",
   "amended_from",
   "column_break_ayft",
+  "loan_account",
+  "disbursement_account",
+  "payment_account",
+  "section_break_zimi",
   "note"
  ],
  "fields": [
@@ -49,12 +54,40 @@
    "options": "Loan Type",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_secured_loan",
+   "fieldtype": "Check",
+   "label": "Is Secured Loan"
+  },
+  {
+   "fieldname": "disbursement_account",
+   "fieldtype": "Link",
+   "label": "Disbursement Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "payment_account",
+   "fieldtype": "Link",
+   "label": "Payment Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "section_break_zimi",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "loan_account",
+   "fieldtype": "Link",
+   "label": "Loan Account",
+   "options": "Account"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-10-03 11:27:51.115468",
+ "modified": "2023-10-19 14:00:01.906606",
  "modified_by": "Administrator",
  "module": "ESTC Loan",
  "name": "Loan Type",

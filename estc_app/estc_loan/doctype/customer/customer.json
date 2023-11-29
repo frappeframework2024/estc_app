@@ -67,7 +67,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-09-28 14:45:36.843521",
+ "modified": "2023-10-16 17:33:54.668591",
  "modified_by": "Administrator",
  "module": "ESTC Loan",
  "name": "Customer",
@@ -87,6 +87,7 @@
    "write": 1
   }
  ],
+ "search_fields": "customer_name",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

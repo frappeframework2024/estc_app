@@ -1,0 +1,140 @@
+{
+ "actions": [],
+ "autoname": "GLE-.YYYY.-.#####",
+ "creation": "2023-10-19 14:19:26.999437",
+ "default_view": "List",
+ "doctype": "DocType",
+ "document_type": "Document",
+ "engine": "InnoDB",
+ "field_order": [
+  "posting_date",
+  "account",
+  "debit",
+  "credit",
+  "against_voucher_type",
+  "against_voucher",
+  "voucher_type",
+  "voucher_no",
+  "remarks",
+  "is_cancelled"
+ ],
+ "fields": [
+  {
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "label": "Posting Date",
+   "oldfieldname": "posting_date",
+   "oldfieldtype": "Date",
+   "search_index": 1
+  },
+  {
+   "fieldname": "account",
+   "fieldtype": "Link",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Account",
+   "oldfieldname": "account",
+   "oldfieldtype": "Link",
+   "options": "Account",
+   "search_index": 1
+  },
+  {
+   "fieldname": "debit",
+   "fieldtype": "Currency",
+   "label": "Debit Amount",
+   "oldfieldname": "debit",
+   "oldfieldtype": "Currency",
+   "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "credit",
+   "fieldtype": "Currency",
+   "label": "Credit Amount",
+   "oldfieldname": "credit",
+   "oldfieldtype": "Currency",
+   "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "against_voucher_type",
+   "fieldtype": "Link",
+   "label": "Against Voucher Type",
+   "oldfieldname": "against_voucher_type",
+   "oldfieldtype": "Data",
+   "options": "DocType",
+   "search_index": 1
+  },
+  {
+   "fieldname": "against_voucher",
+   "fieldtype": "Dynamic Link",
+   "in_filter": 1,
+   "label": "Against Voucher",
+   "oldfieldname": "against_voucher",
+   "oldfieldtype": "Data",
+   "options": "against_voucher_type",
+   "search_index": 1
+  },
+  {
+   "fieldname": "voucher_type",
+   "fieldtype": "Link",
+   "in_filter": 1,
+   "label": "Voucher Type",
+   "oldfieldname": "voucher_type",
+   "oldfieldtype": "Select",
+   "options": "DocType",
+   "search_index": 1
+  },
+  {
+   "fieldname": "voucher_no",
+   "fieldtype": "Dynamic Link",
+   "in_filter": 1,
+   "in_standard_filter": 1,
+   "label": "Voucher No",
+   "oldfieldname": "voucher_no",
+   "oldfieldtype": "Data",
+   "options": "voucher_type",
+   "search_index": 1
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Text",
+   "in_filter": 1,
+   "label": "Remarks",
+   "no_copy": 1,
+   "oldfieldname": "remarks",
+   "oldfieldtype": "Text"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_cancelled",
+   "fieldtype": "Check",
+   "label": "Is Cancelled"
+  }
+ ],
+ "icon": "fa fa-list",
+ "in_create": 1,
+ "links": [],
+ "modified": "2023-10-19 14:53:06.190397",
+ "modified_by": "Administrator",
+ "module": "ESTC Loan",
+ "name": "General Ledger Entry",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager"
+  }
+ ],
+ "quick_entry": 1,
+ "search_fields": "voucher_no,account,posting_date,against_voucher",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
