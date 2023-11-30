@@ -209,13 +209,14 @@
   {
    "fieldname": "leave_count",
    "fieldtype": "Float",
+   "hidden": 1,
    "label": "Leave Count"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-11-30 11:24:29.594644",
+ "modified": "2023-11-30 12:05:19.742398",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "OT Request",
