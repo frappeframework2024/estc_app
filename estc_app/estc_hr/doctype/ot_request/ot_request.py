@@ -53,6 +53,7 @@ class OTRequest(Document):
 				doc.balance = doc.max_leave - doc.use_leave
 				doc.leave_type=ot_leave_type or None
 				doc.save()
+				frappe.db.set_value('OT Request', self.name, 'leave_count', ((total_work_hours.total_seconds()/total_work_per_day)/3600) * 2 if holiday else (total_work_hours.total_seconds()/total_work_per_day)/3600)
 			else:
 				frappe.db.sql(f"""
                   				UPDATE `tabEmployee Attendance Leave Count` 
