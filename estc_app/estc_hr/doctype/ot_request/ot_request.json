@@ -32,7 +32,8 @@
   "supervisor_approver",
   "supervisor_approver_name",
   "supervisor_approver_email",
-  "amended_from"
+  "amended_from",
+  "leave_count"
  ],
  "fields": [
   {
@@ -204,12 +205,17 @@
    "hidden": 1,
    "label": "HR Email",
    "options": "User"
+  },
+  {
+   "fieldname": "leave_count",
+   "fieldtype": "Float",
+   "label": "Leave Count"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-11-24 09:17:19.704823",
+ "modified": "2023-11-30 11:24:29.594644",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "OT Request",
