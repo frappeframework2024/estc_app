@@ -1,13 +1,12 @@
-// Copyright (c) 2023, Tes Pheakdey and contributors
-// For license information, please see license.txt
-
-frappe.query_reports["Employee Leave Balance"] = {
+frappe.query_reports["Employee Monthly Attendance"] = {
+	
 	"filters": [
 		{
 			fieldname: "fiscal_year",
 			label: "Academic Year",
 			fieldtype: "Link",
-			options: "Fiscal Year"
+			options: "Fiscal Year",
+			mandatory:1
 		},
 		{
 			fieldname: "department",

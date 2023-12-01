@@ -33,13 +33,14 @@ def get_data(filters):
 				employee,
 				employee_name
 	""".format(get_conditions(filters))
-	# frappe.throw(str(sql))
 	data = frappe.db.sql(sql,filters,as_dict=1)
 	return data
 
 
 def get_conditions(filters):
-	select_filters = []
+	select_filters=[]
+	if filters.get('fiscal_year'):
+		select_filters.append("fiscal_year = %(fiscal_year)s")
 	if len(filters.get('department')) > 0:
 		select_filters.append("department in %(department)s")
 	if len(filters.get('leave_type')) > 0:
