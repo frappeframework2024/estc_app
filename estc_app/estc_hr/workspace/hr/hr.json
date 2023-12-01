@@ -129,7 +129,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Reports",
-   "link_count": 4,
+   "link_count": 5,
    "onboard": 0,
    "type": "Card Break"
   },
@@ -139,6 +139,16 @@
    "label": "Employee Report",
    "link_count": 0,
    "link_to": "Employee Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Employee Leave Balance",
+   "link_count": 0,
+   "link_to": "Employee Leave Balance",
    "link_type": "Report",
    "onboard": 0,
    "type": "Link"
@@ -174,7 +184,7 @@
    "type": "Link"
   }
  ],
- "modified": "2023-11-21 14:11:20.641418",
+ "modified": "2023-12-01 11:26:40.189564",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "HR",
