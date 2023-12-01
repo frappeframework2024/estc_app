@@ -56,6 +56,7 @@ def get_data(filters):
 def get_conditions(filters):
 	select_filters = []
 	default_fiscal_year = frappe.db.get_value("Fiscal Year",{"is_default":1},['name'])
+	select_filters.append("leave_request is not null %(leave_type)s")
 	if default_fiscal_year:
 		fiscal_year=frappe.get_last_doc('Fiscal Year')
 		default_fiscal_year=fiscal_year.name
@@ -64,6 +65,7 @@ def get_conditions(filters):
 		select_filters.append("department in %(department)s")
 	if len(filters.get('leave_type')) > 0:
 		select_filters.append("leave_type in %(leave_type)s")
+		
 	if len(select_filters) > 0:
 		return " WHERE " + " AND ".join(select_filters)
 	else:
