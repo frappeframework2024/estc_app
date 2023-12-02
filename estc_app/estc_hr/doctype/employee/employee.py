@@ -156,15 +156,15 @@ def get_current_employee_leave_balance(name=None):
 			ot_leave_type = frappe.db.get_single_value("HR Setting","ot_leave_type")
 
 			return {
-				"max_leave":sum([d.max_leave  for d in attendance_count if d.leave_type == annual_leave_type]),
-				"use_leave":sum([d.use_leave  for d in attendance_count if d.leave_type == annual_leave_type]),
-				"balance":sum([d.balance  for d in attendance_count if d.leave_type == annual_leave_type]),
-				"max_sick_leave":sum([d.max_leave  for d in attendance_count if d.leave_type == sick_leave_type]),
-				"use_sick_leave":sum([d.use_leave  for d in attendance_count if d.leave_type == sick_leave_type]),
-				"sick_leave_balance":sum([d.balance  for d in attendance_count if d.leave_type == sick_leave_type]),
-				"ot":sum([d.max_leave  for d in attendance_count if d.leave_type == ot_leave_type]),
-				"use_ot":sum([d.use_leave  for d in attendance_count if d.leave_type == ot_leave_type]),
-				"ot_balance":sum([d.balance  for d in attendance_count if d.leave_type == ot_leave_type]),
+				"max_leave":sum([d.max_leave  for d in attendance_count if d.leave_type == annual_leave_type]) or 0,
+				"use_leave":sum([d.use_leave  for d in attendance_count if d.leave_type == annual_leave_type]) or 0,
+				"balance":sum([d.balance  for d in attendance_count if d.leave_type == annual_leave_type]) or 0,
+				"max_sick_leave":sum([d.max_leave  for d in attendance_count if d.leave_type == sick_leave_type]) or 0,
+				"use_sick_leave":sum([d.use_leave  for d in attendance_count if d.leave_type == sick_leave_type]) or 0,
+				"sick_leave_balance":sum([d.balance  for d in attendance_count if d.leave_type == sick_leave_type]) or 0,
+				"ot":sum([d.max_leave  for d in attendance_count if d.leave_type == ot_leave_type]) or 0,
+				"use_ot":sum([d.use_leave  for d in attendance_count if d.leave_type == ot_leave_type]) or 0,
+				"ot_balance":sum([d.balance  for d in attendance_count if d.leave_type == ot_leave_type]) or 0,
 				"leave_data":attendance_count
 			}
 	

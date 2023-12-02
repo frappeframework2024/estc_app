@@ -24,9 +24,9 @@ def get_data_column(filters):
 	fiscal_year = frappe.db.get_value('Fiscal Year', filters.get('fiscal_year'),['start_date', 'end_date'], as_dict=1)
 	current_date = fiscal_year.start_date
 	while current_date <= fiscal_year.end_date:
-		columns.append({'fieldname':current_date.strftime('%b-%y'),'label':current_date.strftime('%b-%y'),'fieldtype':'float','align':'center','query':f"IF(MONTH(attendance_date) = '{current_date.strftime('%m')}' AND YEAR(attendance_date) = '{current_date.strftime('%Y')}',sum(attendance_value),0) AS '{current_date.strftime('%b-%y')}'",'width':130})
+		columns.append({'fieldname':current_date.strftime('%b-%y'),'label':current_date.strftime('%b-%y'),'fieldtype':'float',"precision":2,'align':'center','query':f"IF(MONTH(attendance_date) = '{current_date.strftime('%m')}' AND YEAR(attendance_date) = '{current_date.strftime('%Y')}',sum(attendance_value),0) AS '{current_date.strftime('%b-%y')}'",'width':130})
 		current_date = (current_date.replace(day=1) + timedelta(days=32)).replace(day=1)
-	columns.append({'fieldname':"ending_balance",'label':"Ending Balance",'fieldtype':'float','align':'center','query':"(SELECT SUM(balance) from `tabEmployee Attendance Leave Count` where employee = a.employee and fiscal_year = %(fiscal_year)s) as ending_balance",'width':130})
+	columns.append({'fieldname':"ending_balance",'label':"Ending Balance",'fieldtype':'float',"precision":2,'align':'center','query':"(SELECT SUM(balance) from `tabEmployee Attendance Leave Count` where employee = a.employee and fiscal_year = %(fiscal_year)s) as ending_balance",'width':130})
 
 	for c in columns:
 		if c.get('query'):
