@@ -22,7 +22,7 @@ class FiscalYear(Document):
 			annual_leave_setting = frappe.db.sql("""select * from `tabAnnual Leave Count Setting`""",as_dict=1)
 			for emp in employee_list:
 				start_date = emp['date_of_joining'] or datetime.date(datetime.now())
-				current_date = datetime.date(datetime.now())
+				current_date = datetime.date(datetime.strptime(self.start_date, '%Y-%m-%d'))
 				diff = current_date - start_date
 				
 				self.append("leave_count", {

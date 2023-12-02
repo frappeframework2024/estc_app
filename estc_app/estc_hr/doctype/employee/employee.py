@@ -153,6 +153,7 @@ def get_current_employee_leave_balance(name=None):
 			attendance_count =[d  for d in  leave_setting]
 			annual_leave_type = frappe.db.get_single_value("HR Setting","annual_leave_type")
 			sick_leave_type = frappe.db.get_single_value("HR Setting","sick_leave_type")
+			ot_leave_type = frappe.db.get_single_value("HR Setting","ot_leave_type")
 
 			return {
 				"max_leave":sum([d.max_leave  for d in attendance_count if d.leave_type == annual_leave_type]),
@@ -161,6 +162,9 @@ def get_current_employee_leave_balance(name=None):
 				"max_sick_leave":sum([d.max_leave  for d in attendance_count if d.leave_type == sick_leave_type]),
 				"use_sick_leave":sum([d.use_leave  for d in attendance_count if d.leave_type == sick_leave_type]),
 				"sick_leave_balance":sum([d.balance  for d in attendance_count if d.leave_type == sick_leave_type]),
+				"ot":sum([d.max_leave  for d in attendance_count if d.leave_type == ot_leave_type]),
+				"use_ot":sum([d.use_leave  for d in attendance_count if d.leave_type == ot_leave_type]),
+				"ot_balance":sum([d.balance  for d in attendance_count if d.leave_type == ot_leave_type]),
 				"leave_data":attendance_count
 			}
 	
