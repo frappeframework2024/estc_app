@@ -1,7 +1,6 @@
-<h2 class="text-center report-title mt-0">{%= __("Employee Leave Balance") %}</h2>
+<h2 class="text-center report-title mt-0">{%= __("Monthly Employee Leave") %}</h2>
 <div class="text-left d-flex">
-    {%
-    if (filters.fiscal_year) { %}
+    {% if filters.fiscal_year %}
     <div>
         <span class="text-right text-muted">
             {%= __("Fiscal Year") %}:
@@ -12,73 +11,55 @@
 
     </div>
 
-    {% }
-    %}
-    {%
-    if (filters.department.length > 0) { %}
+    {% endif %}
+    {% if filters.employee.length > 0 %}
     <div class="mx-2">
         <span class="text-right text-muted">
-            {%= __("Department") %}:
+            {%= __("Employee") %}:
         </span>
         <span class="text-right text-bold">
-            {%= filters.department.join(', ') %}
+            {%= filters.employee%}
         </span>
 
     </div>
 
-    {% }
-    %}
-    {%
-    if (filters.leave_type.length> 0) { %}
-    <div class="mx-2">
-        <span class="text-right text-muted">
-            / {%= __("Leave Type") %}:
-        </span>
-        <span class="text-right text-bold">
-            {%= filters.leave_type.join(', ') %}
-        </span>
-
-    </div>
-
-    {% }
-    %}
+    
+    {%endif%}
 </div>
 <div>
     <table class="table table-bordered table-striped table-hover">
         <thead>
             <tr>
-                <th>No</th>
+                <th style="width: 40px;">No</th>
                 {% for col in report.columns %}
-                {% if col.fieldname != "employee" %}
+               
                 <th class="text-{{col.align}}">
                     {{col.label}}
                 </th>
-                {% endif %}
                 {% endfor %}
             </tr>
         </thead>
         <tbody>
-            {% idx = 1 %}
             {% for row in data %}
                 <tr>
-                    <td>{{idx}}</td>
+					<td style="width: 40px;">{{row._index + 1}}</td>
                     {% for col in report.columns %}
-                        {% if col.fieldname != "employee" %}
-                                <td class="text-{{col.align}} {{col.css_class}}">
-                                    
-                                    {%if col.fieldtype == "float" %}
-                                        {{format_number(row[col.fieldname],"",col.precision)}} 
-                                    {%else%}
-                                        {{row[col.fieldname]}}
-                                    {%endif%}
-                                </td>
-
-                        {% endif %}
+						{% if row.is_total_row == true %}
+							<td class="text-{{col.align}} {{col.css_class}}">
+								TOTAL
+								
+							</td>
+						{% else %}
+							<td class="text-{{col.align}} {{col.css_class}}">
+								{{row[col.fieldname]}} {{row.is_total_row}}
+							</td>
+						{% endif %}
+						
                     {% endfor %}
 
 
                 </tr>
-                {% idx += 1 %}
+				{%console.log(row)%}
             {% endfor %}
         </tbody>
     </table>
@@ -98,7 +79,7 @@
 
     @media print {
         @page {
-            size: A4;
+            size: A4 landscape;
         }
 
         .print-format {
