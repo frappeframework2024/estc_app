@@ -1,4 +1,4 @@
-<h2 class="text-center report-title mt-0">{%= __("Monthly Employee Leave") %}</h2>
+<h2 class="text-center report-title mt-0">{%= __("Detail AL Report") %}</h2>
 <div class="text-left d-flex">
     {%
     if (filters.fiscal_year) { %}
@@ -61,7 +61,7 @@
             {% idx = 1 %}
             {% for row in data %}
                 <tr>
-                    <td class="text-center" style="width: 40px;">{{idx}}</td>
+                    <td>{{idx}}</td>
                     {% for col in report.columns %}
                         {% if col.fieldname != "employee" %}
                                 <td class="text-{{col.align}} {{col.css_class}}">

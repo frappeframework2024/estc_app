@@ -13,8 +13,8 @@ def get_columns(filters):
 	columns.append({'fieldname':"employee",'label':"Employee",'fieldtype':'Link','options':'Employee','align':'center','width':130})
 	columns.append({'fieldname':"employee_name",'label':"Employee Name",'align':'left','width':130})
 	columns.append({'fieldname':"max_leave",'label':"Max Leave",'fieldtype':'Float','align':'center','width':130})
-	columns.append({'fieldname':"use_leave",'label':"Used",'fieldtype':'Float','width':130})
-	columns.append({'fieldname':"balance",'label':"Balance",'fieldtype':'Data','width':130})
+	columns.append({'fieldname':"use_leave",'label':"Used",'align':'center','fieldtype':'Float','width':130})
+	columns.append({'fieldname':"balance",'label':"Balance",'align':'center','fieldtype':'Data','width':130})
 	return columns
 
 def get_data(filters):
