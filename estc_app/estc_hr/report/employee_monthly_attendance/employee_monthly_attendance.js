@@ -24,5 +24,12 @@ frappe.query_reports["Employee Monthly Attendance"] = {
 				return frappe.db.get_link_options('Leave Type', txt);
 			},
 		}
-	]
+	],
+	"formatter": function(value, row, column, data, default_formatter) {
+		value = default_formatter(value, row, column, data);
+
+		
+		
+		return value;
+	},
 };

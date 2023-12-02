@@ -47,7 +47,7 @@
     <table class="table table-bordered table-striped table-hover">
         <thead>
             <tr>
-                <th>#</th>
+                <th>No</th>
                 {% for col in report.columns %}
                 {% if col.fieldname != "employee" %}
                 <th class="text-{{col.align}}">
@@ -58,10 +58,10 @@
             </tr>
         </thead>
         <tbody>
+            {% idx = 1 %}
             {% for row in data %}
                 <tr>
-                    <td></td>
-                    
+                    <td>{{idx}}</td>
                     {% for col in report.columns %}
                         {% if col.fieldname != "employee" %}
                                 <td class="text-{{col.align}} {{col.css_class}}">
@@ -78,6 +78,7 @@
 
 
                 </tr>
+                {% idx += 1 %}
             {% endfor %}
         </tbody>
     </table>
