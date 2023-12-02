@@ -1,0 +1,117 @@
+<h2 class="text-center report-title mt-0">{%= __("Monthly Employee Leave") %}</h2>
+<div class="text-left d-flex">
+    {%
+    if (filters.fiscal_year) { %}
+    <div>
+        <span class="text-right text-muted">
+            {%= __("Fiscal Year") %}:
+        </span>
+        <span class="text-right text-bold">
+            {%= filters.fiscal_year %}
+        </span>
+
+    </div>
+
+    {% }
+    %}
+    {%
+    if (filters.department.length > 0) { %}
+    <div class="mx-2">
+        <span class="text-right text-muted">
+            {%= __("Department") %}:
+        </span>
+        <span class="text-right text-bold">
+            {%= filters.department.join(', ') %}
+        </span>
+
+    </div>
+
+    {% }
+    %}
+    {%
+    if (filters.leave_type.length> 0) { %}
+    <div class="mx-2">
+        <span class="text-right text-muted">
+            / {%= __("Leave Type") %}:
+        </span>
+        <span class="text-right text-bold">
+            {%= filters.leave_type.join(', ') %}
+        </span>
+
+    </div>
+
+    {% }
+    %}
+</div>
+<div>
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                {% for col in report.columns %}
+                {% if col.fieldname != "employee" %}
+                <th class="text-{{col.align}}">
+                    {{col.label}}
+                </th>
+                {% endif %}
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+                <tr>
+                    <td></td>
+                    
+                    {% for col in report.columns %}
+                        {% if col.fieldname != "employee" %}
+                                <td class="text-{{col.align}} {{col.css_class}}">
+                                    
+                                    {%if col.fieldtype == "float" %}
+                                        {{format_number(row[col.fieldname],"",col.precision)}} 
+                                    {%else%}
+                                        {{row[col.fieldname]}}
+                                    {%endif%}
+                                </td>
+
+                        {% endif %}
+                    {% endfor %}
+
+
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<style>
+    .d-flex {
+        display: flex
+    }
+
+    .text-bold {
+        font-weight: bold;
+    }
+    .total{
+        font-weight: bold;
+        background-color: #f9f9f9 !important;
+    }
+
+    @media print {
+        @page {
+            size: A4 landscape;
+        }
+
+        .print-format {
+            padding: 2mm;
+            font-size: 8.0pt !important;
+        }
+
+        .print-format .table-bordered td,
+        .print-format .table-bordered th {
+            border: 1px solid #c3c3c3 !important;
+        }
+
+        .report-title {
+            font-weight: 600 !important;
+        }
+    }
+</style>
