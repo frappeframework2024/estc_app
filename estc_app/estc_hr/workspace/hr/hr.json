@@ -194,7 +194,7 @@
    "type": "Link"
   }
  ],
- "modified": "2023-12-02 08:40:13.489279",
+ "modified": "2023-12-04 09:06:47.558634",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "HR",
@@ -223,6 +223,9 @@
  "roles": [
   {
    "role": "HR Manager"
+  },
+  {
+   "role": "Department Head"
   }
  ],
  "sequence_id": 2.0,
