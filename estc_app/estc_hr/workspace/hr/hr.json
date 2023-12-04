@@ -129,7 +129,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Reports",
-   "link_count": 6,
+   "link_count": 4,
    "onboard": 0,
    "type": "Card Break"
   },
@@ -172,29 +172,9 @@
    "link_type": "Report",
    "onboard": 0,
    "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Attendance Report",
-   "link_count": 0,
-   "link_to": "Attendance Report",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Employee Permission",
-   "link_count": 0,
-   "link_to": "User Permission",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
   }
  ],
- "modified": "2023-12-04 09:06:47.558634",
+ "modified": "2023-12-04 09:55:41.815371",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "HR",

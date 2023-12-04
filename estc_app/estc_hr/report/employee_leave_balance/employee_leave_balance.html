@@ -58,10 +58,9 @@
             </tr>
         </thead>
         <tbody>
-            {% idx = 1 %}
             {% for row in data %}
                 <tr>
-                    <td>{{idx}}</td>
+                    <td>{{row._index + 1}}</td>
                     {% for col in report.columns %}
                         {% if col.fieldname != "employee" %}
                                 <td class="text-{{col.align}} {{col.css_class}}">
@@ -78,7 +77,6 @@
 
 
                 </tr>
-                {% idx += 1 %}
             {% endfor %}
         </tbody>
     </table>

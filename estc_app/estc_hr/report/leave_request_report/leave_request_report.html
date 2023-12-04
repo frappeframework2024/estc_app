@@ -12,7 +12,20 @@
     </div>
 
     {% endif %}
-    {% if filters.employee.length > 0 %}
+    {% if filters.department.length >0 %}
+    <div class="mx-2">
+        <span class="text-right text-muted">
+            {%= __("Department") %}:
+        </span>
+        <span class="text-right text-bold">
+            {%= filters.department.join(', ')%}
+        </span>
+
+    </div>
+
+    
+    {%endif%}
+    {% if filters.employee %}
     <div class="mx-2">
         <span class="text-right text-muted">
             {%= __("Employee") %}:
@@ -41,25 +54,27 @@
         </thead>
         <tbody>
             {% for row in data %}
+            {% if row.is_total_row == true %}
                 <tr>
-					<td style="width: 40px;">{{row._index + 1}}</td>
-                    {% for col in report.columns %}
-						{% if row.is_total_row == true %}
-							<td class="text-{{col.align}} {{col.css_class}}">
-								TOTAL
-								
-							</td>
-						{% else %}
-							<td class="text-{{col.align}} {{col.css_class}}">
-								{{row[col.fieldname]}} {{row.is_total_row}}
-							</td>
-						{% endif %}
-						
-                    {% endfor %}
-
-
+                    <td colspan="8" class="text-right  text-bold">TOTAL</td>
+                
+                    <td class="text-{{col.align}} {{col.css_class}}">
+                        {{row[col.fieldname]}}
+                    </td>
                 </tr>
-				{%console.log(row)%}
+            {%else%}
+                <tr>
+                    <td style="width: 40px;">{{row._index + 1}}</td>
+                    {% for col in report.columns %}
+                        {% if col.fieldname != "Employee" %}
+                            <td class="text-{{col.align}} {{col.css_class}}">
+                                {{row[col.fieldname]}} {{row.is_total_row}}
+                            </td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {%endif%}
+                
             {% endfor %}
         </tbody>
     </table>
