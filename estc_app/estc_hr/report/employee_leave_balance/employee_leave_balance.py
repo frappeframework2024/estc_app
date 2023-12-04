@@ -14,7 +14,7 @@ def get_columns(filters):
 	columns.append({'fieldname':"employee_name",'label':"Employee Name",'align':'left','width':130})
 	columns.append({'fieldname':"max_leave",'label':"Max Leave",'fieldtype':'Float',"precision":2,'align':'center','width':130})
 	columns.append({'fieldname':"use_leave",'label':"Used",'align':'center',"precision":2,'fieldtype':'Float','width':130})
-	columns.append({'fieldname':"balance",'label':"Balance","precision":2,'align':'center','fieldtype':'Data','width':130})
+	columns.append({'fieldname':"balance",'label':"Balance","precision":2,'align':'center','fieldtype':'Float','width':130})
 	return columns
 
 def get_data(filters):
@@ -23,9 +23,9 @@ def get_data(filters):
 			select 
 				employee,
 				employee_name,
-				sum(max_leave) as max_leave,
-				SUM(use_leave) as use_leave,
-				SUM(balance) as balance
+				COALESCE(sum(max_leave),0) as max_leave,
+				COALESCE(SUM(use_leave),0) as use_leave,
+				COALESCE(SUM(balance),0) as balance
 			from 
 				`tabEmployee Attendance Leave Count` 
 			{}
