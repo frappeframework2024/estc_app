@@ -162,9 +162,9 @@ def get_current_employee_leave_balance(name=None):
 				"max_sick_leave":sum([d.max_leave  for d in attendance_count if d.leave_type == sick_leave_type]) or 0,
 				"use_sick_leave":sum([d.use_leave  for d in attendance_count if d.leave_type == sick_leave_type]) or 0,
 				"sick_leave_balance":sum([d.balance  for d in attendance_count if d.leave_type == sick_leave_type]) or 0,
-				"ot":sum([d.max_leave  for d in attendance_count if d.leave_type == ot_leave_type]) or 0,
-				"use_ot":sum([d.use_leave  for d in attendance_count if d.leave_type == ot_leave_type]) or 0,
-				"ot_balance":sum([d.balance  for d in attendance_count if d.leave_type == ot_leave_type]) or 0,
+				"ot":'{:.2f}'.format(sum([d.max_leave  for d in attendance_count if d.leave_type == ot_leave_type]) or 0),
+				"use_ot":'{:.2f}'.format(sum([d.use_leave  for d in attendance_count if d.leave_type == ot_leave_type]) or 0) ,
+				"ot_balance":'{:.2f}'.format(sum([d.balance  for d in attendance_count if d.leave_type == ot_leave_type]) or 0),
 				"leave_data":attendance_count
 			}
 	
