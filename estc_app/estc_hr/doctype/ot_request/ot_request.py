@@ -66,3 +66,38 @@ class OTRequest(Document):
 									fiscal_year = '{default_fiscal_year}'
                       			""");
 				frappe.db.commit()
+
+
+
+@frappe.whitelist()
+def get_events(start, end, filters=None):
+	from frappe.desk.calendar import get_event_conditions
+	department = frappe.db.get_list("Department",pluck='name')
+	conditions = get_event_conditions("OT Request", [["OT Request","department","in",department],["OT Request","status","in",["HR Approved","Approved","Request"]]])
+	
+	sql = """
+			select 
+   				request_date as start,
+				request_date as end,
+				name,
+				"#8ADAB2" as backgroundColor,
+				CONCAT(`name`,"-",`employee_name`, ' '," ",`start_time`," To ",`to_time`) as title,
+				status as leave_status
+    		from `tabOT Request` 
+      		where request_date between "{start}" and "{end}" 
+        		{conditions}
+		""".format(conditions=conditions,start=start,end=end)
+
+	holiday_holiday="""
+			select 
+   				min(date) as start,
+      			max(date) as end,
+      			description as title,
+				if(is_day_off=1,"#f52047","#f5cc14") as backgroundColor
+      		from `tabHoliday` 
+			where date between "{start}" and "{end}" 
+        	group by description
+		""".format(start=start,end=end)
+	holiday = frappe.db.sql(holiday_holiday,as_dict=True)
+	data = frappe.db.sql(sql,as_dict=True)
+	return data+holiday

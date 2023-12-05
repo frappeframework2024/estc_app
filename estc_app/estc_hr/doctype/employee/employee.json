@@ -64,6 +64,7 @@
   "bio_information",
   "attendance_and_leaves_tab",
   "attendance_device_id",
+  "has_no_attendance_device_id",
   "column_break_kict",
   "no_device_id",
   "leave_approver_section",
@@ -493,6 +494,12 @@
    "fieldname": "no_device_id",
    "fieldtype": "Check",
    "label": "No Device ID"
+  },
+  {
+   "default": "1",
+   "fieldname": "has_no_attendance_device_id",
+   "fieldtype": "Check",
+   "label": "Has No Attendance Device ID"
   }
  ],
  "image_field": "photo",
@@ -509,7 +516,7 @@
    "link_fieldname": "employee"
   }
  ],
- "modified": "2023-11-25 14:12:58.501661",
+ "modified": "2023-12-05 10:22:29.162204",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Employee",

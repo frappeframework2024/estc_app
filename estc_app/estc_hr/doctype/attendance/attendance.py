@@ -20,7 +20,7 @@ def insert_absent_attendance():
 			department,
 			photo
 		from `tabEmployee`
-		where
+		where has_no_attendance_device_id = 0 and
 			name not in (select 
 							employee 
 						from `tabAttendance` 
@@ -59,7 +59,7 @@ def insert_out_attendance():
 			department,
 			photo
 		from `tabEmployee`
-		where
+		where has_no_attendance_device_id = 0 and
 			name not in (select 
 							employee 
 						from `tabAttendance` 

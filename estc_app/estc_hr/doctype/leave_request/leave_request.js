@@ -88,9 +88,7 @@ frappe.ui.form.on("Leave Request", {
                     refresh_field('total_leave_days');
                 }
             })
-            
-            
-        }  
+        }
     },
     to_date(frm){
         frappe.call({
