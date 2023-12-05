@@ -80,6 +80,8 @@ class LeaveRequest(Document):
 					"employee":self.employee,
 					"attendance_date": date,
 					"leave_request":self.name,
+					'late':None,
+					'checkin_time':None,
 					"reason":self.reason
 				}
 				
