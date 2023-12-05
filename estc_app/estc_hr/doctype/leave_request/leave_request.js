@@ -13,10 +13,7 @@ frappe.ui.form.on("Leave Request", {
 			        frm.set_value("posting_date", current);
                 }
             });
-            
-            
         }
-        
     },
 	refresh(frm) {
         
@@ -82,6 +79,9 @@ frappe.ui.form.on("Leave Request", {
                 callback: function (r) {
                     frm.doc.total_leave_days = frappe.datetime.get_diff( frm.doc.to_date, frm.doc.start_date ) + 1
                     frm.doc.total_leave_days = frm.doc.total_leave_days - r.message.length
+                    if(frm.doc.is_to_date_half_day){
+                        frm.doc.total_leave_days = frm.doc.total_leave_days - 0.5
+                    }
                     if(frm.doc.is_start_date_half_day){
                         frm.doc.total_leave_days = frm.doc.total_leave_days - 0.5
                     }
@@ -105,6 +105,9 @@ frappe.ui.form.on("Leave Request", {
                     frm.doc.total_leave_days = frappe.datetime.get_diff(frm.doc.to_date, frm.doc.start_date ) + 1
                     frm.doc.total_leave_days = frm.doc.total_leave_days - r.message.length
                     if(frm.doc.is_to_date_half_day){
+                        frm.doc.total_leave_days = frm.doc.total_leave_days - 0.5
+                    }
+                    if(frm.doc.is_start_date_half_day){
                         frm.doc.total_leave_days = frm.doc.total_leave_days - 0.5
                     }
                     refresh_field('total_leave_days');
