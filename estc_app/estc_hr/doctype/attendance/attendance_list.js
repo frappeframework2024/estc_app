@@ -63,7 +63,12 @@ frappe.listview_settings['Attendance'] = {
                                 </span>
                             </span>`;
                 }
-                
+            color = 'green'
+            return `<span class="ellipsis" title="Status: ${value}">
+                        <span class="filterable indicator-pill ${color} ellipsis" data-filter="status,=,Present">
+                            <span class="ellipsis"> ${value}</span>
+                        </span>
+                    </span>`;
            
         },
 
