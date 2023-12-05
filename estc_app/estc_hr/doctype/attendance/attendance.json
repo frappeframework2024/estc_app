@@ -17,6 +17,7 @@
   "checkin_log_id",
   "log_type",
   "shift",
+  "is_finger_print",
   "column_break_thgw",
   "fiscal_year",
   "attendance_date",
@@ -150,11 +151,17 @@
    "fieldtype": "Data",
    "hidden": 1,
    "label": "Photo"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_finger_print",
+   "fieldtype": "Check",
+   "label": "Finger Print"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-11-24 14:39:14.061026",
+ "modified": "2023-12-05 14:02:18.924837",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Attendance",

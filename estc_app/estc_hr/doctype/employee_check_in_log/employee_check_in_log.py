@@ -104,7 +104,8 @@ def insert_attendance(self):
 						'log_type':'IN',
 						'photo':self.photo,
 						'checkin_time':self.check_in_time,
-						'checkin_log_id':self.name
+						'checkin_log_id':self.name,
+						'is_finger_print':1
 					}).insert()
 			else:
 				if timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second) <= working_shift.ending_in : 
@@ -144,7 +145,8 @@ def insert_attendance(self):
 						'leave_early':check_out_early,
 						'checkin_time':self.check_in_time,
 						'photo':self.photo,
-						'checkin_log_id':self.name
+						'checkin_log_id':self.name,
+						'is_finger_print':1
 					}).insert()
 
 
