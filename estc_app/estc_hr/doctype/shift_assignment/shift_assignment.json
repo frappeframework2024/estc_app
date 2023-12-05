@@ -37,6 +37,7 @@
   {
    "fieldname": "employee",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Employee",
    "options": "Employee"
   },
@@ -84,7 +85,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-10-11 15:27:29.215622",
+ "modified": "2023-12-05 13:59:45.995847",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Shift Assignment",
