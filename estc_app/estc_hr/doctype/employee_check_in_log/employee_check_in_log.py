@@ -21,7 +21,8 @@ class EmployeeCheckInLog(Document):
 			self.posting_date = datetime.now().date()
 
 	def after_insert(self):
-		frappe.enqueue("estc_app.estc_hr.doctype.employee_check_in_log.employee_check_in_log.insert_attendance",self=self)	
+		# frappe.enqueue("estc_app.estc_hr.doctype.employee_check_in_log.employee_check_in_log.insert_attendance",self=self)
+		insert_attendance(self)	
 
 def insert_attendance(self):
 	fiscal_year = frappe.db.get_value("Fiscal Year",{'is_default': 1})
@@ -40,13 +41,12 @@ def insert_attendance(self):
 			punch_direction = "IN"
 			check_in_shift=d
 			break
-		elif d.beginning_out <= timedelta_finger_print <= d.ending_out:
+		elif d.beginning_out <= timedelta_finger_print and  timedelta_finger_print >= d.ending_out:
 			punch_direction = "OUT"
 			check_in_shift=d
 			break
-	
 	working_shift=check_in_shift
-
+	
 	on_duty_in_hour = working_shift.on_duty_time.total_seconds() // 3600 # will return on 8h
 	
 	on_duty_in_mins = (working_shift.on_duty_time.total_seconds() % 3600) // 60 + working_shift.late_time #will return 10mins		
@@ -98,7 +98,7 @@ def insert_attendance(self):
 						'attendance_value':working_shift.attendance_value,
 						'attendance_date':self.check_in_time,
 						'department':self.department,
-						'late':check_in_late.total_seconds(),
+						'late':check_in_late,
 						'shift':working_shift.name,
 						'log_type':'IN',
 						'photo':self.photo,
@@ -140,7 +140,7 @@ def insert_attendance(self):
 						'department':self.department,
 						'shift':working_shift.name,
 						'log_type':'OUT',
-						'leave_early':check_out_early.total_seconds(),
+						'leave_early':check_out_early,
 						'checkin_time':self.check_in_time,
 						'photo':self.photo,
 						'checkin_log_id':self.name,
