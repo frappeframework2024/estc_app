@@ -22,7 +22,6 @@ class EmployeeCheckInLog(Document):
 
 	def after_insert(self):
 		frappe.enqueue("estc_app.estc_hr.doctype.employee_check_in_log.employee_check_in_log.insert_attendance",self=self)
-		# insert_attendance(self)
 
 def insert_attendance(self):
 	fiscal_year = frappe.db.get_value("Fiscal Year",{'is_default': 1})
@@ -45,7 +44,9 @@ def insert_attendance(self):
 			punch_direction = "OUT"
 			check_in_shift=d
 			break
+	
 	working_shift=check_in_shift
+
 	on_duty_in_hour = working_shift.on_duty_time.total_seconds() // 3600 # will return on 8h
 	
 	on_duty_in_mins = (working_shift.on_duty_time.total_seconds() % 3600) // 60 + working_shift.late_time #will return 10mins		
@@ -117,11 +118,11 @@ def insert_attendance(self):
 		attendance_status = "Present"
 		if working_shift:
 			begin_out_hour = working_shift.off_duty_time.total_seconds() // 3600 # will return on 8h
-			begin_out_mins = ((working_shift.off_duty_time.total_seconds() % 3600*6) // 60) - working_shift.leave_early_time #will return in mins
+			begin_out_mins = ((working_shift.off_duty_time.total_seconds() % 3600*60) // 60) - working_shift.leave_early_time #will return in mins
 			#check if employee check on duty time
-			if timedelta(hours=begin_out_hour,minutes=begin_out_mins) > timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second):	
+			if timedelta(hours=begin_out_hour,seconds=begin_out_mins) > timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second):	
 				#check if employee check in late
-				check_out_early = timedelta(hours=begin_out_hour,minutes=begin_out_mins) - timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second)
+				check_out_early = timedelta(hours=begin_out_hour,seconds=begin_out_mins) - timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second)
 			holiday = frappe.db.sql(f"select date from `tabHoliday Schedule` where date = '{check_date.date()}' and parent = {working_shift.holiday}",as_dict=1)
 			if len(holiday)>=1:
 				return
