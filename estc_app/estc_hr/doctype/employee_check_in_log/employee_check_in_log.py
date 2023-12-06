@@ -74,7 +74,7 @@ def insert_attendance(self):
 	if punch_direction == "IN":
 		if working_shift:
 			
-			check_in_late=0
+			check_in_late=timedelta()
 			holiday = frappe.db.sql(f"select date from `tabHoliday Schedule` where date = '{check_date.date()}' and parent = {working_shift.holiday}",as_dict=1)
 			if len(holiday)>=1:
 				return
@@ -97,7 +97,7 @@ def insert_attendance(self):
 						'attendance_value':working_shift.attendance_value,
 						'attendance_date':self.check_in_time,
 						'department':self.department,
-						'late':check_in_late,
+						'late':check_in_late.total_seconds(),
 						'shift':working_shift.name,
 						'log_type':'IN',
 						'photo':self.photo,
@@ -113,7 +113,7 @@ def insert_attendance(self):
 					attendance.checkin_log_id = self.name
 					attendance.save()
 	elif punch_direction == "OUT":
-		check_out_early=0
+		check_out_early=timedelta()
 		attendance_status = "Present"
 		if working_shift:
 			begin_out_hour = working_shift.off_duty_time.total_seconds() // 3600 # will return on 8h
@@ -139,7 +139,7 @@ def insert_attendance(self):
 						'department':self.department,
 						'shift':working_shift.name,
 						'log_type':'OUT',
-						'leave_early':check_out_early,
+						'leave_early':check_out_early.total_seconds(),
 						'checkin_time':self.check_in_time,
 						'photo':self.photo,
 						'checkin_log_id':self.name,

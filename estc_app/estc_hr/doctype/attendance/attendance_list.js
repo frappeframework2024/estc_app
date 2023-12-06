@@ -8,7 +8,8 @@ frappe.listview_settings['Attendance'] = {
             return `<img src='${doc.photo || "/assets/estc_app/images/avatar-2.png"}' style='border-radius: 50%;height:35px; margin-right:10px;margin-left:5px'/>`;
         },
         attendance_date: function (value, field, doc){
-            if(doc.log_type == "IN" && doc.status == "Present" && doc.late > 0){
+            console.log(doc.leave_early)
+            if(doc.log_type == "IN" && doc.status == "Present" && Number(doc.late || 0) > 0){
                 return `
                     ${frappe.datetime.str_to_user(value)}
                     <div class="ellipsis">
@@ -17,7 +18,7 @@ frappe.listview_settings['Attendance'] = {
                         </span>
                     </div>
             `
-            }else if(doc.log_type == "OUT" && doc.status == "Present"  && doc.leave_early > 0){
+            }else if(doc.log_type == "OUT" && doc.status == "Present"  &&  Number(doc.leave_early||0) > 0){
                 return `
                     ${frappe.datetime.str_to_user(value)}
                     <div class="ellipsis">
