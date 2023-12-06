@@ -22,6 +22,7 @@ class EmployeeCheckInLog(Document):
 
 	def after_insert(self):
 		frappe.enqueue("estc_app.estc_hr.doctype.employee_check_in_log.employee_check_in_log.insert_attendance",self=self)
+		# insert_attendance(self)
 
 def insert_attendance(self):
 	fiscal_year = frappe.db.get_value("Fiscal Year",{'is_default': 1})
@@ -36,16 +37,15 @@ def insert_attendance(self):
 	for d in working_shift:
 		timedelta_finger_print = timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second)
 		#Definde Punch Direction
-		if d.beginning_in <= timedelta_finger_print <= d.ending_in:
+		if d.beginning_in <= timedelta_finger_print and timedelta_finger_print <= d.ending_in:
 			punch_direction = "IN"
 			check_in_shift=d
 			break
-		elif d.beginning_out <= timedelta_finger_print and  timedelta_finger_print >= d.ending_out:
+		elif d.beginning_out <= timedelta_finger_print and  timedelta_finger_print <= d.ending_out:
 			punch_direction = "OUT"
 			check_in_shift=d
 			break
 	working_shift=check_in_shift
-	
 	on_duty_in_hour = working_shift.on_duty_time.total_seconds() // 3600 # will return on 8h
 	
 	on_duty_in_mins = (working_shift.on_duty_time.total_seconds() % 3600) // 60 + working_shift.late_time #will return 10mins		
