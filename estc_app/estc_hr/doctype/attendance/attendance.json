@@ -114,15 +114,18 @@
    "label": "Checkin Log ID"
   },
   {
+   "default": "None",
    "depends_on": "eval:doc.checkin_log_id",
    "fieldname": "late",
-   "fieldtype": "Time",
-   "label": "Late (Mins)"
+   "fieldtype": "Data",
+   "label": "Late (Mins)",
+   "read_only": 1
   },
   {
+   "default": "None",
    "depends_on": "eval:doc.checkin_log_id",
    "fieldname": "leave_early",
-   "fieldtype": "Time",
+   "fieldtype": "Data",
    "label": "Leave Early (Mins)",
    "read_only": 1
   },
@@ -161,7 +164,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-12-05 14:02:18.924837",
+ "modified": "2023-12-06 08:33:38.695998",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Attendance",
