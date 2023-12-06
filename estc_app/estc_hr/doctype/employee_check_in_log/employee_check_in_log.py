@@ -21,8 +21,7 @@ class EmployeeCheckInLog(Document):
 			self.posting_date = datetime.now().date()
 
 	def after_insert(self):
-		# frappe.enqueue("estc_app.estc_hr.doctype.employee_check_in_log.employee_check_in_log.insert_attendance",self=self)
-		insert_attendance(self)	
+		frappe.enqueue("estc_app.estc_hr.doctype.employee_check_in_log.employee_check_in_log.insert_attendance",self=self)
 
 def insert_attendance(self):
 	fiscal_year = frappe.db.get_value("Fiscal Year",{'is_default': 1})
