@@ -8,21 +8,21 @@ frappe.listview_settings['Attendance'] = {
             return `<img src='${doc.photo || "/assets/estc_app/images/avatar-2.png"}' style='border-radius: 50%;height:35px; margin-right:10px;margin-left:5px'/>`;
         },
         attendance_date: function (value, field, doc){
-            if(doc.late && doc.status == "Present"){
+            if(doc.log_type == "IN" && doc.status == "Present" && doc.late > 0){
                 return `
                     ${frappe.datetime.str_to_user(value)}
                     <div class="ellipsis">
                         <span class="filterable indicator-pill blue ellipsis" style="height:20px" data-filter="status,=,Present">
-                            <span class="ellipsis" style="font-size: 10px;">Late :${doc.late}</span>
+                            <span class="ellipsis" style="font-size: 10px;">Late :${secondsToHms(doc.late)}</span>
                         </span>
                     </div>
             `
-            }else if(doc.leave_early && doc.status == "Present"){
+            }else if(doc.log_type == "OUT" && doc.status == "Present"  && doc.leave_early > 0){
                 return `
                     ${frappe.datetime.str_to_user(value)}
                     <div class="ellipsis">
                         <span class="filterable indicator-pill red ellipsis" style="height:20px" data-filter="status,=,Present">
-                            <span class="ellipsis" style="font-size: 10px;">Early :${doc.leave_early}</span>
+                            <span class="ellipsis" style="font-size: 10px;">Early :${secondsToHms(doc.leave_early)}</span>
                         </span>
                     </div>
             `
@@ -73,4 +73,15 @@ frappe.listview_settings['Attendance'] = {
         },
 
     }
+}
+
+function secondsToHms(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+
+    const formattedHours = hours < 10 ? `0${hours}` : hours;
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+    const formattedSeconds = remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds;
+    return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
 }
