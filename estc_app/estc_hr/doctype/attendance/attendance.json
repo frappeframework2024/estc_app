@@ -27,7 +27,8 @@
   "checkin_time",
   "department",
   "reason",
-  "attendance_value"
+  "attendance_value",
+  "attendance_devide_id"
  ],
  "fields": [
   {
@@ -162,11 +163,16 @@
    "fieldname": "is_finger_print",
    "fieldtype": "Check",
    "label": "Finger Print"
+  },
+  {
+   "fieldname": "attendance_devide_id",
+   "fieldtype": "Data",
+   "label": "Attendance Devide ID"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-12-06 09:57:29.351346",
+ "modified": "2023-12-07 09:37:59.526247",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Attendance",

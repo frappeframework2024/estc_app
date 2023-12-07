@@ -8,7 +8,7 @@ from datetime import datetime,timedelta
 
 class EmployeeCheckInLog(Document):
 	def before_insert(self):
-
+		
 		employee = frappe.db.get_value("Employee",{"attendance_device_id":self.employee_device_id},["employee_name","employee_code","department","name","position","photo"],as_dict=1)
 		if employee:
 			self.employee_name = employee.employee_name
@@ -21,6 +21,7 @@ class EmployeeCheckInLog(Document):
 			self.posting_date = datetime.now().date()
 
 	def after_insert(self):
+		
 		frappe.enqueue("estc_app.estc_hr.doctype.employee_check_in_log.employee_check_in_log.insert_attendance",self=self)
 
 def insert_attendance(self):
