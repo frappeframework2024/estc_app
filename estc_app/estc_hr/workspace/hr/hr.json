@@ -129,7 +129,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Reports",
-   "link_count": 4,
+   "link_count": 5,
    "onboard": 0,
    "type": "Card Break"
   },
@@ -172,9 +172,19 @@
    "link_type": "Report",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Attendance Report",
+   "link_count": 0,
+   "link_to": "Employee Monthly Attendance",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2023-12-07 10:19:03.248103",
+ "modified": "2023-12-07 10:55:31.858248",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "HR",
