@@ -12,7 +12,10 @@ class Attendance(Document):
 	pass
 
 @frappe.whitelist()
-def insert_absent_attendance():
+def insert_absent_attendance_queue():
+	frappe.enqueue('estc_app.estc_hr.doctype.attendance.attendance.insert_attendance')
+
+def insert_attendance():
 	sql = """
 		select 
 			name,
