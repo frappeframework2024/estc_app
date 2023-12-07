@@ -26,14 +26,19 @@ def get_data(filters):
 				employee_name,
 				attendance_date,
 				checkin_time,
-				log_type
+				log_type,
+				LEFT(status, 1)
 			from 
 				`tabAttendance` 
 			{}
 			group by
 				employee,
-				employee_name
-			order by employee_name
+				employee_name,
+				status,
+				log_type
+			order by 
+			employee_name,
+			checkin_time
 	""".format(get_conditions(filters))
 	data = frappe.db.sql(sql,filters,as_dict=1)
 	return data
