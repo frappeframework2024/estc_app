@@ -47,6 +47,7 @@ def insert_attendance():
 						'attendance_date':datetime.today().date(),
 						'late' : None,
 						'leave_early' : None,
+						'finger_print': 1,
 						'employee_device_id':emp.attendance_device_id,
 						'attendance_value':working_shift.is_haft_working_day == 1 if working_shift.is_haft_working_day == 0 else 0.5,
 						'department':emp.department,
@@ -82,6 +83,7 @@ def insert_out_attendance():
 		doc.log_type = 'OUT'
 		doc.late = None
 		doc.leave_early = None
+		doc.finger_print = 1
 		doc.attendance_value = frappe.db.get_value('Working Shift',working_shift.shift,['attendance_value'])
 		doc.working_shift = working_shift.shift
 		att = frappe.db.sql(f"""select employee from `tabAttendance` where DATE(attendance_date) = '{datetime.now().date()}' and log_type = 'IN'""",as_dict=1)

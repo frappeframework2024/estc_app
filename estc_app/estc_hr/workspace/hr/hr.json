@@ -178,13 +178,13 @@
    "is_query_report": 1,
    "label": "Attendance Report",
    "link_count": 0,
-   "link_to": "Employee Monthly Attendance",
+   "link_to": "Daily Employee Attendance",
    "link_type": "Report",
    "onboard": 0,
    "type": "Link"
   }
  ],
- "modified": "2023-12-07 10:55:31.858248",
+ "modified": "2023-12-07 11:43:37.038989",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "HR",

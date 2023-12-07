@@ -26,7 +26,7 @@ def get_data(filters):
 				employee,
 				employee_name,
 				attendance_date,
-				checkin_time,
+				IF(checkin_time is NULL,'Not Checked IN',checkin_time),
 				log_type,
 				LEFT(status, 1) as status
 			from 
