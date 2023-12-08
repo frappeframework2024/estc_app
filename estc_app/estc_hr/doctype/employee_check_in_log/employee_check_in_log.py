@@ -128,7 +128,7 @@ def insert_attendance(self):
 			holiday = frappe.db.sql(f"select date from `tabHoliday Schedule` where date = '{check_date.date()}' and parent = {working_shift.holiday}",as_dict=1)
 			if len(holiday)>=1:
 				return
-			get_existed_attendance = frappe.db.exists("Attendance", {"shift":working_shift.name,"log_type":"IN","attendance_date": datetime.strptime(self.check_in_time,'%Y-%m-%d %H:%M:%S').date(),'employee':self.employee})
+			get_existed_attendance = frappe.db.exists("Attendance", {"shift":working_shift.name,"attendance_date": datetime.strptime(self.check_in_time,'%Y-%m-%d %H:%M:%S').date(),'employee':self.employee})
 			if get_existed_attendance:
 				doc = frappe.get_doc("Attendance",get_existed_attendance)
 				doc.checkout_time = self.check_in_time
@@ -162,8 +162,6 @@ def get_attendance_value(checkout_time,checkin_time):
 	checkout_date = datetime.strptime(checkout_time,'%Y-%m-%d %H:%M:%S')
 	duration = (break_from - timedelta(hours=checkin_time.hour,minutes=checkin_time.minute,seconds=checkin_time.second) + timedelta(hours=checkout_date.hour,minutes=checkout_date.minute,seconds=checkout_date.second) - break_to)
 	attendance_value = duration/timedelta(hours=total_work_per_day)
-	frappe.msgprint(str(attendance_value))
-	frappe.msgprint(str(duration))
 	return attendance_value,duration
 
 @frappe.whitelist()
