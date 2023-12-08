@@ -23,8 +23,10 @@ class EmployeeCheckInLog(Document):
 	def after_insert(self):
 		
 		frappe.enqueue("estc_app.estc_hr.doctype.employee_check_in_log.employee_check_in_log.insert_attendance",self=self)
+		# insert_attendance(self)
 
 def insert_attendance(self):
+	
 	fiscal_year = frappe.db.get_value("Fiscal Year",{'is_default': 1})
 	shift_assignment = frappe.db.get_list("Shift Assignment",filters={'employee': self.employee,'fiscal_year':fiscal_year},fields=['shift'])
 	check_date = datetime.strptime(self.check_in_time,'%Y-%m-%d %H:%M:%S')
@@ -96,12 +98,10 @@ def insert_attendance(self):
 						'employee': self.employee,
 						'fiscal_year':fiscal_year,
 						'status':attendance_status,
-						'attendance_value':working_shift.attendance_value,
 						'attendance_date':self.check_in_time,
 						'department':self.department,
 						'late':check_in_late.total_seconds(),
 						'shift':working_shift.name,
-						'log_type':'IN',
 						'photo':self.photo,
 						'checkin_time':self.check_in_time,
 						'checkin_log_id':self.name,
@@ -115,6 +115,7 @@ def insert_attendance(self):
 					attendance.checkin_log_id = self.name
 					attendance.save()
 	elif punch_direction == "OUT":
+		
 		check_out_early=timedelta()
 		attendance_status = "Present"
 		if working_shift:
@@ -127,28 +128,43 @@ def insert_attendance(self):
 			holiday = frappe.db.sql(f"select date from `tabHoliday Schedule` where date = '{check_date.date()}' and parent = {working_shift.holiday}",as_dict=1)
 			if len(holiday)>=1:
 				return
-			get_existed_attendance = frappe.db.exists("Attendance", {"shift":working_shift.name,"log_type":"OUT","attendance_date": datetime.strptime(self.check_in_time,'%Y-%m-%d %H:%M:%S').date(),'employee':self.employee})
-			
-			if not get_existed_attendance:
+			get_existed_attendance = frappe.db.exists("Attendance", {"shift":working_shift.name,"log_type":"IN","attendance_date": datetime.strptime(self.check_in_time,'%Y-%m-%d %H:%M:%S').date(),'employee':self.employee})
+			if get_existed_attendance:
+				doc = frappe.get_doc("Attendance",get_existed_attendance)
+				doc.checkout_time = self.check_in_time
+				attendance_value,duration = get_attendance_value(self.check_in_time,doc.checkin_time)
+				doc.attendance_value=attendance_value
+				doc.working_duration=duration
+				doc.save()
+			else:
 				frappe.get_doc(
 					{
 						'doctype': 'Attendance',
 						'employee': self.employee,
 						'fiscal_year':fiscal_year,
 						'status':attendance_status,
-						'attendance_value':working_shift.attendance_value,
 						'attendance_date':self.check_in_time,
 						'department':self.department,
 						'shift':working_shift.name,
-						'log_type':'OUT',
 						'leave_early':check_out_early.total_seconds(),
-						'checkin_time':self.check_in_time,
+						'checkout_time':self.check_in_time,
 						'photo':self.photo,
 						'checkin_log_id':self.name,
-						'is_finger_print':1
+						'is_finger_print':1,
+						
 					}).insert()
 
 
+def get_attendance_value(checkout_time,checkin_time):
+	break_from = frappe.db.get_single_value('HR Setting', 'break_from')
+	break_to = frappe.db.get_single_value('HR Setting', 'break_to')
+	total_work_per_day = frappe.db.get_single_value('HR Setting', 'total_work_per_day')
+	checkout_date = datetime.strptime(checkout_time,'%Y-%m-%d %H:%M:%S')
+	duration = (break_from - timedelta(hours=checkin_time.hour,minutes=checkin_time.minute,seconds=checkin_time.second) + timedelta(hours=checkout_date.hour,minutes=checkout_date.minute,seconds=checkout_date.second) - break_to)
+	attendance_value = duration/timedelta(hours=total_work_per_day)
+	frappe.msgprint(str(attendance_value))
+	frappe.msgprint(str(duration))
+	return attendance_value,duration
 
 @frappe.whitelist()
 def employee_checked_in(employee_device_id,

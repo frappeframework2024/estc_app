@@ -12,6 +12,7 @@
   "employee_device_id",
   "employee",
   "department",
+  "attendance",
   "column_break_vkrc",
   "posting_date",
   "employee_name",
@@ -124,11 +125,18 @@
    "fieldtype": "Date",
    "label": "Posting Date",
    "read_only": 1
+  },
+  {
+   "fieldname": "attendance",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Attendance",
+   "options": "Attendance"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-11-24 14:40:13.494816",
+ "modified": "2023-12-08 11:21:03.171218",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Employee Check In Log",

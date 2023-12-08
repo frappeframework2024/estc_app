@@ -19,6 +19,10 @@
   "director_email",
   "hr_email",
   "multiply_gain_from_ot",
+  "break_times_section",
+  "break_from",
+  "column_break_rgkf",
+  "break_to",
   "section_break_rwcx",
   "annual_leave_setting",
   "leave_days_validate"
@@ -109,12 +113,31 @@
    "fieldtype": "Int",
    "hidden": 1,
    "label": "Multiply Gain From OT"
+  },
+  {
+   "fieldname": "break_times_section",
+   "fieldtype": "Section Break",
+   "label": "Break Times"
+  },
+  {
+   "fieldname": "break_from",
+   "fieldtype": "Time",
+   "label": "Break From"
+  },
+  {
+   "fieldname": "column_break_rgkf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "break_to",
+   "fieldtype": "Time",
+   "label": "Break To"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-11-24 10:37:01.541110",
+ "modified": "2023-12-08 11:29:03.461640",
  "modified_by": "Administrator",
  "module": "ESTC System Setting",
  "name": "HR Setting",

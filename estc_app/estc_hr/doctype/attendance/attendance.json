@@ -15,7 +15,6 @@
   "leave_request",
   "leave_type",
   "checkin_log_id",
-  "log_type",
   "shift",
   "is_finger_print",
   "column_break_thgw",
@@ -25,6 +24,8 @@
   "leave_early",
   "photo",
   "checkin_time",
+  "checkout_time",
+  "working_duration",
   "department",
   "reason",
   "attendance_value",
@@ -110,9 +111,10 @@
   {
    "fetch_from": "leave_request.leave_type",
    "fieldname": "checkin_log_id",
-   "fieldtype": "Data",
+   "fieldtype": "Link",
    "hidden": 1,
-   "label": "Checkin Log ID"
+   "label": "Checkin Log ID",
+   "options": "Employee Check In Log"
   },
   {
    "default": "None",
@@ -120,6 +122,7 @@
    "fieldname": "late",
    "fieldtype": "Int",
    "hidden": 1,
+   "in_list_view": 1,
    "label": "Late (Mins)",
    "read_only": 1
   },
@@ -129,14 +132,9 @@
    "fieldname": "leave_early",
    "fieldtype": "Int",
    "hidden": 1,
+   "in_list_view": 1,
    "label": "Leave Early (Mins)",
    "read_only": 1
-  },
-  {
-   "depends_on": "eval:doc.checkin_log_id",
-   "fieldname": "log_type",
-   "fieldtype": "Data",
-   "label": "Log Type"
   },
   {
    "depends_on": "eval:doc.checkin_log_id",
@@ -168,11 +166,29 @@
    "fieldname": "attendance_devide_id",
    "fieldtype": "Data",
    "label": "Attendance Devide ID"
+  },
+  {
+   "depends_on": "eval:doc.checkin_log_id",
+   "fieldname": "checkout_time",
+   "fieldtype": "Datetime",
+   "label": "Checkout Time",
+   "read_only": 1
+  },
+  {
+   "fieldname": "working_duration",
+   "fieldtype": "Time",
+   "label": "Working Duration",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
- "links": [],
- "modified": "2023-12-07 09:37:59.526247",
+ "links": [
+  {
+   "link_doctype": "Employee Check In Log",
+   "link_fieldname": "attendance"
+  }
+ ],
+ "modified": "2023-12-08 13:48:12.439201",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Attendance",

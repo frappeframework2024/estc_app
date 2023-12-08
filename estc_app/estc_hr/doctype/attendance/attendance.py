@@ -86,7 +86,7 @@ def insert_out_attendance():
 		doc.finger_print = 1
 		doc.attendance_value = frappe.db.get_value('Working Shift',working_shift.shift,['attendance_value'])
 		doc.working_shift = working_shift.shift
-		att = frappe.db.sql(f"""select employee from `tabAttendance` where DATE(attendance_date) = '{datetime.now().date()}' and log_type = 'IN'""",as_dict=1)
+		att = frappe.db.sql(f"""select employee from `tabAttendance` where DATE(attendance_date) = '{datetime.now().date()}'""",as_dict=1)
 		#check employee has check in or not in this day
 		if len(att)>0:
 			doc.status = 'Present'

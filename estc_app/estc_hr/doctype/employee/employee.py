@@ -5,9 +5,8 @@ import frappe
 from frappe.model.document import Document
 from frappe.utils.data import today
 
-
 class Employee(Document):
-
+	
 	def on_update(self):
 		 
 		frappe.enqueue("estc_app.estc_hr.doctype.employee.employee.update_user_information", queue='short', self =self)
