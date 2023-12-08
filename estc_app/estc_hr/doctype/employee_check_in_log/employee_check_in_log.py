@@ -162,6 +162,8 @@ def get_attendance_value(checkout_time,checkin_time):
 	checkout_date = datetime.strptime(checkout_time,'%Y-%m-%d %H:%M:%S')
 	duration = (break_from - timedelta(hours=checkin_time.hour,minutes=checkin_time.minute,seconds=checkin_time.second) + timedelta(hours=checkout_date.hour,minutes=checkout_date.minute,seconds=checkout_date.second) - break_to)
 	attendance_value = duration/timedelta(hours=total_work_per_day)
+	if attendance_value > 1:
+		attendance_value = 1
 	return attendance_value,duration
 
 @frappe.whitelist()
