@@ -6,9 +6,6 @@ from frappe.model.document import Document
 from datetime import datetime,timedelta
 
 class Attendance(Document):
-	# def before_insert(self):
-	# 	holiday_list = frappe.db.sql(f"select date from `tabHoliday Schedule` where date = '{self.attendance_date}' and is_day_off=1",as_dict=1)
-	# 	frappe.throw(str(holiday_list)) 
 	pass
 
 @frappe.whitelist()
@@ -68,13 +65,14 @@ def insert_out_attendance():
 			name not in (select 
 							employee 
 						from `tabAttendance` 
-						where DATE(attendance_date) = '{}' and log_type = 'OUT')
+						where DATE(attendance_date) = '{}')
 	""".format(datetime.now().date())
 	employee_list_not_check_out = frappe.db.sql(sql,as_dict=1)
 	fiscal_year = frappe.db.get_value('Fiscal Year', {'is_default': 1})
 	if not fiscal_year:
 		fiscal_year = frappe.get_last_doc('Fiscal Year')
 	for emp in employee_list_not_check_out:
+
 		working_shift = frappe.db.get_value('Shift Assignment', {'employee': emp,'fiscal_year':fiscal_year}, ['shift'], as_dict=1)
 
 		doc = frappe.new_doc("Attendance")
@@ -95,4 +93,7 @@ def insert_out_attendance():
 		doc.insert()		
 	
 	return employee_list_not_check_out
+
+
+
 	

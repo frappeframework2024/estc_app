@@ -13,8 +13,9 @@ def get_columns(filters):
 	columns.append({'fieldname':"employee",'label':"Employee",'fieldtype':'Link','options':'Employee','align':'center','width':130})
 	columns.append({'fieldname':"employee_name",'label':"Employee Name",'align':'left','width':200})
 	columns.append({'fieldname':"attendance_date",'label':"Attendance Date",'fieldtype':'Date','align':'center','width':130})
-	columns.append({'fieldname':"checkin_time",'label':"Checked Date",'fieldtype':'DateTime','align':'center','width':200})
-	columns.append({'fieldname':"log_type",'label':"Log Type",'fieldtype':'Data','align':'left','width':130})
+	columns.append({'fieldname':"checkin_time",'label':"Check In Date",'fieldtype':'DateTime','align':'center','width':200})
+	columns.append({'fieldname':"checkout_time",'label':"Check Out Date",'fieldtype':'DateTime','align':'center','width':200})
+	columns.append({'fieldname':"working_duration",'label':"Working Duration",'fieldtype':'Time','align':'center','width':200})
 	columns.append({'fieldname':"status",'label':"Status",'fieldtype':'Data','align':'center','width':60})
 	
 	return columns
@@ -26,9 +27,10 @@ def get_data(filters):
 				employee,
 				employee_name,
 				attendance_date,
-				IF(checkin_time is NULL,'Not Checked IN',checkin_time) as checkin_time,
-				log_type,
-				LEFT(status, 1) as status
+				checkin_time,
+				checkout_time,
+				working_duration
+				
 			from 
 				`tabAttendance` 
 			{}
