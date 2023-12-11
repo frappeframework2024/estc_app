@@ -29,7 +29,8 @@ def get_data(filters):
 				attendance_date,
 				checkin_time,
 				checkout_time,
-				working_duration
+				working_duration,
+				status
 				
 			from 
 				`tabAttendance` 
