@@ -31,9 +31,8 @@ def get_data(filters):
 				checkout_time,
 				working_duration,
 				status
-				
 			from 
-				`tabAttendance` 
+				`tabAttendance`
 			{}
 			group by
 				employee,
@@ -41,8 +40,8 @@ def get_data(filters):
 				status,
 				log_type
 			order by 
-			employee_name,
-			checkin_time
+				employee_name,
+				checkin_time
 	""".format(get_conditions(filters))
 	data = frappe.db.sql(sql,filters,as_dict=1)
 	return data
