@@ -136,9 +136,9 @@ scheduler_events = {
 		"0 21 * * *":[
 			"estc_app.estc_hr.doctype.attendance.attendance.insert_out_attendance",
 		],
-		"0 8-20/4 * * *":[
-				"estc_app.api.ftp_backup.execute_backup_command",
-		]
+		# "0 8-20/4 * * *":[
+		# 		"estc_app.api.ftp_backup.execute_backup_command",
+		# ]
 	}
 #	"all": [
 #		"estc_app.tasks.all"
