@@ -106,10 +106,6 @@ class LeaveRequest(Document):
 					doc["attendance_value"] = 0.5
 					doc["status"] = "On Leave Half Day PM"
 
-				else:
-					doc["attendance_value"] =1
-					doc["status"] = "On Leave"
-				
 				frappe.get_doc(doc).insert()
 				
 				date = add_to_date(date,days=1)
