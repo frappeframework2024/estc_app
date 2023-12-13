@@ -66,7 +66,7 @@ def insert_attendance(self):
 				'status':'Present',
 				'attendance_value':1,
 				'department':self.department,
-				'late':check_in_late,
+				'late':check_in_late.total_seconds(),
 				'leave_early':0,
 				'shift':working_shift.name,
 				'log_type':punch_direction or 0,
@@ -101,7 +101,7 @@ def insert_attendance(self):
 						'status':attendance_status,
 						'attendance_date':self.check_in_time,
 						'department':self.department,
-						'late':check_in_late.total_seconds(),
+						'late':check_in_late.total_seconds() or 0,
 						'shift':working_shift.name,
 						'is_finger_print':1,
 						'photo':self.photo,
@@ -116,6 +116,7 @@ def insert_attendance(self):
 					attendance.status = 'Present'
 					attendance.checkin_log_id = self.name
 					attendance.is_finger_print = 1
+					attendance.check_in_late = check_in_late.total_seconds() or 0,
 					attendance.save()
 	elif punch_direction == "OUT":
 		
@@ -132,10 +133,11 @@ def insert_attendance(self):
 			if len(holiday)>=1:
 				return
 			get_existed_attendance = frappe.db.exists("Attendance", {"shift":working_shift.name,"attendance_date": datetime.strptime(self.check_in_time,'%Y-%m-%d %H:%M:%S').date(),'employee':self.employee})
+			attendance_value,duration = get_attendance_value(self.check_in_time,doc.checkin_time)
 			if get_existed_attendance:
 				doc = frappe.get_doc("Attendance",get_existed_attendance)
 				doc.checkout_time = self.check_in_time
-				attendance_value,duration = get_attendance_value(self.check_in_time,doc.checkin_time)
+				
 				doc.attendance_value=attendance_value
 				doc.working_duration=duration
 				doc.is_finger_print=1
@@ -150,10 +152,12 @@ def insert_attendance(self):
 						'attendance_date':self.check_in_time,
 						'department':self.department,
 						'shift':working_shift.name,
-						'leave_early':check_out_early.total_seconds(),
+						'leave_early':check_out_early.total_seconds() or 0,
 						'checkout_time':self.check_in_time,
 						'photo':self.photo,
 						'checkin_log_id':self.name,
+						'attendance_value':attendance_value,
+						'working_duration':duration,
 						'is_finger_print':1,
 						
 					}).insert()
