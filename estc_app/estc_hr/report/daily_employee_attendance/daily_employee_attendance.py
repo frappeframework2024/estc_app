@@ -15,6 +15,8 @@ def get_columns(filters):
 	columns.append({'fieldname':"attendance_date",'label':"Attendance Date",'fieldtype':'Date','align':'center','width':130})
 	columns.append({'fieldname':"checkin_time",'label':"Check In Date",'fieldtype':'DateTime','align':'center','width':200})
 	columns.append({'fieldname':"checkout_time",'label':"Check Out Date",'fieldtype':'DateTime','align':'center','width':200})
+	columns.append({'fieldname':"late",'label':"Late",'fieldtype':'Time','align':'center','width':200})
+	columns.append({'fieldname':"leave_early",'label':"Leave Early",'fieldtype':'Time','align':'center','width':200})
 	columns.append({'fieldname':"working_duration",'label':"Working Duration",'fieldtype':'Time','align':'center','width':200})
 	columns.append({'fieldname':"status",'label':"Status",'fieldtype':'Data','align':'center','width':60})
 	
@@ -29,6 +31,8 @@ def get_data(filters):
 				attendance_date,
 				checkin_time,
 				checkout_time,
+				SEC_TO_TIME(late) late,
+				SEC_TO_TIME(leave_early) leave_early,
 				working_duration,
 				status
 			from 

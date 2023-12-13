@@ -61,9 +61,10 @@ def insert_attendance(self):
 			#check if employee check in late
 			if working_shift.off_duty_time >=  timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second):
 				check_in_late = timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second) - timedelta(hours=on_duty_in_hour,minutes=on_duty_in_mins)
+		
 		frappe.db.set_value('Attendance', absents, {
 				'status':'Present',
-				'attendance_value':working_shift.attendance_value,
+				'attendance_value':1,
 				'department':self.department,
 				'late':check_in_late,
 				'leave_early':0,
