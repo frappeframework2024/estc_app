@@ -7,7 +7,6 @@ frappe.ui.form.on("Employee", {
             "method": 'estc_app.estc_hr.doctype.employee.employee.get_current_employee_leave_balance',
             args: {
                 "name": frm.doc.name,
-               
             },
             callback: function (r) {
                 frm.dashboard.add_indicator(__("AL: "+(r.message.max_leave)) ,"red")
