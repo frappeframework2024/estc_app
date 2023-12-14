@@ -133,11 +133,11 @@ def insert_attendance(self):
 			if len(holiday)>=1:
 				return
 			get_existed_attendance = frappe.db.exists("Attendance", {"shift":working_shift.name,"attendance_date": datetime.strptime(self.check_in_time,'%Y-%m-%d %H:%M:%S').date(),'employee':self.employee})
-			attendance_value,duration = get_attendance_value(self.check_in_time,doc.checkin_time)
+			
 			if get_existed_attendance:
 				doc = frappe.get_doc("Attendance",get_existed_attendance)
 				doc.checkout_time = self.check_in_time
-				
+				attendance_value,duration = get_attendance_value(self.check_in_time,doc.checkin_time)
 				doc.attendance_value=attendance_value
 				doc.working_duration=duration
 				doc.is_finger_print=1
