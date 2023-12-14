@@ -109,9 +109,9 @@ class LeaveRequest(Document):
 				frappe.get_doc(doc).insert()
 				
 				date = add_to_date(date,days=1)
-				
-			# update_leave_balance(self)
-			frappe.enqueue("estc_app.estc_hr.doctype.leave_request.leave_request.update_leave_balance", queue='short', self =self)
+			
+		update_leave_balance(self)
+		# frappe.enqueue("estc_app.estc_hr.doctype.leave_request.leave_request.update_leave_balance", queue='short', self =self)
 
 @frappe.whitelist()
 def update_leave_balance(self):
