@@ -37,7 +37,8 @@ class OTRequest(Document):
 			multiply_gain_from_ot = frappe.db.get_single_value('HR Setting','total_work_per_day')
 			holiday = frappe.db.get_all("Holiday Schedule", filters={
 						'is_day_off': 1,
-						'date': self.request_date
+						'date': self.request_date,
+						'day':["!=", "Saturday"]
 					})
 			if not holiday:
 				holiday = frappe.db.get_value("Holiday", filters={

@@ -10,13 +10,18 @@ frappe.ui.form.on("Employee", {
                
             },
             callback: function (r) {
-                frm.dashboard.add_indicator(__("AL: "+r.message.max_leave) ,"red")
-                frm.dashboard.add_indicator(__("Used: "+r.message.use_leave) ,"green") 
-                frm.dashboard.add_indicator(__("Balance: "+r.message.balance) ,"blue") 
+                frm.dashboard.add_indicator(__("AL: "+(r.message.max_leave)) ,"red")
+                frm.dashboard.add_indicator(__("Used: "+(r.message.use_leave)) ,"green") 
+                frm.dashboard.add_indicator(__("Balance: "+(r.message.balance)) ,"blue") 
 
-                frm.dashboard.add_indicator(__("Sick Leave: "+r.message.max_sick_leave) ,"red")
-                frm.dashboard.add_indicator(__("Sick Leave Used: "+r.message.use_sick_leave) ,"green") 
-                frm.dashboard.add_indicator(__("Sick Leave Balance: "+r.message.sick_leave_balance) ,"blue") 
+                frm.dashboard.add_indicator(__("Sick Leave: "+(r.message.max_sick_leave | 0)) ,"red")
+                frm.dashboard.add_indicator(__("Sick Leave Used: "+(r.message.use_sick_leave | 0)) ,"green") 
+                frm.dashboard.add_indicator(__("Sick Leave Balance: "+(r.message.sick_leave_balance | 0)) ,"blue") 
+
+                frm.dashboard.add_indicator(__("OT: "+(r.message.ot_leave| 0)) ,"red")
+                frm.dashboard.add_indicator(__("OT Used: "+(r.message.ot_leave | 0)) ,"green") 
+                frm.dashboard.add_indicator(__("OT Balance: "+(r.message.ot_balance | 0)) ,"blue") 
+                console.log(r.message)
             }
         });
         
