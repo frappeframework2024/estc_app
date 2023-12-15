@@ -196,7 +196,6 @@ def get_employee_on_leave_today():
 		result = "department in ('" + "','".join(names) + "') and "
 	sql=f"""select 
 			name,
-			photo,
 			employee,
 			employee_name,
 			start_date, 
