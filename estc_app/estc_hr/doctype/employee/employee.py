@@ -225,7 +225,6 @@ def get_upcomming_employee_on_leave():
 
 	sql=f"""select 
 			name,
-			photo,
 			employee,
 			employee_name,
 			start_date, 

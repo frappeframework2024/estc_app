@@ -22,8 +22,8 @@ class EmployeeCheckInLog(Document):
 
 	def after_insert(self):
 		
-		frappe.enqueue("estc_app.estc_hr.doctype.employee_check_in_log.employee_check_in_log.insert_attendance",self=self)
-		# insert_attendance(self)
+		# frappe.enqueue("estc_app.estc_hr.doctype.employee_check_in_log.employee_check_in_log.insert_attendance",self=self)
+		insert_attendance(self)
 
 def insert_attendance(self):
 	
@@ -34,17 +34,21 @@ def insert_attendance(self):
 	shift=[d.shift for d in shift_assignment]
 	working_shift=frappe.db.get_list("Working Shift",filters=[['name', 'in', shift]],fields=['name','attendance_value','late_time','is_haft_working_day','on_duty_time','off_duty_time','beginning_in','ending_in','beginning_out','ending_out','leave_early_time','holiday'])
 	
-	punch_direction = None
+	punch_direction = self.log_type
 	check_in_shift={}
+	auto_punch_direction = frappe.db.get_single_value('HR Setting', 'auto_punch_direction')
+	
 	for d in working_shift:
 		timedelta_finger_print = timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second)
 		#Definde Punch Direction
 		if d.beginning_in <= timedelta_finger_print and timedelta_finger_print <= d.ending_in:
-			punch_direction = "IN"
+			if auto_punch_direction == 1:
+				punch_direction = "IN"
 			check_in_shift=d
 			break
 		elif d.beginning_out <= timedelta_finger_print and  timedelta_finger_print <= d.ending_out:
-			punch_direction = "OUT"
+			if auto_punch_direction == 1:
+				punch_direction = "OUT"
 			check_in_shift=d
 			break
 	
@@ -66,7 +70,7 @@ def insert_attendance(self):
 				'status':'Present',
 				'attendance_value':1,
 				'department':self.department,
-				'late':check_in_late.total_seconds(),
+				'late':check_in_late.total_seconds() or 0,
 				'leave_early':0,
 				'shift':working_shift.name,
 				'log_type':punch_direction or 0,
