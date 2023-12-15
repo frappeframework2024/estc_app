@@ -140,9 +140,11 @@ def insert_attendance(self):
 				attendance_value,duration = get_attendance_value(self.check_in_time,doc.checkin_time)
 				doc.attendance_value=attendance_value
 				doc.working_duration=duration
+				doc.leave_early = check_out_early.total_seconds() or 0
 				doc.is_finger_print=1
 				doc.save()
 			else:
+				attendance_value,duration = get_attendance_value(self.check_in_time,doc.checkin_time)
 				frappe.get_doc(
 					{
 						'doctype': 'Attendance',
