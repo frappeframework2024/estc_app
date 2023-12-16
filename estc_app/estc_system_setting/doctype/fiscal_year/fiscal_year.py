@@ -8,32 +8,32 @@ from datetime import datetime, timedelta
 
 class FiscalYear(Document):
 	def before_save(self):
-		
-		if self.is_new():
-			last_fiscal_year = frappe.get_last_doc('Fiscal Year')
-			employee_list= frappe.db.get_list('Employee', fields=['name', 'date_of_joining'])
-			employee_leave_balance = frappe.db.get_list("Employee Attendance Leave Count", 
-                    	filters={
-								'docstatus': 1,
-								'fiscal_year':last_fiscal_year.name
-							},
-                    	fields=['sum(balance) as carry_over_balance', 'employee'],
-                    	group_by='employee')
-			annual_leave_setting = frappe.db.sql("""select * from `tabAnnual Leave Count Setting`""",as_dict=1)
-			for emp in employee_list:
-				start_date = emp['date_of_joining'] or datetime.date(datetime.now())
-				current_date = datetime.date(datetime.strptime(self.start_date, '%Y-%m-%d'))
-				diff = current_date - start_date
+		pass
+		# if self.is_new():
+		# 	last_fiscal_year = frappe.get_last_doc('Fiscal Year')
+		# 	employee_list= frappe.db.get_list('Employee', fields=['name', 'date_of_joining'])
+		# 	employee_leave_balance = frappe.db.get_list("Employee Attendance Leave Count", 
+        #             	filters={
+		# 						'docstatus': 1,
+		# 						'fiscal_year':last_fiscal_year.name
+		# 					},
+        #             	fields=['sum(balance) as carry_over_balance', 'employee'],
+        #             	group_by='employee')
+		# 	annual_leave_setting = frappe.db.sql("""select * from `tabAnnual Leave Count Setting`""",as_dict=1)
+		# 	for emp in employee_list:
+		# 		start_date = emp['date_of_joining'] or datetime.date(datetime.now())
+		# 		current_date = datetime.date(datetime.strptime(self.start_date, '%Y-%m-%d'))
+		# 		diff = current_date - start_date
 				
-				self.append("leave_count", {
-						"employee":emp['name'],
-						"date_of_joining":start_date or 0,
-						"duration":diff.days/365,
-						"annual_leave":get_annual_leave_count(annual_leave_setting,diff.days/365),
-						"sick_leave":0,
-						"carry_over": get_carry_over_balance(emp['name'],employee_leave_balance),
-						"monthly_accrual":0,
-					})
+		# 		self.append("leave_count", {
+		# 				"employee":emp['name'],
+		# 				"date_of_joining":start_date or 0,
+		# 				"duration":diff.days/365,
+		# 				"annual_leave":get_annual_leave_count(annual_leave_setting,diff.days/365),
+		# 				"sick_leave":0,
+		# 				"carry_over": get_carry_over_balance(emp['name'],employee_leave_balance),
+		# 				"monthly_accrual":0,
+		#			})
 
 	def on_update(self):
 		frappe.enqueue('estc_app.estc_system_setting.doctype.fiscal_year.fiscal_year.generate_holidays',self=self)
