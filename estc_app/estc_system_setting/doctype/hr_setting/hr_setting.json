@@ -13,6 +13,7 @@
   "annual_leave_type",
   "sick_leave_type",
   "ot_leave_type",
+  "auto_punch_direction",
   "column_break_apyx",
   "leave_status_approved_from_hr",
   "total_work_per_day",
@@ -132,12 +133,18 @@
    "fieldname": "break_to",
    "fieldtype": "Time",
    "label": "Break To"
+  },
+  {
+   "default": "1",
+   "fieldname": "auto_punch_direction",
+   "fieldtype": "Check",
+   "label": "Auto Punch Direction"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-12-08 11:29:03.461640",
+ "modified": "2023-12-15 15:42:53.606728",
  "modified_by": "Administrator",
  "module": "ESTC System Setting",
  "name": "HR Setting",
