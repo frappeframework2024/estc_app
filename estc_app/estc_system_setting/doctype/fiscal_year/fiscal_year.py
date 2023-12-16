@@ -8,9 +8,11 @@ from datetime import datetime, timedelta
 
 class FiscalYear(Document):
 	def before_save(self):
-		
 		if self.is_new():
-			last_fiscal_year = frappe.get_last_doc('Fiscal Year')
+			last_fiscal_year={}
+			if frappe.db.exists("Fiscal Year"):
+				last_fiscal_year = frappe.get_last_doc('Fiscal Year')
+
 			employee_list= frappe.db.get_list('Employee', fields=['name', 'date_of_joining'])
 			if last_fiscal_year:
 				employee_leave_balance = frappe.db.get_list("Employee Attendance Leave Count", 
