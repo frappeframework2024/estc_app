@@ -12,7 +12,6 @@ class FiscalYear(Document):
 			last_fiscal_year={}
 			if frappe.db.exists("Fiscal Year"):
 				last_fiscal_year = frappe.get_last_doc('Fiscal Year')
-
 			employee_list= frappe.db.get_list('Employee', fields=['name', 'date_of_joining'])
 			if last_fiscal_year:
 				employee_leave_balance = frappe.db.get_list("Employee Attendance Leave Count", 
