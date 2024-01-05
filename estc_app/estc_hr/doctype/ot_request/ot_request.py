@@ -34,7 +34,7 @@ class OTRequest(Document):
 		total_work_per_day = frappe.db.get_single_value('HR Setting','total_work_per_day')
 		leave_status_approved_from_hr = frappe.db.get_single_value('HR Setting','leave_status_approved_from_hr')
 		if self.status == leave_status_approved_from_hr:
-			multiply_gain_from_ot = frappe.db.get_single_value('HR Setting','total_work_per_day')
+			multiply_gain_from_ot = frappe.db.get_single_value('HR Setting','multiply_gain_from_ot')
 			holiday = frappe.db.get_all("Holiday Schedule", filters={
 						'is_day_off': 1,
 						'date': self.request_date,
@@ -49,25 +49,46 @@ class OTRequest(Document):
 				doc = frappe.new_doc('Employee Attendance Leave Count')
 				doc.fiscal_year = default_fiscal_year
 				doc.employee = self.employee
-				doc.max_leave = ((total_work_hours.total_seconds()/total_work_per_day)/3600) * 2 if holiday else (total_work_hours.total_seconds()/total_work_per_day)/3600
+				doc.max_leave = ((total_work_hours.total_seconds()/total_work_per_day)/3600) * multiply_gain_from_ot if holiday else (total_work_hours.total_seconds()/total_work_per_day)/3600
 				doc.use_leave = 0
 				doc.balance = doc.max_leave - doc.use_leave
 				doc.leave_type=ot_leave_type or None
 				doc.save()
-				frappe.db.set_value('OT Request', self.name, 'leave_count', ((total_work_hours.total_seconds()/total_work_per_day)/3600) * 2 if holiday else (total_work_hours.total_seconds()/total_work_per_day)/3600)
+				frappe.db.sql(f"""
+                  				UPDATE `tabOT Request`
+                      					set leave_count = {((total_work_hours.total_seconds()/total_work_per_day)/3600) * multiply_gain_from_ot if holiday else (total_work_hours.total_seconds()/total_work_per_day)/3600}
+								where
+        							name = '{self.name}'
+                      			""");
+				
+				frappe.db.commit()
+				#frappe.throw(str( ((total_work_hours.total_seconds()/total_work_per_day)/3600) * multiply_gain_from_ot if holiday else (total_work_hours.total_seconds()/total_work_per_day)/3600))
 			else:
 				frappe.db.sql(f"""
                   				UPDATE `tabEmployee Attendance Leave Count` 
                       					set 
-                           					max_leave = max_leave + {((total_work_hours.total_seconds()/total_work_per_day)/3600) * 2 if holiday else (total_work_hours.total_seconds()/total_work_per_day)/3600},
-                           					balance = balance + {((total_work_hours.total_seconds()/total_work_per_day)/3600) * 2 if holiday else (total_work_hours.total_seconds()/total_work_per_day)/3600}
+                           					max_leave = max_leave + {((total_work_hours.total_seconds()/total_work_per_day)/3600) * multiply_gain_from_ot if holiday else (total_work_hours.total_seconds()/total_work_per_day)/3600},
+                           					balance = balance + {((total_work_hours.total_seconds()/total_work_per_day)/3600) * multiply_gain_from_ot if holiday else (total_work_hours.total_seconds()/total_work_per_day)/3600}
 								where
         							leave_type = '{ot_leave_type}' and
 									employee = '{self.employee}' and 
 									fiscal_year = '{default_fiscal_year}'
                       			""");
-				frappe.db.commit()
 
+				frappe.db.commit()
+		elif self.status == "Cancel Approved":
+			frappe.db.sql(f"""
+								UPDATE `tabEmployee Attendance Leave Count` 
+										set 
+											max_leave = max_leave - {self.leave_count},
+											balance = balance -  {self.leave_count}
+								where
+									leave_type = '{ot_leave_type}' and
+									employee = '{self.employee}' and 
+									fiscal_year = '{default_fiscal_year}'
+								""");
+			
+			frappe.db.commit()
 
 
 @frappe.whitelist()

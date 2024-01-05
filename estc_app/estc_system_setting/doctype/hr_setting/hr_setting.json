@@ -112,7 +112,6 @@
    "default": "2",
    "fieldname": "multiply_gain_from_ot",
    "fieldtype": "Int",
-   "hidden": 1,
    "label": "Multiply Gain From OT"
   },
   {
@@ -144,7 +143,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-12-15 15:42:53.606728",
+ "modified": "2024-01-02 11:09:34.496574",
  "modified_by": "Administrator",
  "module": "ESTC System Setting",
  "name": "HR Setting",

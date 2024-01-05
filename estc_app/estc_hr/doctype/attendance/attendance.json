@@ -69,7 +69,7 @@
    "search_index": 1
   },
   {
-   "fetch_from": "leave_request.leave_type",
+   "fetch_from": ".leave_type",
    "fieldname": "leave_type",
    "fieldtype": "Data",
    "label": "Leave Type"
@@ -109,6 +109,7 @@
    "label": "Attendance Value"
   },
   {
+   "fetch_from": ".",
    "fieldname": "checkin_log_id",
    "fieldtype": "Data",
    "hidden": 1,
@@ -187,7 +188,7 @@
    "link_fieldname": "attendance"
   }
  ],
- "modified": "2023-12-12 16:49:54.354405",
+ "modified": "2024-01-03 10:18:41.977916",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Attendance",

@@ -61,58 +61,114 @@ class LeaveRequest(Document):
 		#frappe.throw(self.status)
 		# to do add rescord to attench list
 		leave_status = frappe.get_doc("Leave Status", self.status)
-		
-		if leave_status.delete_attendance_record==1:
-			frappe.db.sql("delete from `tabAttendance` where leave_request='{}'".format(self.name))
-		
-		if leave_status.create_attendance_record==1:
+		sick_leave = frappe.db.get_single_value("HR Setting","sick_leave_type")
+		if self.leave_type != sick_leave:
 			
-			date = getdate(self.start_date)
-			holiday_list = frappe.db.sql(f"select date from `tabHoliday Schedule` where date between '{self.start_date}' and '{self.to_date}' and is_day_off=1",as_dict=1)
+			if leave_status.delete_attendance_record==1:
+				frappe.db.sql("delete from `tabAttendance` where leave_request='{}'".format(self.name))
 			
-			while date<=getdate(self.to_date):
-				if any(item["date"] == date for item in holiday_list):
-					date = add_to_date(date,days=1)
-					continue
-				doc = {
-					"doctype":"Attendance",
-					"fiscal_year":self.fiscal_year,
-					"employee":self.employee,
-					"attendance_date": date,
-					"leave_request":self.name,
-					'late':None,
-					'checkin_time':None,
-					"reason":self.reason
-				}
+			if leave_status.create_attendance_record==1:
 				
-				if date == getdate(self.start_date) and self.is_start_date_half_day == 1 and self.is_start_date_period == "AM":
-					doc["attendance_value"] = 0.5
-					doc["status"] = "On Leave Half Day AM"
-
-				elif date == getdate(self.start_date) and self.is_start_date_half_day == 1 and self.is_start_date_period == "PM":
-					doc["attendance_value"] = 0.5
-					doc["status"] = "On Leave Half Day PM"
-
-				else:
-					doc["attendance_value"] =1
-					doc["status"] = "On Leave"
+				date = getdate(self.start_date)
+				holiday_list = frappe.db.sql(f"select date from `tabHoliday Schedule` where date between '{self.start_date}' and '{self.to_date}' and is_day_off=1",as_dict=1)
+				
+				while date<=getdate(self.to_date):
+					if any(item["date"] == date for item in holiday_list):
+						date = add_to_date(date,days=1)
+						continue
+					doc = {
+						"doctype":"Attendance",
+						"fiscal_year":self.fiscal_year,
+						"employee":self.employee,
+						"attendance_date": date,
+						"leave_type":self.leave_type,
+						"leave_request":self.name,
+						'late':None,
+						'checkin_time':None,
+						"reason":self.reason
+					}
 					
-				
-				if date == getdate(self.to_date) and self.is_to_date_half_day==1 and self.to_date_period=="AM":
-					doc["attendance_value"] = 0.5
-					doc["status"] = "On Leave Half Day AM"
+					if date == getdate(self.start_date) and self.is_start_date_half_day == 1 and self.is_start_date_period == "AM":
+						doc["attendance_value"] = 0.5
+						doc["status"] = "On Leave Half Day AM"
 
-				elif date == getdate(self.to_date) and self.is_to_date_half_day==1 and self.to_date_period=="PM":
-					doc["attendance_value"] = 0.5
-					doc["status"] = "On Leave Half Day PM"
+					elif date == getdate(self.start_date) and self.is_start_date_half_day == 1 and self.is_start_date_period == "PM":
+						doc["attendance_value"] = 0.5
+						doc["status"] = "On Leave Half Day PM"
 
-				frappe.get_doc(doc).insert()
-				
-				date = add_to_date(date,days=1)
+					else:
+						doc["attendance_value"] =1
+						doc["status"] = "On Leave"
+						
+					
+					if date == getdate(self.to_date) and self.is_to_date_half_day==1 and self.to_date_period=="AM":
+						doc["attendance_value"] = 0.5
+						doc["status"] = "On Leave Half Day AM"
+
+					elif date == getdate(self.to_date) and self.is_to_date_half_day==1 and self.to_date_period=="PM":
+						doc["attendance_value"] = 0.5
+						doc["status"] = "On Leave Half Day PM"
+
+					frappe.get_doc(doc).insert()
+					
+					date = add_to_date(date,days=1)
+				update_leave_balance(self)
+		elif self.leave_type == sick_leave:
+
+			if leave_status.delete_attendance_record==1:
+				frappe.db.sql("delete from `tabAttendance` where leave_request='{}'".format(self.name))
 			
-		update_leave_balance(self)
-		# frappe.enqueue("estc_app.estc_hr.doctype.leave_request.leave_request.update_leave_balance", queue='short', self =self)
+			if leave_status.create_attendance_record==1:
+				
+				date = getdate(self.start_date)
+				annual_leave_type = frappe.db.get_single_value("HR Setting","annual_leave_type")
+				holiday_list = frappe.db.sql(f"select date from `tabHoliday Schedule` where date between '{self.start_date}' and '{self.to_date}' and is_day_off=1",as_dict=1)
+				leave_type = self.leave_type  if self.status == "HR Approved" else annual_leave_type
+				if self.status != "Approved":
+					
+					while date<=getdate(self.to_date):
+						if any(item["date"] == date for item in holiday_list):
+							date = add_to_date(date,days=1)
+							continue
+						doc = {
+							"doctype":"Attendance",
+							"fiscal_year":self.fiscal_year,
+							"employee":self.employee,
+							"attendance_date": date,
+							"leave_type":leave_type,
+							"leave_request":self.name,
+							'late':None,
+							'checkin_time':None,
+							"reason":self.reason
+						}
+						
+						if date == getdate(self.start_date) and self.is_start_date_half_day == 1 and self.is_start_date_period == "AM":
+							doc["attendance_value"] = 0.5
+							doc["status"] = "On Leave Half Day AM"
 
+						elif date == getdate(self.start_date) and self.is_start_date_half_day == 1 and self.is_start_date_period == "PM":
+							doc["attendance_value"] = 0.5
+							doc["status"] = "On Leave Half Day PM"
+
+						else:
+							doc["attendance_value"] =1
+							doc["status"] = "On Leave"
+							
+						
+						if date == getdate(self.to_date) and self.is_to_date_half_day==1 and self.to_date_period=="AM":
+							doc["attendance_value"] = 0.5
+							doc["status"] = "On Leave Half Day AM"
+
+						elif date == getdate(self.to_date) and self.is_to_date_half_day==1 and self.to_date_period=="PM":
+							doc["attendance_value"] = 0.5
+							doc["status"] = "On Leave Half Day PM"
+						
+						frappe.get_doc(doc).insert()
+						
+						date = add_to_date(date,days=1)
+			update_leave_balance(self)
+		# frappe.enqueue("estc_app.estc_hr.doctype.leave_request.leave_request.update_leave_balance", queue='short', self =self)
+			
 @frappe.whitelist()
 def update_leave_balance(self):
 	employee_attendance = frappe.db.sql("select * from `tabEmployee Attendance Leave Count` where employee='{}' and fiscal_year='{}'".format(self.employee, self.fiscal_year),as_dict=1)
