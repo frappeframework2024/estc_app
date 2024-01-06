@@ -52,120 +52,120 @@ def insert_attendance(self):
 			check_in_shift=d
 	
 	working_shift=check_in_shift
-
-	on_duty_in_hour = working_shift.on_duty_time.total_seconds() // 3600 # will return on 8h
-	
-	on_duty_in_mins = (working_shift.on_duty_time.total_seconds() % 3600) // 60 + working_shift.late_time #will return 10mins		
-	#check exist if check in after auto insert Absent Attendance
-	absents = frappe.db.exists("Attendance", {"employee": self.employee,'fiscal_year':fiscal_year,'attendance_date':check_date.date(),'status':'Absent'})
-	check_in_late=0
-	if absents:
-		if timedelta(hours=on_duty_in_hour,minutes=on_duty_in_mins) < timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second):	
-			#check if employee check in late
-			if working_shift.off_duty_time >=  timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second):
-				check_in_late = timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second) - timedelta(hours=on_duty_in_hour,minutes=on_duty_in_mins)
+	if working_shift:
+		on_duty_in_hour = working_shift.on_duty_time.total_seconds() // 3600 # will return on 8h
 		
-		frappe.db.set_value('Attendance', absents, {
-				'status':'Present',
-				'attendance_value':1,
-				'department':self.department,
-				'late':check_in_late.total_seconds() or 0,
-				'leave_early':0,
-				'shift':working_shift.name,
-				'log_type':punch_direction or 0,
-				'photo':self.photo,
-				'checkin_time':self.check_in_time,
-				'checkin_log_id':self.name
-		})
-		return
-
-	if punch_direction == "IN":
-		if working_shift:
-			
-			check_in_late=timedelta()
-			holiday = frappe.db.sql(f"select date from `tabHoliday Schedule` where date = '{check_date.date()}' and parent = '{working_shift.holiday}'",as_dict=1)
-			if len(holiday)>=1:
-				return
-			attendance_status = "Present"
-			#check if employee check on duty time
-			if timedelta(hours=on_duty_in_hour,minutes=on_duty_in_mins) < timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second):
+		on_duty_in_mins = (working_shift.on_duty_time.total_seconds() % 3600) // 60 + working_shift.late_time #will return 10mins		
+		#check exist if check in after auto insert Absent Attendance
+		absents = frappe.db.exists("Attendance", {"employee": self.employee,'fiscal_year':fiscal_year,'attendance_date':check_date.date(),'status':'Absent'})
+		check_in_late=0
+		if absents:
+			if timedelta(hours=on_duty_in_hour,minutes=on_duty_in_mins) < timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second):	
 				#check if employee check in late
 				if working_shift.off_duty_time >=  timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second):
 					check_in_late = timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second) - timedelta(hours=on_duty_in_hour,minutes=on_duty_in_mins)
-			#prenvent check in multiple times
-			get_existed_attendance = frappe.db.exists("Attendance", {"shift":working_shift.name,"attendance_date": datetime.strptime(self.check_in_time,'%Y-%m-%d %H:%M:%S').date(),'employee':self.employee,'shift':working_shift.name})
-
-			if not get_existed_attendance:
-				frappe.get_doc(
-					{
-						'doctype': 'Attendance',
-						'employee': self.employee,
-						'fiscal_year':fiscal_year,
-						'status':attendance_status,
-						'attendance_date':self.check_in_time,
-						'department':self.department,
-						'late':check_in_late.total_seconds() or 0,
-						'shift':working_shift.name,
-						'is_finger_print':1,
-						'photo':self.photo,
-						'checkin_time':self.check_in_time,
-						'checkin_log_id':self.name,
-						'is_finger_print':1
-					}).insert()
-			else:
-				if timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second) <= working_shift.ending_in : 
-					#Check in After insert attendance Absent update status if check in before ending in
-					attendance = frappe.get_doc("Attendance",get_existed_attendance)
-					attendance.status = 'Present'
-					attendance.checkin_log_id = self.name
-					attendance.is_finger_print = 1
-					attendance.check_in_late = check_in_late.total_seconds() or 0,
-					attendance.save()
-	elif punch_direction == "OUT":
-		
-		check_out_early=timedelta()
-		attendance_status = "Present"
-		if working_shift:
-			begin_out_hour = working_shift.off_duty_time.total_seconds() // 3600 # will return on 8h
-			begin_out_mins = ((working_shift.off_duty_time.total_seconds() % 3600*60) // 60) - working_shift.leave_early_time #will return in mins
-			#check if employee check on duty time
-			if timedelta(hours=begin_out_hour,seconds=begin_out_mins) > timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second):	
-				#check if employee check in late
-				check_out_early = timedelta(hours=begin_out_hour,seconds=begin_out_mins) - timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second)
-			holiday = frappe.db.sql(f"select date from `tabHoliday Schedule` where date = '{check_date.date()}' and parent = '{working_shift.holiday}'",as_dict=1)
-			if len(holiday)>=1:
-				return
-			get_existed_attendance = frappe.db.exists("Attendance", {"shift":working_shift.name,"attendance_date": datetime.strptime(self.check_in_time,'%Y-%m-%d %H:%M:%S').date(),'employee':self.employee})
 			
-			if get_existed_attendance:
-				doc = frappe.get_doc("Attendance",get_existed_attendance)
-				doc.checkout_time = self.check_in_time
-				attendance_value,duration = get_attendance_value(self.check_in_time,doc.checkin_time)
-				doc.attendance_value=attendance_value
-				doc.working_duration=duration
-				doc.leave_early = check_out_early.total_seconds() or 0
-				doc.is_finger_print=1
-				doc.save()
-			else:
-				attendance_value,duration = get_attendance_value(self.check_in_time,doc.checkin_time)
-				frappe.get_doc(
-					{
-						'doctype': 'Attendance',
-						'employee': self.employee,
-						'fiscal_year':fiscal_year,
-						'status':attendance_status,
-						'attendance_date':self.check_in_time,
-						'department':self.department,
-						'shift':working_shift.name,
-						'leave_early':check_out_early.total_seconds() or 0,
-						'checkout_time':self.check_in_time,
-						'photo':self.photo,
-						'checkin_log_id':self.name,
-						'attendance_value':attendance_value,
-						'working_duration':duration,
-						'is_finger_print':1,
-						
-					}).insert()
+			frappe.db.set_value('Attendance', absents, {
+					'status':'Present',
+					'attendance_value':1,
+					'department':self.department,
+					'late':check_in_late.total_seconds() or 0,
+					'leave_early':0,
+					'shift':working_shift.name,
+					'log_type':punch_direction or 0,
+					'photo':self.photo,
+					'checkin_time':self.check_in_time,
+					'checkin_log_id':self.name
+			})
+			return
+
+		if punch_direction == "IN":
+			if working_shift:
+				
+				check_in_late=timedelta()
+				holiday = frappe.db.sql(f"select date from `tabHoliday Schedule` where date = '{check_date.date()}' and parent = '{working_shift.holiday}'",as_dict=1)
+				if len(holiday)>=1:
+					return
+				attendance_status = "Present"
+				#check if employee check on duty time
+				if timedelta(hours=on_duty_in_hour,minutes=on_duty_in_mins) < timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second):
+					#check if employee check in late
+					if working_shift.off_duty_time >=  timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second):
+						check_in_late = timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second) - timedelta(hours=on_duty_in_hour,minutes=on_duty_in_mins)
+				#prenvent check in multiple times
+				get_existed_attendance = frappe.db.exists("Attendance", {"shift":working_shift.name,"attendance_date": datetime.strptime(self.check_in_time,'%Y-%m-%d %H:%M:%S').date(),'employee':self.employee,'shift':working_shift.name})
+
+				if not get_existed_attendance:
+					frappe.get_doc(
+						{
+							'doctype': 'Attendance',
+							'employee': self.employee,
+							'fiscal_year':fiscal_year,
+							'status':attendance_status,
+							'attendance_date':self.check_in_time,
+							'department':self.department,
+							'late':check_in_late.total_seconds() or 0,
+							'shift':working_shift.name,
+							'is_finger_print':1,
+							'photo':self.photo,
+							'checkin_time':self.check_in_time,
+							'checkin_log_id':self.name,
+							'is_finger_print':1
+						}).insert()
+				else:
+					if timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second) <= working_shift.ending_in : 
+						#Check in After insert attendance Absent update status if check in before ending in
+						attendance = frappe.get_doc("Attendance",get_existed_attendance)
+						attendance.status = 'Present'
+						attendance.checkin_log_id = self.name
+						attendance.is_finger_print = 1
+						attendance.check_in_late = check_in_late.total_seconds() or 0,
+						attendance.save()
+		elif punch_direction == "OUT":
+			
+			check_out_early=timedelta()
+			attendance_status = "Present"
+			if working_shift:
+				begin_out_hour = working_shift.off_duty_time.total_seconds() // 3600 # will return on 8h
+				begin_out_mins = ((working_shift.off_duty_time.total_seconds() % 3600*60) // 60) - working_shift.leave_early_time #will return in mins
+				#check if employee check on duty time
+				if timedelta(hours=begin_out_hour,seconds=begin_out_mins) > timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second):	
+					#check if employee check in late
+					check_out_early = timedelta(hours=begin_out_hour,seconds=begin_out_mins) - timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second)
+				holiday = frappe.db.sql(f"select date from `tabHoliday Schedule` where date = '{check_date.date()}' and parent = '{working_shift.holiday}'",as_dict=1)
+				if len(holiday)>=1:
+					return
+				get_existed_attendance = frappe.db.exists("Attendance", {"shift":working_shift.name,"attendance_date": datetime.strptime(self.check_in_time,'%Y-%m-%d %H:%M:%S').date(),'employee':self.employee})
+				
+				if get_existed_attendance:
+					doc = frappe.get_doc("Attendance",get_existed_attendance)
+					doc.checkout_time = self.check_in_time
+					attendance_value,duration = get_attendance_value(self.check_in_time,doc.checkin_time)
+					doc.attendance_value=attendance_value
+					doc.working_duration=duration
+					doc.leave_early = check_out_early.total_seconds() or 0
+					doc.is_finger_print=1
+					doc.save()
+				else:
+					attendance_value,duration = get_attendance_value(self.check_in_time,doc.checkin_time)
+					frappe.get_doc(
+						{
+							'doctype': 'Attendance',
+							'employee': self.employee,
+							'fiscal_year':fiscal_year,
+							'status':attendance_status,
+							'attendance_date':self.check_in_time,
+							'department':self.department,
+							'shift':working_shift.name,
+							'leave_early':check_out_early.total_seconds() or 0,
+							'checkout_time':self.check_in_time,
+							'photo':self.photo,
+							'checkin_log_id':self.name,
+							'attendance_value':attendance_value,
+							'working_duration':duration,
+							'is_finger_print':1,
+							
+						}).insert()
 
 
 def get_attendance_value(checkout_time,checkin_time):
