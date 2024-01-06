@@ -147,7 +147,7 @@ def insert_attendance(self):
 					doc.is_finger_print=1
 					doc.save()
 				else:
-					attendance_value,duration = get_attendance_value(self.check_in_time,self.check_in_time)
+					attendance_value,duration = get_attendance_value(self.check_in_time,datetime.strptime(self.check_in_time,'%Y-%m-%d %H:%M:%S'))
 					frappe.get_doc(
 						{
 							'doctype': 'Attendance',
