@@ -84,7 +84,7 @@ def insert_attendance(self):
 		if working_shift:
 			
 			check_in_late=timedelta()
-			holiday = frappe.db.sql(f"select date from `tabHoliday Schedule` where date = '{check_date.date()}' and parent = {working_shift.holiday}",as_dict=1)
+			holiday = frappe.db.sql(f"select date from `tabHoliday Schedule` where date = '{check_date.date()}' and parent = '{working_shift.holiday}'",as_dict=1)
 			if len(holiday)>=1:
 				return
 			attendance_status = "Present"
@@ -133,7 +133,7 @@ def insert_attendance(self):
 			if timedelta(hours=begin_out_hour,seconds=begin_out_mins) > timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second):	
 				#check if employee check in late
 				check_out_early = timedelta(hours=begin_out_hour,seconds=begin_out_mins) - timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second)
-			holiday = frappe.db.sql(f"select date from `tabHoliday Schedule` where date = '{check_date.date()}' and parent = {working_shift.holiday}",as_dict=1)
+			holiday = frappe.db.sql(f"select date from `tabHoliday Schedule` where date = '{check_date.date()}' and parent = '{working_shift.holiday}'",as_dict=1)
 			if len(holiday)>=1:
 				return
 			get_existed_attendance = frappe.db.exists("Attendance", {"shift":working_shift.name,"attendance_date": datetime.strptime(self.check_in_time,'%Y-%m-%d %H:%M:%S').date(),'employee':self.employee})
