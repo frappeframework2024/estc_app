@@ -41,16 +41,15 @@ def insert_attendance(self):
 	for d in working_shift:
 		timedelta_finger_print = timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second)
 		#Definde Punch Direction
-		if d.beginning_in <= timedelta_finger_print and timedelta_finger_print <= d.ending_in:
-			if auto_punch_direction == 1:
-				punch_direction = "IN"
+		if auto_punch_direction == 1:
+			if d.beginning_in <= timedelta_finger_print and timedelta_finger_print <= d.ending_in:
+				check_in_shift=d
+				break
+			elif d.beginning_out <= timedelta_finger_print and  timedelta_finger_print <= d.ending_out:
+				check_in_shift=d
+				break
+		else:
 			check_in_shift=d
-			break
-		elif d.beginning_out <= timedelta_finger_print and  timedelta_finger_print <= d.ending_out:
-			if auto_punch_direction == 1:
-				punch_direction = "OUT"
-			check_in_shift=d
-			break
 	
 	working_shift=check_in_shift
 
