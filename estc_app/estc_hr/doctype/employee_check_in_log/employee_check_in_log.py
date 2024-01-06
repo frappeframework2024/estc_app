@@ -9,7 +9,7 @@ from datetime import datetime,timedelta
 class EmployeeCheckInLog(Document):
 	def before_insert(self):
 		
-		employee = frappe.db.get_value("Employee",{"attendance_device_id":self.employee_device_id},["employee_name","employee_code","department","name","position","photo"],as_dict=1)
+		employee = frappe.db.get_value("Employee",{"attendance_device_id":self.employee_device_id},["employee_name","department","name","position","photo"],as_dict=1)
 		if employee:
 			self.employee_name = employee.employee_name
 			self.title = employee.employee_name
