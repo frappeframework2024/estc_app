@@ -32,32 +32,42 @@ def insert_attendance(self):
 	check_date = datetime.strptime(self.check_in_time,'%Y-%m-%d %H:%M:%S')
 	finger_print_time = check_date.time()
 	shift=[d.shift for d in shift_assignment]
-	working_shift=frappe.db.get_list("Working Shift",filters=[['name', 'in', shift]],fields=['name','attendance_value','late_time','is_haft_working_day','on_duty_time','off_duty_time','beginning_in','ending_in','beginning_out','ending_out','leave_early_time','holiday'])
+	working_shift=frappe.db.get_list("Working Shift",filters=[['name', 'in', shift]],fields=['name','attendance_value','late_time','on_duty_time','off_duty_time','beginning_in','ending_in','beginning_out','ending_out','leave_early_time','holiday'])
 	
 	punch_direction = self.log_type
 	check_in_shift={}
 	auto_punch_direction = frappe.db.get_single_value('HR Setting', 'auto_punch_direction')
-	
+	#frappe.throw(str(working_shift))
 	for d in working_shift:
 		timedelta_finger_print = timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second)
 		#Definde Punch Direction
 		if auto_punch_direction == 1:
 			if d.beginning_in <= timedelta_finger_print and timedelta_finger_print <= d.ending_in:
 				check_in_shift=d
+				punch_direction="IN"
+				break
+			elif d.beginning_out <= timedelta_finger_print and  timedelta_finger_print <= d.ending_out:
+				check_in_shift=d
+				punch_direction="OUT"
+				break
+		else:
+			if d.beginning_in <= timedelta_finger_print and timedelta_finger_print <= d.ending_in:
+				check_in_shift=d
 				break
 			elif d.beginning_out <= timedelta_finger_print and  timedelta_finger_print <= d.ending_out:
 				check_in_shift=d
 				break
-		else:
-			check_in_shift=d
 	
 	working_shift=check_in_shift
+	# frappe.throw(str(working_shift))
 	if working_shift:
+		
 		on_duty_in_hour = working_shift.on_duty_time.total_seconds() // 3600 # will return on 8h
 		
 		on_duty_in_mins = (working_shift.on_duty_time.total_seconds() % 3600) // 60 + working_shift.late_time #will return 10mins		
 		#check exist if check in after auto insert Absent Attendance
 		absents = frappe.db.exists("Attendance", {"employee": self.employee,'fiscal_year':fiscal_year,'attendance_date':check_date.date(),'status':'Absent'})
+		
 		check_in_late=0
 		if absents:
 			if timedelta(hours=on_duty_in_hour,minutes=on_duty_in_mins) < timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second):	
@@ -80,6 +90,7 @@ def insert_attendance(self):
 			return
 
 		if punch_direction == "IN":
+			
 			if working_shift:
 				
 				check_in_late=timedelta()
@@ -173,11 +184,14 @@ def get_attendance_value(checkout_time,checkin_time):
 	break_to = frappe.db.get_single_value('HR Setting', 'break_to')
 	total_work_per_day = frappe.db.get_single_value('HR Setting', 'total_work_per_day')
 	checkout_date = datetime.strptime(checkout_time,'%Y-%m-%d %H:%M:%S')
-	duration = (break_from - timedelta(hours=checkin_time.hour,minutes=checkin_time.minute,seconds=checkin_time.second) + timedelta(hours=checkout_date.hour,minutes=checkout_date.minute,seconds=checkout_date.second) - break_to)
-	attendance_value = duration/timedelta(hours=total_work_per_day)
-	if attendance_value > 1:
-		attendance_value = 1
-	return attendance_value,duration
+	if checkin_time:
+		duration = (break_from - timedelta(hours=checkin_time.hour,minutes=checkin_time.minute,seconds=checkin_time.second) + timedelta(hours=checkout_date.hour,minutes=checkout_date.minute,seconds=checkout_date.second) - break_to)
+		attendance_value = duration/timedelta(hours=total_work_per_day)
+		if attendance_value > 1:
+			attendance_value = 1
+		return attendance_value,duration
+	else:
+		return 0,0
 
 @frappe.whitelist()
 def employee_checked_in(employee_device_id,

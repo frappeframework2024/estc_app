@@ -33,7 +33,7 @@ def insert_attendance():
 		shift_assignment = frappe.db.get_value('Shift Assignment', {'employee': emp.name,'fiscal_year': default_fiscal_year}, ['holiday','shift'],as_dict=1)
 		if shift_assignment:
 			day_off = frappe.db.sql("""select name from `tabHoliday Schedule` where parent = '{0}' and date = '{1}' and is_day_off = 1""".format(shift_assignment.holiday,datetime.now().date()))
-			working_shift=frappe.db.get_value("Working Shift",shift_assignment.shift,['name','late_time','is_haft_working_day','on_duty_time','off_duty_time','beginning_in','ending_in','beginning_out','ending_out','leave_early_time'],as_dict=1)
+			working_shift=frappe.db.get_value("Working Shift",shift_assignment.shift,['name','late_time','on_duty_time','off_duty_time','beginning_in','ending_in','beginning_out','ending_out','leave_early_time'],as_dict=1)
 			if len(day_off)==0:
 				frappe.get_doc(
 					{
@@ -46,7 +46,6 @@ def insert_attendance():
 						'leave_early' : None,
 						'finger_print': 1,
 						'employee_device_id':emp.attendance_device_id,
-						'attendance_value':working_shift.is_haft_working_day == 1 if working_shift.is_haft_working_day == 0 else 0.5,
 						'department':emp.department,
 						'photo':emp.photo
 					}).save()
