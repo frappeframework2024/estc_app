@@ -162,7 +162,7 @@ def insert_attendance(self):
 							'photo':self.photo,
 							'checkin_log_id':self.name,
 							'attendance_value':attendance_value,
-							'working_duration':duration,
+							'working_duration':duration.total_seconds(),
 							'is_finger_print':1,
 							
 						}).insert()
