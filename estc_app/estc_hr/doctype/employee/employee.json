@@ -2,7 +2,7 @@
  "actions": [],
  "allow_events_in_timeline": 1,
  "allow_rename": 1,
- "autoname": "naming_series:",
+ "autoname": "field:employee_id",
  "creation": "2023-09-24 18:56:02.213771",
  "default_view": "List",
  "doctype": "DocType",
@@ -10,6 +10,8 @@
  "engine": "InnoDB",
  "field_order": [
   "naming_series",
+  "employee_id",
+  "auto_id",
   "title",
   "employee_name",
   "employee_name_kh",
@@ -500,6 +502,19 @@
    "fieldname": "has_no_attendance_device_id",
    "fieldtype": "Check",
    "label": "Has No Attendance Device ID"
+  },
+  {
+   "default": "1",
+   "fieldname": "auto_id",
+   "fieldtype": "Check",
+   "label": "Auto ID"
+  },
+  {
+   "fieldname": "employee_id",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Employee ID",
+   "unique": 1
   }
  ],
  "image_field": "photo",
@@ -516,14 +531,14 @@
    "link_fieldname": "employee"
   }
  ],
- "modified": "2023-12-05 10:22:29.162204",
+ "modified": "2024-01-08 14:50:01.420168",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Employee",
- "naming_rule": "By \"Naming Series\" field",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [],
- "search_fields": "employee_name",
+ "search_fields": "employee_name,employee_id",
  "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",

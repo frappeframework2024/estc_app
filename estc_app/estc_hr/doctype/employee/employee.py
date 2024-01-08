@@ -2,8 +2,10 @@
 # For license information, please see license.txt
 
 import frappe
+from frappe import _
 from frappe.model.document import Document
 from frappe.utils.data import today
+from frappe.utils.data import strip
 
 class Employee(Document):
 	
@@ -11,6 +13,18 @@ class Employee(Document):
 		 
 		frappe.enqueue("estc_app.estc_hr.doctype.employee.employee.update_user_information", queue='short', self =self)
 		frappe.enqueue("estc_app.estc_hr.doctype.employee.employee.update_leave_balance", queue='short', self =self)
+
+	def autoname(self):
+		from frappe.model.naming import set_name_by_naming_series, get_default_naming_series,make_autoname
+		if self.auto_id==1:
+			set_name_by_naming_series(self)
+			self.employee_id = self.name
+		else:
+			if self.attendance_device_id:
+				self.employee_id = self.attendance_device_id
+				self.name = self.employee_id
+			else:
+				frappe.throw(_("Please enter Attendance Device ID"))
 
 @frappe.whitelist()
 def update_user_information(self):

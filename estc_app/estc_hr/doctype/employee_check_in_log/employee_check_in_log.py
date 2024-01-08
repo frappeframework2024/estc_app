@@ -85,7 +85,8 @@ def insert_attendance(self):
 					'log_type':punch_direction or 0,
 					'photo':self.photo,
 					'checkin_time':self.check_in_time,
-					'checkin_log_id':self.name
+					'checkin_log_id':self.name,
+					'attendance_devide_id' : self.employee_device_id
 			})
 			return
 
@@ -120,6 +121,7 @@ def insert_attendance(self):
 							'is_finger_print':1,
 							'photo':self.photo,
 							'checkin_time':self.check_in_time,
+							'attendance_devide_id':self.employee_device_id,
 							'checkin_log_id':self.name,
 							'is_finger_print':1
 						}).insert()
@@ -130,6 +132,7 @@ def insert_attendance(self):
 						attendance.status = 'Present'
 						attendance.checkin_log_id = self.name
 						attendance.is_finger_print = 1
+						attendance.attendance_devide_id = self.employee_device_id,
 						attendance.check_in_late = check_in_late.total_seconds() or 0,
 						attendance.save()
 		elif punch_direction == "OUT":
@@ -173,6 +176,7 @@ def insert_attendance(self):
 							'photo':self.photo,
 							'checkin_log_id':self.name,
 							'attendance_value':attendance_value,
+							'attendance_devide_id':self.employee_device_id,
 							'working_duration':duration.total_seconds(),
 							'is_finger_print':1,
 							
