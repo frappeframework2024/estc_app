@@ -103,7 +103,7 @@ def insert_attendance(self):
 					#check if employee check in late
 					if working_shift.off_duty_time >=  timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second):
 						check_in_late = timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second) - timedelta(hours=on_duty_in_hour,minutes=on_duty_in_mins)
-						check_in_late = check_in_late.total_seconds()
+						check_in_late = check_in_late.total_seconds() or 0
 				#prenvent check in multiple times
 				get_existed_attendance = frappe.db.exists("Attendance", {"shift":working_shift.name,"attendance_date": datetime.strptime(self.check_in_time,'%Y-%m-%d %H:%M:%S').date(),'employee':self.employee,'shift':working_shift.name})
 
@@ -116,7 +116,7 @@ def insert_attendance(self):
 							'status':attendance_status,
 							'attendance_date':self.check_in_time,
 							'department':self.department,
-							'late':check_in_late.total_seconds() or 0,
+							'late':check_in_late or 0,
 							'shift':working_shift.name,
 							'is_finger_print':1,
 							'photo':self.photo,
@@ -133,7 +133,7 @@ def insert_attendance(self):
 						attendance.checkin_log_id = self.name
 						attendance.is_finger_print = 1
 						attendance.attendance_devide_id = self.employee_device_id,
-						attendance.check_in_late = check_in_late.total_seconds() or 0,
+						attendance.check_in_late = check_in_late or 0,
 						attendance.save()
 		elif punch_direction == "OUT":
 			
