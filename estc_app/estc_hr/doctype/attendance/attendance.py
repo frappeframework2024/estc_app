@@ -19,7 +19,8 @@ def insert_attendance():
 			a.attendance_device_id,
 			a.department,
 			a.photo,
-			b.shift
+			b.shift,
+			b.holiday
 		from `tabEmployee` a
 		right join `tabShift Assignment` b on a.name = b.employee
 		where a.has_no_attendance_device_id = 0 and
@@ -42,7 +43,7 @@ def insert_attendance():
 					'leave_early' : None,
 					'finger_print': 1,
 					"shift":emp.shift,
-					'employee_device_id':emp.attendance_device_id,
+					'attendance_devide_id':emp.attendance_device_id,
 					'department':emp.department,
 					'photo':emp.photo
 				}).save()
