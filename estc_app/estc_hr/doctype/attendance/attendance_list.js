@@ -1,6 +1,14 @@
 frappe.listview_settings['Attendance'] = {
     hide_name_column: true,
     add_fields:['late','leave_early','checkin_time','checkout_time'],
+    get_indicator(doc) {
+        if (doc.status == "Present")
+            return  [`<span style="font-size: 12px;background-color:#17ab07; color:white; padding: 2px 10px;border-radius: 10px;">${__(doc.status)}</span>`]; 
+        if (doc.status.includes("Absent"))
+            return  [`<span style="font-size: 12px;background-color:#f74931; color:white; padding: 2px 10px;border-radius: 10px;">${__(doc.status)}</span>`]; 
+        if (doc.status.includes("On Leave"))
+            return  [`<span style="font-size: 12px;background-color:#108dc7; color:white; padding: 2px 10px;border-radius: 10px;">${__(doc.status)}</span>`]; 
+    },
     formatters: {
         
         photo: function (value, field, doc) {
