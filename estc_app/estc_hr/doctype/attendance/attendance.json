@@ -175,6 +175,7 @@
    "read_only": 1
   },
   {
+   "depends_on": "eval:doc.status!=\"Absent\" && doc.status!=\"On Leave\" && doc.status!=\"On Leave Half Day AM\" && doc.status!=\"On Leave Half Day PM\"",
    "fieldname": "working_duration",
    "fieldtype": "Time",
    "label": "Working Duration",
@@ -188,7 +189,7 @@
    "link_fieldname": "attendance"
   }
  ],
- "modified": "2024-01-03 10:18:41.977916",
+ "modified": "2024-01-12 10:58:26.616999",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Attendance",
