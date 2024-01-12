@@ -82,7 +82,6 @@ def insert_attendance(self):
 					'late':check_in_late or 0,
 					'leave_early':0,
 					'shift':working_shift.name,
-					'log_type':punch_direction or 0,
 					'photo':self.photo,
 					'checkin_time':self.check_in_time,
 					'checkin_log_id':self.name,
