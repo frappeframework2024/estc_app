@@ -227,5 +227,6 @@ scheduler_events = {
 # ]
 
 fixtures = [
-    {"dt": "Custom HTML Block"}
+    {"dt": "Custom HTML Block"},
+    {"dt": "Print Format", "filters":[["module", "=", "ESTC HR"]]}
 ]
