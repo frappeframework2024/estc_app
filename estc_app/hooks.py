@@ -228,5 +228,5 @@ scheduler_events = {
 
 fixtures = [
     {"dt": "Custom HTML Block"},
-    {"dt": "Print Format", "filters":[["module", "=", "ESTC HR"]]}
+    {"dt": "Print Format", "filters":[["name", "=", "Leave Request A5"]]}
 ]
