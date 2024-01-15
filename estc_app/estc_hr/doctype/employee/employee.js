@@ -2,7 +2,7 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("Employee", {
-	refresh(frm) {
+	onload(frm) {
         if(!frm.is_new()){
             frappe.call({
                 "method": 'estc_app.estc_hr.doctype.employee.employee.get_current_employee_leave_balance',
