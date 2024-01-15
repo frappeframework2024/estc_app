@@ -13,6 +13,7 @@
   "naming_series",
   "employee",
   "employee_name",
+  "emergency_request",
   "head_department_approver",
   "head_department_approver_name",
   "head_department_approver_email",
@@ -265,6 +266,12 @@
    "hidden": 1,
    "label": "HR Email",
    "options": "User"
+  },
+  {
+   "default": "0",
+   "fieldname": "emergency_request",
+   "fieldtype": "Check",
+   "label": "Emergency Request"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -277,7 +284,7 @@
    "link_fieldname": "leave_request"
   }
  ],
- "modified": "2023-12-05 09:58:31.414984",
+ "modified": "2024-01-15 11:13:04.710647",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Leave Request",

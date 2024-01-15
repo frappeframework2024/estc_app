@@ -45,16 +45,17 @@ class LeaveRequest(Document):
 			self.supervisor_approver_email = supervisor.company_email
 
 	def before_insert(self):
-		annual_leave_type = frappe.db.get_single_value("HR Setting","annual_leave_type")
-		if self.leave_type == annual_leave_type :
-			validates = frappe.db.get_all('Leave Request Days Validate', fields=['min_leave_days', 'max_leave_days','request_days'])
-			current_date = datetime.strptime(str(getdate()), "%Y-%m-%d")
-			start_date = datetime.strptime(self.start_date, "%Y-%m-%d")
-			date_diff = start_date - current_date
-			request_valid =[d for d in validates if d.min_leave_days < self.total_leave_days <= d.max_leave_days]
-			if len(request_valid) > 0:
-				if date_diff.days < request_valid[0].request_days:
-					frappe.throw(f'Your request not allow. Please request {frappe.bold(request_valid[0].request_days)} days or more before leave date')
+		if self.emergency_request==0:
+			annual_leave_type = frappe.db.get_single_value("HR Setting","annual_leave_type")
+			if self.leave_type == annual_leave_type :
+				validates = frappe.db.get_all('Leave Request Days Validate', fields=['min_leave_days', 'max_leave_days','request_days'])
+				current_date = datetime.strptime(str(getdate()), "%Y-%m-%d")
+				start_date = datetime.strptime(self.start_date, "%Y-%m-%d")
+				date_diff = start_date - current_date
+				request_valid =[d for d in validates if d.min_leave_days < self.total_leave_days <= d.max_leave_days]
+				if len(request_valid) > 0:
+					if date_diff.days < request_valid[0].request_days:
+						frappe.throw(f'Your request not allow. Please request {frappe.bold(request_valid[0].request_days)} days or more before leave date')
 
 	def on_update_after_submit(self):
 		
