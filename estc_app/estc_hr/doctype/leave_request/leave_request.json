@@ -271,7 +271,8 @@
    "default": "0",
    "fieldname": "emergency_request",
    "fieldtype": "Check",
-   "label": "Emergency Request"
+   "label": "Emergency Request",
+   "permlevel": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -284,7 +285,7 @@
    "link_fieldname": "leave_request"
   }
  ],
- "modified": "2024-01-15 11:13:04.710647",
+ "modified": "2024-01-15 11:31:01.978160",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Leave Request",
