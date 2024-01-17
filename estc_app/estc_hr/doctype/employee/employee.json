@@ -2,7 +2,7 @@
  "actions": [],
  "allow_events_in_timeline": 1,
  "allow_rename": 1,
- "autoname": "naming_series:",
+ "autoname": "field:employee_id",
  "creation": "2023-09-24 18:56:02.213771",
  "default_view": "List",
  "doctype": "DocType",
@@ -10,6 +10,8 @@
  "engine": "InnoDB",
  "field_order": [
   "naming_series",
+  "employee_id",
+  "auto_id",
   "title",
   "employee_name",
   "employee_name_kh",
@@ -89,7 +91,7 @@
    "fieldname": "title",
    "fieldtype": "Select",
    "label": "Title",
-   "options": "Mr\nMs\nMrs\nDr"
+   "options": "Mr\nMs\nMiss\nDr"
   },
   {
    "fieldname": "employee_name",
@@ -185,6 +187,7 @@
   {
    "fieldname": "report_to",
    "fieldtype": "Link",
+   "ignore_user_permissions": 1,
    "label": "Report To",
    "options": "Employee",
    "permlevel": 1
@@ -211,7 +214,8 @@
    "fieldname": "company_email",
    "fieldtype": "Data",
    "label": "Company Email",
-   "mandatory_depends_on": "eval:doc.allow_login==1"
+   "mandatory_depends_on": "eval:doc.allow_login==1",
+   "permlevel": 1
   },
   {
    "fieldname": "column_break_gntw",
@@ -267,7 +271,7 @@
    "fieldname": "marital_status",
    "fieldtype": "Select",
    "label": "Marital Status",
-   "options": "Single\nMarried\nWidow\nWidower"
+   "options": "Single\nMarried\nDivorced\nWindowed"
   },
   {
    "fieldname": "blood_group",
@@ -500,6 +504,19 @@
    "fieldname": "has_no_attendance_device_id",
    "fieldtype": "Check",
    "label": "Has No Attendance Device ID"
+  },
+  {
+   "fieldname": "employee_id",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Employee ID",
+   "unique": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "auto_id",
+   "fieldtype": "Check",
+   "label": "Auto ID"
   }
  ],
  "image_field": "photo",
@@ -516,14 +533,14 @@
    "link_fieldname": "employee"
   }
  ],
- "modified": "2024-01-15 13:56:24.036416",
+ "modified": "2024-01-17 09:03:22.580798",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Employee",
- "naming_rule": "By \"Naming Series\" field",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [],
- "search_fields": "employee_name",
+ "search_fields": "employee_name,employee_id",
  "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
