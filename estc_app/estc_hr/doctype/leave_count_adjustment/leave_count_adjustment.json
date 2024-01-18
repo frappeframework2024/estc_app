@@ -1,0 +1,100 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-01-18 14:22:40.307557",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_e1tw",
+  "naming_series",
+  "fiscal_year",
+  "column_break_nmzs",
+  "leave_type",
+  "amended_from",
+  "default_leave_count",
+  "section_break_lrub",
+  "leave_count"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_e1tw",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Leave Count Adjustment",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "LAD-.YYYY.-.####"
+  },
+  {
+   "fieldname": "fiscal_year",
+   "fieldtype": "Link",
+   "label": "Fiscal Year",
+   "options": "Fiscal Year"
+  },
+  {
+   "fieldname": "leave_type",
+   "fieldtype": "Link",
+   "label": "Leave Type",
+   "options": "Leave Type"
+  },
+  {
+   "fieldname": "column_break_nmzs",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_lrub",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "leave_count",
+   "fieldtype": "Table",
+   "label": "Leave count",
+   "options": "Employee Leave Count Adjustment"
+  },
+  {
+   "fieldname": "default_leave_count",
+   "fieldtype": "Float",
+   "label": "Default Leave Count"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-01-18 14:39:14.874262",
+ "modified_by": "Administrator",
+ "module": "ESTC HR",
+ "name": "Leave Count Adjustment",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
