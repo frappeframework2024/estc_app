@@ -10,7 +10,7 @@ frappe.ui.form.on("Leave Request", {
                 callback: function (r) {
                     frm.set_value('employee',r.message.employee.name)
                     current =new Date();
-			        frm.set_value("posting_date", current);
+                    frm.set_value("posting_date", current);
                 }
             });
         }
