@@ -2,6 +2,16 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("Leave Request", {
+    refresh(frm) {
+        frm.set_query('leave_type', (doc, cdt, cdn) => {
+            
+            return {
+                filters: {
+                    "is_group": 0,
+                }
+            };
+        });
+    },
     onload(frm){
         if(frm.is_new()){
             

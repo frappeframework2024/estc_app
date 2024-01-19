@@ -15,7 +15,12 @@
   "sort_order",
   "show_in_profile",
   "section_break_cljz",
-  "note"
+  "note",
+  "lft",
+  "rgt",
+  "is_group",
+  "old_parent",
+  "parent_leave_type"
  ],
  "fields": [
   {
@@ -63,15 +68,51 @@
    "fieldname": "show_in_profile",
    "fieldtype": "Check",
    "label": "Show in Profile"
+  },
+  {
+   "fieldname": "lft",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Left",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "rgt",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Right",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "is_group",
+   "fieldtype": "Check",
+   "label": "Is Group"
+  },
+  {
+   "fieldname": "old_parent",
+   "fieldtype": "Link",
+   "label": "Old Parent",
+   "options": "Leave Type"
+  },
+  {
+   "fieldname": "parent_leave_type",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Parent Leave Type",
+   "options": "Leave Type"
   }
  ],
  "index_web_pages_for_search": 1,
+ "is_tree": 1,
  "links": [],
- "modified": "2023-11-22 17:12:44.776697",
+ "modified": "2024-01-19 09:23:25.397077",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Leave Type",
  "naming_rule": "By fieldname",
+ "nsm_parent_field": "parent_leave_type",
  "owner": "Administrator",
  "permissions": [
   {

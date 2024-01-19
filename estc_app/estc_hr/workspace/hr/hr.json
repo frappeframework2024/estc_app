@@ -13,7 +13,7 @@
    "label": "Monthly Attendance"
   }
  ],
- "content": "[{\"id\":\"J9UtkvIRk5\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Employee\",\"col\":3}},{\"id\":\"LeHJ301Ve1\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Leave Pending Approval\",\"col\":3}},{\"id\":\"YIVnCq3HeC\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Today On Leave\",\"col\":3}},{\"id\":\"5cak-PgOQJ\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Next week On Leave\",\"col\":3}},{\"id\":\"2XB2Tgm0LI\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Monthly Attendance\",\"col\":12}},{\"id\":\"A6B_DAs3KM\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Employee By Gender\",\"col\":6}},{\"id\":\"hiduKbgQdF\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Leave Taken on Each Day of The Week\",\"col\":6}},{\"id\":\"M8FTs00JuJ\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h5\\\">Your shortcut</span>\",\"col\":12}},{\"id\":\"XQppAz6TFf\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Emplyee\",\"col\":3}},{\"id\":\"ypbUurOd2p\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Leave Request\",\"col\":3}},{\"id\":\"3P2pGjIg43\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Leave Calendar\",\"col\":3}},{\"id\":\"Fjc4_UPk4Y\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Attendance Record\",\"col\":3}},{\"id\":\"nnPFRNuyUy\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Employee Leave Count\",\"col\":3}},{\"id\":\"p-PdMf3ols\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"HR Dashboard\",\"col\":3}},{\"id\":\"VAgusfSsAB\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"OT Request\",\"col\":3}},{\"id\":\"134DIhIhxG\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Finger Print Logs\",\"col\":3}},{\"id\":\"A29atSWMaA\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"N_nPFOCH8-\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Employee Recent Leave Request List\",\"col\":4}},{\"id\":\"o7dxo0uWsD\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Employee on Leave Today\",\"col\":4}},{\"id\":\"q_JK9O-dyi\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Upcoming Employee On Leave\",\"col\":4}},{\"id\":\"ppc4NL5cWt\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"mBGJ0B7LUO\",\"type\":\"card\",\"data\":{\"card_name\":\"Setting\",\"col\":4}},{\"id\":\"mfn_EgmSRI\",\"type\":\"card\",\"data\":{\"card_name\":\"Reports\",\"col\":4}}]",
+ "content": "[{\"id\":\"J9UtkvIRk5\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Employee\",\"col\":3}},{\"id\":\"LeHJ301Ve1\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Leave Pending Approval\",\"col\":3}},{\"id\":\"YIVnCq3HeC\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Today On Leave\",\"col\":3}},{\"id\":\"5cak-PgOQJ\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Next week On Leave\",\"col\":3}},{\"id\":\"2XB2Tgm0LI\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Monthly Attendance\",\"col\":12}},{\"id\":\"A6B_DAs3KM\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Employee By Gender\",\"col\":6}},{\"id\":\"hiduKbgQdF\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Leave Taken on Each Day of The Week\",\"col\":6}},{\"id\":\"M8FTs00JuJ\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h5\\\">Your shortcut</span>\",\"col\":12}},{\"id\":\"XQppAz6TFf\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Emplyee\",\"col\":3}},{\"id\":\"ypbUurOd2p\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Leave Request\",\"col\":3}},{\"id\":\"3P2pGjIg43\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Leave Calendar\",\"col\":3}},{\"id\":\"Fjc4_UPk4Y\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Attendance Record\",\"col\":3}},{\"id\":\"nnPFRNuyUy\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Employee Leave Count\",\"col\":3}},{\"id\":\"M_gWwdSl5z\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Leave Count Adjustment\",\"col\":3}},{\"id\":\"p-PdMf3ols\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"HR Dashboard\",\"col\":3}},{\"id\":\"VAgusfSsAB\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"OT Request\",\"col\":3}},{\"id\":\"134DIhIhxG\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Finger Print Logs\",\"col\":3}},{\"id\":\"A29atSWMaA\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"N_nPFOCH8-\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Employee Recent Leave Request List\",\"col\":4}},{\"id\":\"o7dxo0uWsD\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Employee on Leave Today\",\"col\":4}},{\"id\":\"q_JK9O-dyi\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Upcoming Employee On Leave\",\"col\":4}},{\"id\":\"ppc4NL5cWt\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"mBGJ0B7LUO\",\"type\":\"card\",\"data\":{\"card_name\":\"Setting\",\"col\":4}},{\"id\":\"mfn_EgmSRI\",\"type\":\"card\",\"data\":{\"card_name\":\"Reports\",\"col\":4}}]",
  "creation": "2023-09-24 18:16:51.031615",
  "custom_blocks": [
   {
@@ -184,7 +184,7 @@
    "type": "Link"
   }
  ],
- "modified": "2023-12-07 11:43:37.038989",
+ "modified": "2024-01-19 15:28:02.030604",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "HR",
@@ -226,6 +226,14 @@
    "label": "Finger Print Logs",
    "link_to": "Attendance",
    "stats_filter": "{\"is_finger_print\":[\"=\",1],\"attendance_date\":[\"Timespan\",\"today\"]}",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Leave Count Adjustment",
+   "link_to": "Leave Count Adjustment",
+   "stats_filter": "[[\"Leave Count Adjustment\",\"docstatus\",\"=\",\"1\",false]]",
    "type": "DocType"
   },
   {
