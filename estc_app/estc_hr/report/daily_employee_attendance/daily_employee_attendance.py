@@ -47,7 +47,7 @@ def get_data(filters):
 
 def get_conditions(filters):
 	select_filters=[]
-	select_filters.append("is_finger_print = 1")
+	
 	if filters.get('start_date') and filters.get('end_date'):
 		select_filters.append("attendance_date between %(start_date)s and %(end_date)s")
 	if filters.get('status') and filters.get('status') != "All":
