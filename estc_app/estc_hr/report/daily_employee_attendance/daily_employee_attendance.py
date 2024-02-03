@@ -41,8 +41,7 @@ def get_data(filters):
 			group by
 				employee,
 				employee_name,
-				status,
-				log_type
+				status
 			order by 
 				employee_name,
 				checkin_time

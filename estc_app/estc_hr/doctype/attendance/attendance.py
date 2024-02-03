@@ -91,6 +91,6 @@ def insert_out_attendance():
 	
 	return employee_list_not_check_out
 
-
-
-	
+@frappe.whitelist()
+def testing():
+	pass
