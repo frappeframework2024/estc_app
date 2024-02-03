@@ -38,10 +38,6 @@ def get_data(filters):
 			from 
 				`tabAttendance`
 			{}
-			group by
-				employee,
-				employee_name,
-				status
 			order by 
 				employee_name,
 				checkin_time
