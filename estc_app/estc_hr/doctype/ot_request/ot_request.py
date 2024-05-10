@@ -2,10 +2,17 @@
 # For license information, please see license.txt
 
 import frappe
+from frappe import _
 from frappe.model.document import Document
 from datetime import datetime,timedelta
 
 class OTRequest(Document):
+	def validate(self):
+		if self.start_hour > 12 or self.end_hour > 12:
+			frappe.throw(_("Hour Not allowed, Please enter only 0 - 12"))
+		if self.start_minute > 59 or self.end_minute > 59:
+			frappe.throw(_("Minite not allowed, Please enter only 0 - 59"))
+
 	def before_save(self):
 		head_department = frappe.db.get_value('Employee', self.employee, ['approve_by_supervisor', 'approve_by_head_department'], as_dict=1)
 		supervisor = frappe.db.get_value('Employee', head_department.approve_by_supervisor, ['name', 'employee_name','company_email'], as_dict=1)
@@ -19,16 +26,28 @@ class OTRequest(Document):
 			self.supervisor_approver = supervisor.name
 			self.supervisor_approver_name = supervisor.employee_name
 			self.supervisor_approver_email = supervisor.company_email
+
+		self.start_time = f"{self.start_hour + 12 if self.start_am_pm == 'PM' else self.start_hour}:{self.start_minute}:00"
+		self.to_time = f"{self.end_hour + 12 if self.end_am_pm == 'PM' else self.end_hour}:{self.end_minute}:00"
+		
 		start =  datetime.strptime(self.start_time, "%H:%M:%S")
 		to = datetime.strptime(self.to_time, "%H:%M:%S")
 		self.total_hours = to - start
-		self.status = self.workflow_state
+		if self.total_hours.total_seconds() < 0:
+			frappe.throw("Invalid Time. Please verify again.")
+		
   
 	def on_update_after_submit(self):
 		default_fiscal_year = frappe.db.get_value("Fiscal Year",{"is_default":1},['name'])
 		if not default_fiscal_year:
 			fiscal_year=frappe.get_last_doc('Fiscal Year')
 			default_fiscal_year=fiscal_year.name
+		self.start_time = f"{self.start_hour + 12 if self.start_am_pm == 'PM' else self.start_hour}:{self.start_minute}:00"
+		self.to_time = f"{self.end_hour + 12 if self.end_am_pm == 'PM' else self.end_hour}:{self.end_minute}:00"
+		
+		start =  datetime.strptime(self.start_time, "%H:%M:%S")
+		to = datetime.strptime(self.to_time, "%H:%M:%S")
+		self.total_hours = to - start
 		total_work_hours = self.total_hours
 		ot_leave_type = frappe.db.get_single_value('HR Setting','ot_leave_type')
 		total_work_per_day = frappe.db.get_single_value('HR Setting','total_work_per_day')

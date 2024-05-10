@@ -13,14 +13,25 @@
   "employee_name",
   "department",
   "position",
+  "request_date",
   "column_break_ezxe",
   "fiscal_year",
   "posting_date",
   "status",
   "director_email",
   "hr_email",
+  "section_break_liob",
+  "ot_work_times",
+  "section_break_wfbl",
+  "start_column",
+  "start_hour",
+  "start_minute",
+  "start_am_pm",
+  "end_column",
+  "end_hour",
+  "end_minute",
+  "end_am_pm",
   "section_break_ufdx",
-  "request_date",
   "head_department_approver",
   "head_department_approver_name",
   "head_department_approver_email",
@@ -67,18 +78,20 @@
    "reqd": 1
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "start_time",
    "fieldtype": "Time",
+   "hidden": 1,
    "in_list_view": 1,
-   "label": "Start Time",
-   "reqd": 1
+   "label": "Start Time"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "to_time",
    "fieldtype": "Time",
+   "hidden": 1,
    "in_list_view": 1,
-   "label": "To Time",
-   "reqd": 1
+   "label": "To Time"
   },
   {
    "fieldname": "column_break_drur",
@@ -135,6 +148,7 @@
    "label": "Supervisor Approver Email"
   },
   {
+   "depends_on": "eval:doc.docstatus==0",
    "fieldname": "request_date",
    "fieldtype": "Date",
    "in_list_view": 1,
@@ -169,8 +183,10 @@
    "reqd": 1
   },
   {
+   "depends_on": "eval:doc.docstatus==0",
    "fieldname": "total_hours",
    "fieldtype": "Time",
+   "hidden": 1,
    "label": "Total Hours",
    "read_only": 1
   },
@@ -211,12 +227,97 @@
    "fieldtype": "Float",
    "hidden": 1,
    "label": "Leave Count"
+  },
+  {
+   "depends_on": "eval:doc.status != \"HR Approved\"",
+   "fieldname": "section_break_wfbl",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "start_column",
+   "fieldtype": "Column Break",
+   "label": "Start Work"
+  },
+  {
+   "allow_on_submit": 1,
+   "description": "Allowed only 0 - 12",
+   "fieldname": "start_hour",
+   "fieldtype": "Int",
+   "label": "Hour",
+   "non_negative": 1,
+   "read_only_depends_on": "eval:doc.docstatus==1 && !frappe.user.has_role(\"Allow Change OT Time\")",
+   "reqd": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "description": "Allowed only 0 - 59",
+   "fieldname": "start_minute",
+   "fieldtype": "Int",
+   "label": "Minute",
+   "non_negative": 1,
+   "read_only_depends_on": "eval:doc.docstatus==1 && !frappe.user.has_role(\"Allow Change OT Time\")",
+   "reqd": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "start_am_pm",
+   "fieldtype": "Select",
+   "label": "AM/PM",
+   "options": "\nAM\nPM",
+   "read_only_depends_on": "eval:doc.docstatus==1 && !frappe.user.has_role(\"Allow Change OT Time\")",
+   "reqd": 1
+  },
+  {
+   "fieldname": "end_column",
+   "fieldtype": "Column Break",
+   "label": "End Work"
+  },
+  {
+   "allow_on_submit": 1,
+   "description": "Allowed only 0 - 12",
+   "fieldname": "end_hour",
+   "fieldtype": "Int",
+   "label": "Hour",
+   "non_negative": 1,
+   "read_only_depends_on": "eval:doc.docstatus==1 && !frappe.user.has_role(\"Allow Change OT Time\")",
+   "reqd": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "columns": 3,
+   "default": "0",
+   "description": "Allowed only 0 - 59",
+   "fieldname": "end_minute",
+   "fieldtype": "Int",
+   "label": "Minute",
+   "non_negative": 1,
+   "read_only_depends_on": "eval:doc.docstatus==1 && !frappe.user.has_role(\"Allow Change OT Time\")",
+   "reqd": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "end_am_pm",
+   "fieldtype": "Select",
+   "label": "AM/PM",
+   "options": "\nAM\nPM",
+   "read_only_depends_on": "eval:doc.docstatus==1 && !frappe.user.has_role(\"Allow Change OT Time\")",
+   "reqd": 1
+  },
+  {
+   "columns": 11,
+   "fieldname": "ot_work_times",
+   "fieldtype": "HTML"
+  },
+  {
+   "fieldname": "section_break_liob",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-11-30 12:05:19.742398",
+ "modified": "2024-05-10 15:18:06.384023",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "OT Request",
