@@ -140,16 +140,17 @@ scheduler_events = {
 		"0 8-20/4 * * *":[
 				"estc_app.api.ftp_backup.execute_backup_command",
 		]
-	}
+	},
 #	"all": [
 #		"estc_app.tasks.all"
 #	],
 #	"daily": [
 #		"estc_app.tasks.daily"
 #	],
-#	"hourly": [
-#		"estc_app.tasks.hourly"
-#	],
+	"hourly": [
+		"estc_app.estc_hr.doctype.leave_request.leave_request.update_leave_balance_anuual_leave",
+		"estc_app.estc_hr.doctype.leave_request.leave_request.update_leave_balance_not_anuual_leave",
+	],
 #	"weekly": [
 #		"estc_app.tasks.weekly"
 #	],

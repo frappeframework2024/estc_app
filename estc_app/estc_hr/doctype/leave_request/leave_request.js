@@ -59,7 +59,6 @@ frappe.ui.form.on("Leave Request", {
             {is_default: 1},
             "name"
         ).then(r => {
-            console.log(r)
             frm.set_value("fiscal_year", r.message.name);
         })
     }

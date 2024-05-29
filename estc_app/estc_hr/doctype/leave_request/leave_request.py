@@ -186,6 +186,56 @@ def update_leave_balance(self):
 	frappe.db.commit()
 
 @frappe.whitelist()
+def update_leave_balance_not_anuual_leave():
+	fiscal_year = frappe.db.get_value("Fiscal Year",{'is_default': 1},['name'],as_dict=1)
+	frappe.db.sql(f"""
+		UPDATE `tabEmployee Attendance Leave Count` s
+			JOIN (
+				SELECT 
+					SUM(total_leave_days) total_leave_days,
+					employee,
+					employee_name,
+					leave_type ,
+					status
+				FROM `tabLeave Request` 
+				WHERE
+					fiscal_year = '{fiscal_year.name}'
+					AND STATUS = 'HR Approved'
+					AND leave_type <> 'Annual Leave'
+				GROUP BY 
+					employee,
+					leave_type
+			) leave_count ON s.leave_type = leave_count.leave_type AND s.employee = leave_count.employee
+			SET s.use_leave = leave_count.total_leave_days
+			WHERE s.fiscal_year = '{fiscal_year.name}'
+		""")
+	
+@frappe.whitelist()
+def update_leave_balance_anuual_leave():
+	fiscal_year = frappe.db.get_value("Fiscal Year",{'is_default': 1},['name'],as_dict=1)
+	frappe.db.sql(f"""
+		UPDATE `tabEmployee Attendance Leave Count` s
+			JOIN (
+				SELECT 
+					SUM(total_leave_days) total_leave_days,
+					employee,
+					employee_name,
+					leave_type ,
+					status
+				FROM `tabLeave Request` 
+				WHERE
+					fiscal_year = '{fiscal_year.name}'
+					AND STATUS = 'Approved'
+					AND leave_type = 'Annual Leave'
+				GROUP BY 
+					employee,
+					leave_type
+			) leave_count ON s.leave_type = leave_count.leave_type AND s.employee = leave_count.employee
+			SET s.use_leave = leave_count.total_leave_days
+			WHERE s.fiscal_year = '{fiscal_year.name}'
+		""")
+
+@frappe.whitelist()
 def get_events(start, end, filters=None):
 	from frappe.desk.calendar import get_event_conditions
 	department = frappe.db.get_list("Department",pluck='name')

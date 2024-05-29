@@ -40,10 +40,11 @@
             </div>
             <div class="col-8">
                 
-                <strong>{{ frappe.format(doc.to_time, {
+                    <strong>{{ frappe.format(doc.to_time, {
                     formatter: function(value) {
                     return moment('1900-01-01 ' + doc.to_time).format('hh:mm A');
-                },} )}}</strong>
+                },} )}}
+            </strong>
             </div>
         </div>
         <div class="row">
