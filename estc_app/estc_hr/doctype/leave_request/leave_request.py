@@ -14,9 +14,11 @@ class LeaveRequest(Document):
 		self.fiscal_year = frappe.db.get_value("Fiscal Year", {'is_default': 1},"name")
 		leave_type = frappe.get_doc("Leave Type", self.leave_type)
 		leave_count = frappe.db.sql("select * from `tabEmployee Attendance Leave Count` where employee='{}' and leave_type = '{}' and fiscal_year='{}'".format(self.employee, self.leave_type, self.fiscal_year),as_dict=1)
+
 		self.hr_email = frappe.db.get_single_value("HR Setting","hr_email")
 		self.director_email = frappe.db.get_single_value("HR Setting","director_email")
 		# frappe.throw(str(leave_type.allow_negative))
+		leave_count = frappe.db.sql("select * from `tabEmployee Attendance Leave Count` where employee='{}' and leave_type = '{}' and fiscal_year='{}'".format(self.employee, self.leave_type, self.fiscal_year),as_dict=1)
 		if leave_count:
 			for d in leave_count:
 				total_leave = frappe.db.sql("select sum(max_leave) total_leave from `tabEmployee Attendance Leave Count` where employee='{}' and fiscal_year='{}'".format(self.employee,d.fiscal_year),as_dict=1)[0]["total_leave"] or 0
@@ -44,6 +46,10 @@ class LeaveRequest(Document):
 			self.supervisor_approver_name = supervisor.employee_name
 			self.supervisor_approver_email = supervisor.company_email
 
+		fiscal_year = frappe.db.get_value('Fiscal Year',self.fiscal_year,['start_date','end_date'],as_dict = 1)
+		if getdate(fiscal_year.start_date) <= getdate(self.start_date) <= getdate(fiscal_year.end_date) and getdate(self.to_date) > getdate(fiscal_year.end_date):
+			frappe.throw('Leave Request allow request between <strong>{0}</strong> and <strong>{1}</strong>.'.format(getdate(fiscal_year.start_date).strftime("%d-%b-%Y"),getdate(fiscal_year.end_date).strftime("%d-%b-%Y")))
+
 	def before_insert(self):
 		if self.emergency_request==0:
 			annual_leave_type = frappe.db.get_single_value("HR Setting","annual_leave_type")
@@ -61,6 +67,19 @@ class LeaveRequest(Document):
 		
 		#frappe.throw(self.status)
 		# to do add rescord to attench list
+		leave_type = frappe.get_doc("Leave Type", self.leave_type)
+		leave_count = frappe.db.sql("select * from `tabEmployee Attendance Leave Count` where employee='{}' and leave_type = '{}' and fiscal_year='{}'".format(self.employee, self.leave_type, self.fiscal_year),as_dict=1)
+		if leave_count:
+			for d in leave_count:
+				total_leave = frappe.db.sql("select sum(max_leave) total_leave from `tabEmployee Attendance Leave Count` where employee='{}' and fiscal_year='{}'".format(self.employee,d.fiscal_year),as_dict=1)[0]["total_leave"] or 0
+				leave_day = d.use_leave + self.total_leave_days
+				if leave_type.allow_negative == 1 and leave_day < total_leave:
+					pass
+				if leave_type.allow_negative == 0 and leave_day > d.max_leave:
+					frappe.throw("You use all your leave day on <strong>{}</strong>".format(self.leave_type))
+		else:
+			frappe.throw("Please update max leave for {} in employee detail".format(self.leave_type))
+
 		leave_status = frappe.get_doc("Leave Status", self.status)
 		sick_leave = frappe.db.get_single_value("HR Setting","sick_leave_type")
 		if self.leave_type != sick_leave:
@@ -167,7 +186,7 @@ class LeaveRequest(Document):
 						frappe.get_doc(doc).insert()
 						
 						date = add_to_date(date,days=1)
-			update_leave_balance(self)
+		update_leave_balance(self)
 		# frappe.enqueue("estc_app.estc_hr.doctype.leave_request.leave_request.update_leave_balance", queue='short', self =self)
 			
 @frappe.whitelist()

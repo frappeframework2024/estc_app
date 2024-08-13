@@ -27,7 +27,7 @@ def get_data_column(filters):
 		columns.append({'fieldname':current_date.strftime('%b-%y'),'label':current_date.strftime('%b-%y'),'fieldtype':'Float',"precision":2,"css_class":"",'align':'center','query':f"IF(MONTH(attendance_date) = '{current_date.strftime('%m')}' AND YEAR(attendance_date) = '{current_date.strftime('%Y')}',sum(attendance_value),0) AS '{current_date.strftime('%b-%y')}'",'width':130})
 		current_date = (current_date.replace(day=1) + timedelta(days=32)).replace(day=1)
 	columns.append({'fieldname':"used_leave",'label':"Used",'fieldtype':'Float',"precision":2,'align':'center','query':" SUM(attendance_value) as used_leave","css_class":"total",'width':130})
-	columns.append({'fieldname':"ending_balance",'label':"Ending Balance",'fieldtype':'Float',"precision":2,'align':'center',"css_class":"total",'query':"(SELECT SUM(balance) from `tabEmployee Attendance Leave Count` where employee = a.employee and fiscal_year = %(fiscal_year)s) as ending_balance",'width':130})
+	columns.append({'fieldname':"ending_balance",'label':"Ending Balance",'fieldtype':'Float',"precision":2,'align':'center',"css_class":"total",'query':"(SELECT SUM(balance) from `tabEmployee Attendance Leave Count` where employee = a.employee and fiscal_year = %(fiscal_year)s and leave_type in %(leave_type)s) as ending_balance",'width':130})
 
 	for c in columns:
 		if c.get('query'):
