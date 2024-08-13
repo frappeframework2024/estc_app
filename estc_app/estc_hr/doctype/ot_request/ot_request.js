@@ -29,5 +29,4 @@ function renderTemplate(frm) {
 	
 	$(frm.fields_dict['ot_work_times'].wrapper).html(html);
 	frm.refresh_field('ot_work_times');
-
 }
