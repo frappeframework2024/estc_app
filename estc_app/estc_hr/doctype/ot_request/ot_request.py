@@ -48,6 +48,7 @@ class OTRequest(Document):
 		to = datetime.strptime(self.to_time, "%H:%M:%S")
 		if (to - start).total_seconds() < 0:
 			frappe.throw("Invalid Time. Please verify again.")
+
 	def on_update(self):
 		frappe.db.sql("""UPDATE `tabOT Request` set total_hours = to_time - start_time where name = '{0}'""".format(self.name))
 		frappe.db.commit()
@@ -90,6 +91,7 @@ class OTRequest(Document):
 				where
 					name = '{self.name}'
 				""")
+		self.reload()
 
 	def on_update_after_submit(self):
 		default_fiscal_year = frappe.db.get_value("Fiscal Year",{"is_default":1},['name'])
