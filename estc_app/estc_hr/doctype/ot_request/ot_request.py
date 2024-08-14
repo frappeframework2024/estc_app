@@ -46,11 +46,51 @@ class OTRequest(Document):
 		
 		start =  datetime.strptime(self.start_time, "%H:%M:%S")
 		to = datetime.strptime(self.to_time, "%H:%M:%S")
-		frappe.db.sql("""UPDATE `tabOT Request` set total_hours = %(total_hours)s where name = %(name)s""",{"name":self.name,"total_hours":to - start})
-		frappe.db.commit()
 		if (to - start).total_seconds() < 0:
 			frappe.throw("Invalid Time. Please verify again.")
-  
+	def on_update(self):
+		frappe.db.sql("""UPDATE `tabOT Request` set total_hours = to_time - start_time where name = '{0}'""".format(self.name))
+		frappe.db.commit()
+
+
+		if self.start_am_pm == 'PM' and self.start_hour != 12:
+			start_hour = self.start_hour + 12
+		elif self.start_am_pm == 'AM' and self.start_hour == 12:
+			start_hour = 0
+		else:
+			start_hour = self.start_hour
+		
+		if self.end_am_pm == 'PM' and self.end_hour != 12:
+			end_hour = self.end_hour + 12
+		elif self.end_am_pm == 'AM' and self.end_hour == 12:
+			end_hour = 0
+		else:
+			end_hour = self.end_hour
+
+		self.start_time = f"{start_hour}:{self.start_minute}:00"
+		self.to_time = f"{end_hour}:{self.end_minute}:00"
+		start =  datetime.strptime(self.start_time, "%H:%M:%S")
+		to = datetime.strptime(self.to_time, "%H:%M:%S")
+		total_work_hours = to - start
+		total_work_per_day = frappe.db.get_single_value('HR Setting','total_work_per_day')
+		multiply_gain_from_ot = frappe.db.get_single_value('HR Setting','multiply_gain_from_ot')
+		holiday = frappe.db.get_all("Holiday Schedule", filters={
+						'is_day_off': 1,
+						'date': self.request_date,
+						'day':["!=", "Saturday"]
+					})
+		if not holiday:
+			holiday = frappe.db.get_value("Holiday", filters={
+				'is_day_off': 1,
+				'date': self.request_date
+			})
+		frappe.db.sql(f"""
+				UPDATE `tabOT Request`
+						set leave_count = {((total_work_hours.total_seconds()/total_work_per_day)/3600) * multiply_gain_from_ot if holiday else (total_work_hours.total_seconds()/total_work_per_day)/3600}
+				where
+					name = '{self.name}'
+				""")
+
 	def on_update_after_submit(self):
 		default_fiscal_year = frappe.db.get_value("Fiscal Year",{"is_default":1},['name'])
 		if not default_fiscal_year:
@@ -90,6 +130,8 @@ class OTRequest(Document):
 				'is_day_off': 1,
 				'date': self.request_date
 			})
+		frappe.db.sql("""UPDATE `tabOT Request` set total_hours = to_time - start_time where name = '{0}'""".format(self.name))
+		frappe.db.commit()
 		multiply_gain_from_ot = frappe.db.get_single_value('HR Setting','multiply_gain_from_ot')
 		if self.status == leave_status_approved_from_hr:
 			if not frappe.db.exists("Employee Attendance Leave Count", {"leave_type": ot_leave_type,"employee":self.employee,"fiscal_year":default_fiscal_year}):
