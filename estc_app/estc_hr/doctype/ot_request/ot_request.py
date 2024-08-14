@@ -50,7 +50,8 @@ class OTRequest(Document):
 			frappe.throw("Invalid Time. Please verify again.")
 
 	def on_update(self):
-		frappe.db.sql("""UPDATE `tabOT Request` set total_hours = to_time - start_time where name = '{0}'""".format(self.name))
+		# frappe.throw("""UPDATE `tabOT Request` set total_hours = to_time - start_time where name = '{0}'""".format(self.name))
+		frappe.db.sql("""UPDATE `tabOT Request` set total_hours = TIMEDIFF(to_time , start_time) where name = '{0}'""".format(self.name))
 		frappe.db.commit()
 
 
@@ -132,7 +133,7 @@ class OTRequest(Document):
 				'is_day_off': 1,
 				'date': self.request_date
 			})
-		frappe.db.sql("""UPDATE `tabOT Request` set total_hours = to_time - start_time where name = '{0}'""".format(self.name))
+		frappe.db.sql("""UPDATE `tabOT Request` set total_hours = TIMEDIFF(to_time , start_time) where name = '{0}'""".format(self.name))
 		frappe.db.commit()
 		multiply_gain_from_ot = frappe.db.get_single_value('HR Setting','multiply_gain_from_ot')
 		if self.status == leave_status_approved_from_hr:
