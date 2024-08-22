@@ -18,6 +18,9 @@ frappe.ui.form.on("OT Request", {
         }
         
     },
+    refresh(frm){
+        renderTemplate(frm);
+    },
     after_save(frm){
         frm.refresh();
         // renderTemplate(frm)
