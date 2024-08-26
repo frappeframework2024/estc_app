@@ -20,6 +20,7 @@
   "director_email",
   "hr_email",
   "multiply_gain_from_ot",
+  "maximum_sick_leave",
   "break_times_section",
   "break_from",
   "column_break_rgkf",
@@ -138,12 +139,18 @@
    "fieldname": "auto_punch_direction",
    "fieldtype": "Check",
    "label": "Auto Punch Direction"
+  },
+  {
+   "default": "2",
+   "fieldname": "maximum_sick_leave",
+   "fieldtype": "Int",
+   "label": "Maximum Sick Leave"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-01-02 11:09:34.496574",
+ "modified": "2024-08-24 11:57:01.845829",
  "modified_by": "Administrator",
  "module": "ESTC System Setting",
  "name": "HR Setting",

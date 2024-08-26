@@ -47,8 +47,10 @@ class FiscalYear(Document):
 	def on_update(self):
 		frappe.enqueue('estc_app.estc_system_setting.doctype.fiscal_year.fiscal_year.generate_holidays',self=self)
 
-def get_carry_over_balance(employee,employee_leave_balance):
-	carry_over=[d.carry_over_balance for d in employee_leave_balance if d.employee==employee]
+
+
+def get_carry_over_balance(employee,employee_leave_balance,leave_type="Annual Leave"):
+	carry_over=[d.carry_over_balance for d in employee_leave_balance if d.employee==employee and d.leave_type == leave_type]
 	if len(carry_over)>0:
 		return carry_over[0]
 	return 0
@@ -125,3 +127,49 @@ def generate_holidays(self):
 				holiday.date = current_date.strftime('%Y-%m-%d')
 				holiday.save()
 				current_date += timedelta(days=1)
+
+
+@frappe.whitelist()
+def generate_employee_carry_over(docname):
+	last_fiscal_year={}
+	doc = frappe.get_doc('Fiscal Year',docname)
+	if len(doc.leave_count) > 0:
+		doc.leave_count = []
+	if frappe.db.exists("Fiscal Year",docname):
+		last_fiscal_year = frappe.get_last_doc('Fiscal Year',filters={"name": ["!=",docname]})
+	employee_list= frappe.db.get_list('Employee', filters={
+		'status': 'Active'
+	},fields=['name', 'date_of_joining'])
+	
+	if last_fiscal_year:
+		employee_leave_balance = frappe.db.get_list("Employee Attendance Leave Count", 
+					filters={
+							'fiscal_year':last_fiscal_year.name
+						},
+					fields=['sum(balance) as carry_over_balance', 'employee','leave_type'],
+					group_by='employee,leave_type,fiscal_year')
+	else:
+		employee_leave_balance = frappe.db.get_list("Employee Attendance Leave Count", 
+					filters={
+							'docstatus': 1
+						},
+					fields=['sum(balance) as carry_over_balance', 'employee','leave_type'],
+					group_by='employee,leave_type,fiscal_year')
+	# frappe.throw(str(employee_leave_balance))
+	annual_leave_setting = frappe.db.sql("""select * from `tabAnnual Leave Count Setting`""",as_dict=1)
+	hr_setting = frappe.get_doc("HR Setting")
+	for emp in employee_list:
+		start_date = emp['date_of_joining'] or datetime.date(datetime.now())
+		current_date = datetime.date(datetime.strptime(str(doc.start_date), '%Y-%m-%d'))
+		diff = current_date - start_date
+		
+		doc.append("leave_count", {
+				"employee":emp['name'],
+				"date_of_joining":start_date or 0,
+				"duration":diff.days/365,
+				"annual_leave":get_annual_leave_count(annual_leave_setting,diff.days/365),
+				"sick_leave":hr_setting.maximum_sick_leave,
+				"carry_over": get_carry_over_balance(emp['name'],employee_leave_balance),
+				"monthly_accrual":0,
+			})
+	doc.save()
