@@ -28,6 +28,8 @@
   "column_break_xohl",
   "posting_date",
   "fiscal_year",
+  "start_fiscal_year",
+  "end_fiscal_year",
   "color",
   "department",
   "amended_from",
@@ -273,6 +275,26 @@
    "fieldtype": "Check",
    "label": "Emergency Request",
    "permlevel": 1
+  },
+  {
+   "default": "Today",
+   "fetch_from": "fiscal_year.start_date",
+   "fieldname": "start_fiscal_year",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Start Fiscal Year",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "default": "Today",
+   "fetch_from": "fiscal_year.end_date",
+   "fieldname": "end_fiscal_year",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "End Fiscal Year",
+   "read_only": 1,
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -285,7 +307,7 @@
    "link_fieldname": "leave_request"
   }
  ],
- "modified": "2024-01-15 11:31:01.978160",
+ "modified": "2024-08-28 16:07:09.189395",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Leave Request",

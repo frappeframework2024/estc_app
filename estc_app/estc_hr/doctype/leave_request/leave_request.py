@@ -11,6 +11,7 @@ from datetime import datetime
 class LeaveRequest(Document):
 	def validate(self):
 		self.validate_duplicate_request()
+		self.validate_request_out_of_fiscal_year()
 		self.fiscal_year = frappe.db.get_value("Fiscal Year", {'is_default': 1},"name")
 		leave_type = frappe.get_doc("Leave Type", self.leave_type)
 		leave_count = frappe.db.sql("select * from `tabEmployee Attendance Leave Count` where employee='{}' and leave_type = '{}' and fiscal_year='{}'".format(self.employee, self.leave_type, self.fiscal_year),as_dict=1)
@@ -203,7 +204,11 @@ class LeaveRequest(Document):
 		exists = frappe.db.sql(sql,{"name":self.name,"employee":self.employee,"start_date":self.start_date,"to_date":self.to_date},as_dict=1)
 		if len(exists) > 0:
 			for e in exists:
-				frappe.throw(str("Your leave request has already been submitted, ref: <strong> {0}</strong> for date <strong>{1}</strong> to <strong>{2}</strong>.".format(e.name,e.start_date,e.to_date)))
+				frappe.throw(str("Your leave request has already been submitted, ref: <strong> {0}</strong> for date <strong>{1}</strong> to <strong>{2}</strong>.".format(e.name,frappe.utils.formatdate(e.start_date, 'dd-MM-y'),frappe.utils.formatdate(e.to_date, 'dd-MM-y'))))
+			
+	def validate_request_out_of_fiscal_year(self):
+		if not (getdate(self.start_fiscal_year) <= getdate(self.start_date) <= getdate(self.end_fiscal_year)  or  getdate(self.start_fiscal_year) <= getdate(self.to_date) <= getdate(self.end_fiscal_year)):
+			frappe.throw("Your leave request allow only from <strong>{0}</strong> to <strong>{1}</strong>".format(frappe.utils.formatdate(self.start_fiscal_year, 'dd-MM-y'),frappe.utils.formatdate(self.end_fiscal_year, 'dd-MM-y') ))
 
 @frappe.whitelist()
 def update_leave_balance(self):
@@ -226,7 +231,7 @@ def update_leave_balance_not_anuual_leave():
 	frappe.db.sql(f"""
 		UPDATE `tabEmployee Attendance Leave Count` s
 			JOIN (
-				SELECT 
+				SELECT
 					SUM(total_leave_days) total_leave_days,
 					employee,
 					employee_name,
