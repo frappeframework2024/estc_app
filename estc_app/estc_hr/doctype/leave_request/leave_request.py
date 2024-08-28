@@ -10,7 +10,7 @@ from datetime import datetime
 
 class LeaveRequest(Document):
 	def validate(self):
-		
+		self.validate_duplicate_request()
 		self.fiscal_year = frappe.db.get_value("Fiscal Year", {'is_default': 1},"name")
 		leave_type = frappe.get_doc("Leave Type", self.leave_type)
 		leave_count = frappe.db.sql("select * from `tabEmployee Attendance Leave Count` where employee='{}' and leave_type = '{}' and fiscal_year='{}'".format(self.employee, self.leave_type, self.fiscal_year),as_dict=1)
@@ -62,6 +62,7 @@ class LeaveRequest(Document):
 				if len(request_valid) > 0:
 					if date_diff.days < request_valid[0].request_days:
 						frappe.throw(f'Your request not allow. Please request {frappe.bold(request_valid[0].request_days)} days or more before leave date')
+	
 
 	def on_update_after_submit(self):
 		
@@ -188,7 +189,22 @@ class LeaveRequest(Document):
 						date = add_to_date(date,days=1)
 		update_leave_balance(self)
 		# frappe.enqueue("estc_app.estc_hr.doctype.leave_request.leave_request.update_leave_balance", queue='short', self =self)
-			
+
+	def validate_duplicate_request(self):
+		sql="""	
+			SELECT name,start_date,to_date,employee_name
+			FROM `tabLeave Request` 
+			WHERE 
+				((start_date BETWEEN %(start_date)s AND %(to_date)s) 
+				OR 
+				(to_date BETWEEN  %(start_date)s AND %(to_date)s))
+				AND employee=%(employee)s and name <> %(name)s
+		"""
+		exists = frappe.db.sql(sql,{"name":self.name,"employee":self.employee,"start_date":self.start_date,"to_date":self.to_date},as_dict=1)
+		if len(exists) > 0:
+			for e in exists:
+				frappe.throw(str("Your leave request has already been submitted, ref: <strong> {0}</strong> for date <strong>{1}</strong> to <strong>{2}</strong>.".format(e.name,e.start_date,e.to_date)))
+
 @frappe.whitelist()
 def update_leave_balance(self):
 	employee_attendance = frappe.db.sql("select * from `tabEmployee Attendance Leave Count` where employee='{}' and fiscal_year='{}'".format(self.employee, self.fiscal_year),as_dict=1)
