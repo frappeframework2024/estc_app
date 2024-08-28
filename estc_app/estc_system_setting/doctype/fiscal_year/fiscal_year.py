@@ -139,7 +139,7 @@ def generate_employee_carry_over(docname):
 		last_fiscal_year = frappe.get_last_doc('Fiscal Year',filters={"name": ["!=",docname]})
 	employee_list= frappe.db.get_list('Employee', filters={
 		'status': 'Active'
-	},fields=['name', 'date_of_joining'])
+	},fields=['name','employee_name', 'date_of_joining'])
 	
 	if last_fiscal_year:
 		employee_leave_balance = frappe.db.get_list("Employee Attendance Leave Count", 
@@ -158,7 +158,7 @@ def generate_employee_carry_over(docname):
 	# frappe.throw(str(employee_leave_balance))
 	annual_leave_setting = frappe.db.sql("""select * from `tabAnnual Leave Count Setting`""",as_dict=1)
 	hr_setting = frappe.get_doc("HR Setting")
-	for emp in employee_list:
+	for emp in sorted(employee_list, key=lambda x: x['employee_name']):
 		start_date = emp['date_of_joining'] or datetime.date(datetime.now())
 		current_date = datetime.date(datetime.strptime(str(doc.start_date), '%Y-%m-%d'))
 		diff = current_date - start_date

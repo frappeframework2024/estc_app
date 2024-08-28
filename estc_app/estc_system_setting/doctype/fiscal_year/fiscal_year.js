@@ -12,6 +12,9 @@ frappe.ui.form.on("Fiscal Year", {
             method: "estc_app.estc_system_setting.doctype.fiscal_year.fiscal_year.update_employee_data",
             "args": {
                 "fiscal_year_name": frm.doc.name
+            },
+            callback:(res)=>{
+
             }
         })
     
