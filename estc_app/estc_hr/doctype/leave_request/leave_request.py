@@ -267,7 +267,7 @@ def update_leave_balance_anuual_leave():
 					employee_name,
 					leave_type,
 					status
-				FROM `tabLeave Request` 
+				FROM `tabLeave Request`
 				WHERE
 					fiscal_year = '{0}'
 					AND STATUS = 'Approved'
