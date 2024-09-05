@@ -269,7 +269,7 @@ def update_leave_balance_anuual_leave():
 					status
 				FROM `tabLeave Request` 
 				WHERE
-					fiscal_year = '{}'
+					fiscal_year = '{0}'
 					AND STATUS = 'Approved'
 					AND leave_type in ('Annual Leave','Over Time')
 				GROUP BY 
@@ -278,7 +278,7 @@ def update_leave_balance_anuual_leave():
 			) leave_count ON s.leave_type = leave_count.leave_type AND s.employee = leave_count.employee
 			SET s.use_leave = leave_count.total_leave_days,	
 			s.balance = s.max_leave - leave_count.total_leave_days
-			WHERE s.fiscal_year = '{}'
+			WHERE s.fiscal_year = '{0}'
 		""".format(fiscal_year.name))
 	frappe.db.commit()
 
@@ -320,7 +320,7 @@ def get_leave_count(start,end,fiscal_year):
 	holiday_setting = frappe.db.get_value("Holiday Setting",{'fiscal_year':fiscal_year})
 	sql = """
 		select 
-  			date 
+  			date
      	from 
     	`tabHoliday Schedule` 
      	where 
