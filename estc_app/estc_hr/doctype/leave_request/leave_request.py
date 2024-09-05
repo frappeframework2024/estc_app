@@ -6,6 +6,7 @@ from frappe import _
 from frappe.model.document import Document
 from frappe.utils.data import add_to_date, getdate
 from datetime import datetime
+import json
 
 
 class LeaveRequest(Document):
@@ -26,7 +27,7 @@ class LeaveRequest(Document):
 				leave_day = d.use_leave + self.total_leave_days
 				if leave_type.allow_negative == 1 and leave_day < total_leave:
 					pass
-				if leave_type.allow_negative == 0 and leave_day > d.max_leave:
+				if leave_type.allow_negative == 0 and leave_day > d.max_leave and self.status != "Cancel Approved":
 					frappe.throw("You use all your leave day on <strong>{}</strong>".format(self.leave_type))
 		else:
 			frappe.throw("Please update max leave for {} in employee detail".format(self.leave_type))
@@ -77,7 +78,7 @@ class LeaveRequest(Document):
 				leave_day = d.use_leave + self.total_leave_days
 				if leave_type.allow_negative == 1 and leave_day < total_leave:
 					pass
-				if leave_type.allow_negative == 0 and leave_day > d.max_leave:
+				if leave_type.allow_negative == 0 and leave_day > d.max_leave and self.status != "Cancel Approved":
 					frappe.throw("You use all your leave day on <strong>{}</strong>".format(self.leave_type))
 		else:
 			frappe.throw("Please update max leave for {} in employee detail".format(self.leave_type))
@@ -199,7 +200,7 @@ class LeaveRequest(Document):
 				((start_date BETWEEN %(start_date)s AND %(to_date)s) 
 				OR 
 				(to_date BETWEEN  %(start_date)s AND %(to_date)s))
-				AND employee=%(employee)s and name <> %(name)s
+				AND employee=%(employee)s and name <> %(name)s and status <> 'Cancel Approved'
 		"""
 		exists = frappe.db.sql(sql,{"name":self.name,"employee":self.employee,"start_date":self.start_date,"to_date":self.to_date},as_dict=1)
 		if len(exists) > 0:
@@ -207,8 +208,9 @@ class LeaveRequest(Document):
 				frappe.throw(str("Your leave request has already been submitted, ref: <strong> {0}</strong> for date <strong>{1}</strong> to <strong>{2}</strong>.".format(e.name,frappe.utils.formatdate(e.start_date, 'dd-MM-y'),frappe.utils.formatdate(e.to_date, 'dd-MM-y'))))
 			
 	def validate_request_out_of_fiscal_year(self):
-		if not (getdate(self.start_fiscal_year) <= getdate(self.start_date) <= getdate(self.end_fiscal_year)  or  getdate(self.start_fiscal_year) <= getdate(self.to_date) <= getdate(self.end_fiscal_year)):
-			frappe.throw("Your leave request allow only from <strong>{0}</strong> to <strong>{1}</strong>".format(frappe.utils.formatdate(self.start_fiscal_year, 'dd-MM-y'),frappe.utils.formatdate(self.end_fiscal_year, 'dd-MM-y') ))
+		pass
+		# if not (getdate(self.start_fiscal_year) <= getdate(self.start_date) <= getdate(self.end_fiscal_year)  or  getdate(self.start_fiscal_year) <= getdate(self.to_date) <= getdate(self.end_fiscal_year)):
+		# 	frappe.throw("Your leave request allow only from <strong>{0}</strong> to <strong>{1}</strong>".format(frappe.utils.formatdate(self.start_fiscal_year, 'dd-MM-y'),frappe.utils.formatdate(self.end_fiscal_year, 'dd-MM-y') ))
 
 @frappe.whitelist()
 def update_leave_balance(self):
@@ -246,34 +248,39 @@ def update_leave_balance_not_anuual_leave():
 					employee,
 					leave_type
 			) leave_count ON s.leave_type = leave_count.leave_type AND s.employee = leave_count.employee
-			SET s.use_leave = leave_count.total_leave_days
+			SET s.use_leave = leave_count.total_leave_days,
+			s.balance = s.max_leave - leave_count.total_leave_days
 			WHERE s.fiscal_year = '{fiscal_year.name}'
 		""")
+	frappe.db.commit()
 	
 @frappe.whitelist()
 def update_leave_balance_anuual_leave():
 	fiscal_year = frappe.db.get_value("Fiscal Year",{'is_default': 1},['name'],as_dict=1)
-	frappe.db.sql(f"""
+	
+	frappe.db.sql("""
 		UPDATE `tabEmployee Attendance Leave Count` s
 			JOIN (
 				SELECT 
 					SUM(total_leave_days) total_leave_days,
 					employee,
 					employee_name,
-					leave_type ,
+					leave_type,
 					status
 				FROM `tabLeave Request` 
 				WHERE
-					fiscal_year = '{fiscal_year.name}'
+					fiscal_year = '{}'
 					AND STATUS = 'Approved'
-					AND leave_type = 'Annual Leave'
+					AND leave_type in ('Annual Leave','Over Time')
 				GROUP BY 
 					employee,
 					leave_type
 			) leave_count ON s.leave_type = leave_count.leave_type AND s.employee = leave_count.employee
-			SET s.use_leave = leave_count.total_leave_days
-			WHERE s.fiscal_year = '{fiscal_year.name}'
-		""")
+			SET s.use_leave = leave_count.total_leave_days,	
+			s.balance = s.max_leave - leave_count.total_leave_days
+			WHERE s.fiscal_year = '{}'
+		""".format(fiscal_year.name))
+	frappe.db.commit()
 
 @frappe.whitelist()
 def get_events(start, end, filters=None):
