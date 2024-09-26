@@ -26,6 +26,8 @@ frappe.ui.form.on("Fiscal Year", {
                 "args": {
                     "docname": frm.doc.name
                 },
+                freeze: true,
+                freeze_message: "Retrieving Data",
                 callback: function (r) {
                     frappe.show_alert({
                         message: __("Generated success."),

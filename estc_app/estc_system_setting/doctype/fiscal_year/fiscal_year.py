@@ -170,6 +170,7 @@ def generate_employee_carry_over(docname):
 				"annual_leave":get_annual_leave_count(annual_leave_setting,diff.days/365),
 				"sick_leave":hr_setting.maximum_sick_leave,
 				"carry_over": get_carry_over_balance(emp['name'],employee_leave_balance),
+				"ot_carry_over": get_carry_over_balance(emp['name'],employee_leave_balance,leave_type=hr_setting.ot_leave_type),
 				"monthly_accrual":0,
 			})
 	doc.save()
