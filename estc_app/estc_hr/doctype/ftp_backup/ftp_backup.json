@@ -13,7 +13,8 @@
   "column_break_mojg",
   "ftp_url",
   "ftp_password",
-  "ftp_folder_name"
+  "ftp_folder_name",
+  "backup_type"
  ],
  "fields": [
   {
@@ -54,12 +55,17 @@
    "fieldtype": "Data",
    "label": "FTP Folder Name",
    "permlevel": 1
+  },
+  {
+   "fieldname": "backup_type",
+   "fieldtype": "Select",
+   "label": "Backup Type"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-09-28 17:39:31.687368",
+ "modified": "2024-09-28 17:56:06.183530",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "FTP Backup",
