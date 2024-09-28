@@ -59,13 +59,14 @@
   {
    "fieldname": "backup_type",
    "fieldtype": "Select",
-   "label": "Backup Type"
+   "label": "Backup Type",
+   "options": "Simple\nFull"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-09-28 17:56:06.183530",
+ "modified": "2024-09-28 18:01:25.959341",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "FTP Backup",
