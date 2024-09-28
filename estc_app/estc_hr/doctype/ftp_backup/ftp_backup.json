@@ -45,7 +45,7 @@
   },
   {
    "fieldname": "ftp_password",
-   "fieldtype": "Data",
+   "fieldtype": "Password",
    "label": "Password",
    "permlevel": 1
   },
@@ -59,7 +59,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-11-17 12:11:07.584905",
+ "modified": "2024-09-28 17:39:31.687368",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "FTP Backup",
