@@ -1,8 +1,11 @@
+# Copyright (c) 2023, ratha and contributors
+# For license information, please see license.txt
+
 import ftplib, frappe
 import os, shutil
 import shlex, subprocess
 from frappe.model.document import Document
-from frappe.utils import cstr
+from frappe.utils import cstr,password
 import asyncio
 from datetime import datetime
 from frappe import conf
@@ -16,6 +19,7 @@ def run_backup_command():
     setting = frappe.get_doc('FTP Backup')
     site_name = cstr(frappe.local.site)
     folder = setting.ftp_backup_path
+    backup_type = setting.backup_type
     if folder is None or folder == '' :
         folder = frappe.utils.get_site_path(conf.get("backup_path", "private/backups"))       
     for filename in os.listdir(folder):
@@ -27,8 +31,15 @@ def run_backup_command():
                 shutil.rmtree(file_path)
         except Exception as e:
             print('Failed to delete %s. Reason: %s' % (file_path, e))
+    command = ""
+    if backup_type == "Simple":
+        command = "bench --site " + site_name + " backup"
+    elif backup_type == "Full":
+        command = "bench --site " + site_name + " backup --with-files"
+    else:
+        command = "bench --site " + site_name + " backup"
 
-    asyncio.run(run_bench_command("bench --site " + site_name + " backup --with-files"))
+    asyncio.run(run_bench_command(command))
     
     frappe.enqueue(upload_to_ftp,queue="long")
 
@@ -58,7 +69,8 @@ def upload_to_ftp():
     backup_folder = setting.ftp_backup_path
     if backup_folder is None or backup_folder == '' :
         backup_folder = frappe.utils.get_site_path(conf.get("backup_path", "private/backups"))
-    session = ftplib.FTP_TLS(setting.ftp_url,setting.ftp_user,setting.ftp_password)
+    ftp_password = password.get_decrypted_password("FTP Backup", "FTP Backup", fieldname="ftp_password",raise_exception=False)
+    session = ftplib.FTP_TLS(setting.ftp_url,setting.ftp_user,ftp_password)
     session.encoding = 'latin-1'
     if site_name in session.nlst():
         session.cwd(site_name)
@@ -89,3 +101,5 @@ def upload_to_ftp():
         file.close()
     session.quit()
     return "Backup Completed"
+
+
