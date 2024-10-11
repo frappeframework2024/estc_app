@@ -83,7 +83,15 @@
   "personalize_tab",
   "profile_background_photo",
   "column_break_tgid",
-  "tab_7_tab"
+  "exit_information",
+  "is_exit",
+  "section_break_bieo",
+  "column_break_wdcu",
+  "exit_type",
+  "column_break_xukj",
+  "exit_date",
+  "section_break_rxfo",
+  "exit_note"
  ],
  "fields": [
   {
@@ -455,11 +463,6 @@
    "permlevel": 1
   },
   {
-   "fieldname": "tab_7_tab",
-   "fieldtype": "Tab Break",
-   "label": "Tab 7"
-  },
-  {
    "fieldname": "dependence_section",
    "fieldtype": "Section Break",
    "hidden": 1,
@@ -517,6 +520,49 @@
    "fieldname": "auto_id",
    "fieldtype": "Check",
    "label": "Auto ID"
+  },
+  {
+   "fieldname": "exit_information",
+   "fieldtype": "Tab Break",
+   "label": "Exit Information"
+  },
+  {
+   "fieldname": "exit_date",
+   "fieldtype": "Date",
+   "label": "Exit Date"
+  },
+  {
+   "fieldname": "column_break_wdcu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_xukj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_rxfo",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "exit_note",
+   "fieldtype": "Small Text",
+   "label": "Exit Note"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_exit",
+   "fieldtype": "Check",
+   "label": "Is Exit"
+  },
+  {
+   "fieldname": "section_break_bieo",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "exit_type",
+   "fieldtype": "Link",
+   "label": "Exit Type",
+   "options": "Employee Exit Type"
   }
  ],
  "image_field": "photo",
@@ -533,7 +579,7 @@
    "link_fieldname": "employee"
   }
  ],
- "modified": "2024-01-17 09:03:22.580798",
+ "modified": "2024-10-10 10:18:37.484931",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Employee",

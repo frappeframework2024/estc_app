@@ -8,6 +8,8 @@ frappe.listview_settings['Employee'] = {
 
     },
     get_indicator(doc) {
+        if (doc.is_exit)
+            return  [`<span style="font-size: 12px;background-color:red; color:white; padding: 2px 10px;border-radius: 10px;">${__('Exit')}</span>`]; 
         if (doc.status.includes("Active"))
             return  [`<span style="font-size: 12px;background-color:#17ab07; color:white; padding: 2px 10px;border-radius: 10px;">${__(doc.status)}</span>`]; 
         if (doc.status.includes("Suspended"))

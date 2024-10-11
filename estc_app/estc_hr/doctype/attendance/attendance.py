@@ -24,7 +24,8 @@ def insert_attendance():
 		from `tabEmployee` a
 		right join `tabShift Assignment` b on a.name = b.employee
 		where a.has_no_attendance_device_id = 0 and
-	a.name not in (select employee from `tabAttendance` att where DATE(att.attendance_date) = '{}')
+		coalesce(a.is_exit , 0) = 0 and
+		a.name not in (select employee from `tabAttendance` att where DATE(att.attendance_date) = '{}')
 	""".format(datetime.now().date())
 	employee_list_not_check_in = frappe.db.sql(sql,as_dict=1)
 	
