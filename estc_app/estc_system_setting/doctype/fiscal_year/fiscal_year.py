@@ -4,9 +4,11 @@
 import frappe
 from frappe.model.document import Document
 from datetime import datetime, timedelta
+from frappe.utils import getdate
 
 
 class FiscalYear(Document):
+ 
 	def before_save(self):
 		if self.is_new():
 			last_fiscal_year={}
@@ -33,7 +35,6 @@ class FiscalYear(Document):
 				start_date = emp['date_of_joining'] or datetime.date(datetime.now())
 				current_date = datetime.date(datetime.strptime(self.start_date, '%Y-%m-%d'))
 				diff = current_date - start_date
-				
 				self.append("leave_count", {
 						"employee":emp['name'],
 						"date_of_joining":start_date or 0,
@@ -88,14 +89,17 @@ def update_employee_data(fiscal_year_name):
 
 		if len(leave_data) > 0:
 			leave_data[0].max_leave = (emp.annual_leave or 0) + (emp.carry_over or 0)
-			
-			frappe.db.set_value('Employee Attendance Leave Count',leave_data[0].name,'max_leave',leave_data[0].max_leave)
+			doc=frappe.get_doc("Employee Attendance Leave Count",leave_data[0].name)
+			doc.max_leave = leave_data[0].max_leave
+			doc.save()
+   
 		else:
 			doc = frappe.new_doc("Employee Attendance Leave Count")
 			doc.employee = emp.employee
 			doc.leave_type=annual_leave_type
 			doc.fiscal_year=fiscal_year_name
 			doc.max_leave = (emp.annual_leave or 0) + (emp.carry_over or 0)
+			
 			doc.insert()
 
 		#OT Leave
@@ -104,8 +108,9 @@ def update_employee_data(fiscal_year_name):
 		if ot_leave_data:
 			if len(ot_leave_data) > 0:
 				ot_leave_data[0].max_leave = emp.ot_carry_over
-				
-				frappe.db.set_value('Employee Attendance Leave Count',ot_leave_data[0].name,'max_leave',ot_leave_data[0].max_leave)
+				doc=frappe.get_doc("Employee Attendance Leave Count",ot_leave_data[0].name)
+				doc.max_leave = ot_leave_data[0].max_leave
+				doc.save()
 		else:
 			doc = frappe.new_doc("Employee Attendance Leave Count")
 			doc.employee = emp.employee
@@ -118,7 +123,10 @@ def update_employee_data(fiscal_year_name):
 		sick_leave_data=[d for d in emp_leave_count if d.fiscal_year==fiscal_year_name and d.leave_type==sick_leave_type]
 		if len(sick_leave_data) > 0:
 			sick_leave_data[0].max_leave = (emp.sick_leave or 0)
-			frappe.db.set_value('Employee Attendance Leave Count',sick_leave_data[0].name,'max_leave',sick_leave_data[0].max_leave)
+			doc=frappe.get_doc("Employee Attendance Leave Count",sick_leave_data[0].name)
+			doc.max_leave = sick_leave_data[0].max_leave
+			doc.save()
+			
 		else:
 			doc = frappe.new_doc("Employee Attendance Leave Count")
 			doc.employee = emp.employee
@@ -157,7 +165,6 @@ def generate_employee_carry_over(docname):
 	employee_list= frappe.db.get_list('Employee', filters={
 		'status': 'Active'
 	},fields=['name','employee_name', 'date_of_joining'])
-	
 	if last_fiscal_year:
 		employee_leave_balance = frappe.db.get_list("Employee Attendance Leave Count", 
 					filters={

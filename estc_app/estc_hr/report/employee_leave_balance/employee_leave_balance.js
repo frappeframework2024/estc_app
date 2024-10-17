@@ -7,7 +7,8 @@ frappe.query_reports["Employee Leave Balance"] = {
 			fieldname: "fiscal_year",
 			label: "Academic Year",
 			fieldtype: "Link",
-			options: "Fiscal Year"
+			options: "Fiscal Year",
+			"reqd": 1,
 		},
 		{
 			fieldname: "department",

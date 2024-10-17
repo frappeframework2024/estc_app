@@ -84,6 +84,7 @@
   "profile_background_photo",
   "column_break_tgid",
   "exit_information",
+  "section_break_bmmb",
   "is_exit",
   "section_break_bieo",
   "column_break_wdcu",
@@ -522,6 +523,7 @@
    "label": "Auto ID"
   },
   {
+   "depends_on": "eval:doc.status==\"Left\"",
    "fieldname": "exit_information",
    "fieldtype": "Tab Break",
    "label": "Exit Information"
@@ -563,6 +565,11 @@
    "fieldtype": "Link",
    "label": "Exit Type",
    "options": "Employee Exit Type"
+  },
+  {
+   "fieldname": "section_break_bmmb",
+   "fieldtype": "Section Break",
+   "hidden": 1
   }
  ],
  "image_field": "photo",
@@ -577,9 +584,14 @@
    "group": "Leave Count",
    "link_doctype": "Employee Attendance Leave Count",
    "link_fieldname": "employee"
+  },
+  {
+   "group": "Shift Assignment",
+   "link_doctype": "Shift Assignment",
+   "link_fieldname": "employee"
   }
  ],
- "modified": "2024-10-10 10:18:37.484931",
+ "modified": "2024-10-17 16:19:47.475215",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Employee",

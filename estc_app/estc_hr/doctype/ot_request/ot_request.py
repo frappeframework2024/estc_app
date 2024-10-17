@@ -8,6 +8,15 @@ from datetime import datetime,timedelta
 
 class OTRequest(Document):
 	def validate(self):
+		if not self.fiscal_year:
+			default_fiscal_year = frappe.db.get_value("Fiscal Year",{"is_default":1},['name'])
+			if not default_fiscal_year:
+				fiscal_year=frappe.get_last_doc('Fiscal Year')
+				default_fiscal_year=fiscal_year.name
+    
+			self.fiscal_year = default_fiscal_year
+
+
 		if self.start_hour > 12 or self.end_hour > 12:
 			frappe.throw(_("Hour Not allowed, Please enter only 0 - 12"))
 		if self.start_minute > 59 or self.end_minute > 59:
@@ -95,6 +104,7 @@ class OTRequest(Document):
 		self.reload()
 
 	def on_update_after_submit(self):
+		
 		default_fiscal_year = frappe.db.get_value("Fiscal Year",{"is_default":1},['name'])
 		if not default_fiscal_year:
 			fiscal_year=frappe.get_last_doc('Fiscal Year')
@@ -121,13 +131,16 @@ class OTRequest(Document):
 		to = datetime.strptime(self.to_time, "%H:%M:%S")
 		total_work_hours = to - start
 		ot_leave_type = frappe.db.get_single_value('HR Setting','ot_leave_type')
+  
 		total_work_per_day = frappe.db.get_single_value('HR Setting','total_work_per_day')
+  
 		leave_status_approved_from_hr = frappe.db.get_single_value('HR Setting','leave_status_approved_from_hr')
 		holiday = frappe.db.get_all("Holiday Schedule", filters={
 						'is_day_off': 1,
 						'date': self.request_date,
 						'day':["!=", "Saturday"]
 					})
+  
 		if not holiday:
 			holiday = frappe.db.get_value("Holiday", filters={
 				'is_day_off': 1,
@@ -141,7 +154,9 @@ class OTRequest(Document):
 				doc = frappe.new_doc('Employee Attendance Leave Count')
 				doc.fiscal_year = default_fiscal_year
 				doc.employee = self.employee
+    
 				doc.max_leave = ((total_work_hours.total_seconds()/total_work_per_day)/3600) * multiply_gain_from_ot if holiday else (total_work_hours.total_seconds()/total_work_per_day)/3600
+    
 				doc.use_leave = 0
 				doc.balance = doc.max_leave - doc.use_leave
 				doc.leave_type=ot_leave_type or None
@@ -160,6 +175,7 @@ class OTRequest(Document):
                       			""")
 
 				frappe.db.commit()
+    
 		elif self.status == "Cancel Approved":
 			
 			
@@ -181,7 +197,6 @@ class OTRequest(Document):
 							fiscal_year = '{default_fiscal_year}'
 					""")
 
-			frappe.db.commit()
 			frappe.db.commit()
 			self.reload()
 

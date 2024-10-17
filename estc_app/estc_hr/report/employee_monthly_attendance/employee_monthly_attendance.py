@@ -6,7 +6,10 @@ from datetime import datetime,timedelta
 
 
 def execute(filters=None):
-	
+	if not filters.leave_type:
+		filters.leave_type = frappe.db.get_list("Leave Type",pluck='name')
+  
+	 
 	return get_columns(filters), get_data(filters)
 
 def get_columns(filters):
@@ -50,6 +53,7 @@ def get_data(filters):
 				employee,
 				employee_name
 	""".format(get_conditions(filters),columns_date['data_field'])
+
 	data = frappe.db.sql(sql,filters,as_dict=1)
 	return data
 

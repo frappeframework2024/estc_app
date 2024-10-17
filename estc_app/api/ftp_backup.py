@@ -102,4 +102,3 @@ def upload_to_ftp():
     session.quit()
     return "Backup Completed"
 
-
