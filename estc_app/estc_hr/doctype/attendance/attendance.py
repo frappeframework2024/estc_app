@@ -13,6 +13,7 @@ def insert_absent_attendance_queue():
 	frappe.enqueue('estc_app.estc_hr.doctype.attendance.attendance.insert_attendance')
 
 def insert_attendance():
+	default_fiscal_year = frappe.db.get_value("Fiscal Year",{"is_default":1})
 	sql = """
 		select 
 			a.name,
@@ -22,11 +23,11 @@ def insert_attendance():
 			b.shift,
 			b.holiday
 		from `tabEmployee` a
-		right join `tabShift Assignment` b on a.name = b.employee
+		right join `tabShift Assignment` b on a.name = b.employee  and b.fiscal_year ='{fiscal_year}' 
 		where a.has_no_attendance_device_id = 0 and
 		a.status = 'Active' and
-		a.name not in (select employee from `tabAttendance` att where DATE(att.attendance_date) = '{}')
-	""".format(datetime.now().date())
+		a.name not in (select employee from `tabAttendance` att where DATE(att.attendance_date) = '{date}')
+	""".format( fiscal_year = default_fiscal_year , date = datetime.now().date())
 	employee_list_not_check_in = frappe.db.sql(sql,as_dict=1)
 	
 	default_fiscal_year = frappe.db.get_value("Fiscal Year",{"is_default":1})
