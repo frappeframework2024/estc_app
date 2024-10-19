@@ -112,9 +112,9 @@
    "fetch_from": ".",
    "fieldname": "checkin_log_id",
    "fieldtype": "Data",
-   "hidden": 1,
    "label": "Checkin Log ID",
-   "options": "Employee Check In Log"
+   "options": "Employee Check In Log",
+   "read_only": 1
   },
   {
    "default": "None",
@@ -147,8 +147,7 @@
    "depends_on": "eval:doc.checkin_log_id",
    "fieldname": "checkin_time",
    "fieldtype": "Datetime",
-   "label": "CheckIn Time",
-   "read_only": 1
+   "label": "CheckIn Time"
   },
   {
    "fieldname": "photo",
@@ -171,8 +170,7 @@
    "depends_on": "eval:doc.checkin_log_id",
    "fieldname": "checkout_time",
    "fieldtype": "Datetime",
-   "label": "Checkout Time",
-   "read_only": 1
+   "label": "Checkout Time"
   },
   {
    "depends_on": "eval:doc.status!=\"Absent\" && doc.status!=\"On Leave\" && doc.status!=\"On Leave Half Day AM\" && doc.status!=\"On Leave Half Day PM\"",
@@ -189,7 +187,7 @@
    "link_fieldname": "attendance"
   }
  ],
- "modified": "2024-01-12 10:58:26.616999",
+ "modified": "2024-10-19 10:25:02.540834",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Attendance",
