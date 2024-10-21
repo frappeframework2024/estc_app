@@ -151,7 +151,7 @@ def get_current_employee_leave_balance(name=None):
 			doc = frappe.get_doc("Employee", name)
 		else:
 			
-			data = frappe.db.sql("select name from `tabEmployee` where company_email='{}'".format(frappe.session.user),as_dict=1)
+			data = frappe.db.sql("select name from `tabEmployee` where company_email='{}' and status='Active'".format(frappe.session.user),as_dict=1)
 			if data:
 				doc = frappe.get_doc("Employee", data[0]["name"])
 	

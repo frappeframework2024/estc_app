@@ -63,6 +63,7 @@ class LeaveRequest(Document):
 				request_valid =[d for d in validates if d.min_leave_days < self.total_leave_days <= d.max_leave_days]
 				if len(request_valid) > 0:
 					if date_diff.days < request_valid[0].request_days:
+						
 						frappe.throw(f'Your request not allow. Please request {frappe.bold(request_valid[0].request_days)} days or more before leave date')
 	
 
@@ -200,7 +201,7 @@ class LeaveRequest(Document):
 				((start_date BETWEEN %(start_date)s AND %(to_date)s) 
 				OR 
 				(to_date BETWEEN  %(start_date)s AND %(to_date)s))
-				AND employee=%(employee)s and name <> %(name)s and status <> 'Cancel Approved'
+				AND employee=%(employee)s and name <> %(name)s and status not in ('Cancel Approved','Rejected')
 		"""
 		exists = frappe.db.sql(sql,{"name":self.name,"employee":self.employee,"start_date":self.start_date,"to_date":self.to_date},as_dict=1)
 		if len(exists) > 0:

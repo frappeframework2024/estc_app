@@ -224,7 +224,8 @@
    "fieldtype": "Data",
    "label": "Company Email",
    "mandatory_depends_on": "eval:doc.allow_login==1",
-   "permlevel": 1
+   "permlevel": 1,
+   "unique": 1
   },
   {
    "fieldname": "column_break_gntw",
@@ -591,7 +592,7 @@
    "link_fieldname": "employee"
   }
  ],
- "modified": "2024-10-17 16:19:47.475215",
+ "modified": "2024-10-21 11:37:07.262001",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Employee",
