@@ -9,7 +9,7 @@ from datetime import datetime,timedelta
 class EmployeeCheckInLog(Document):
 	def before_insert(self):
 		
-		employee = frappe.db.get_value("Employee",{"attendance_device_id":self.employee_device_id},["employee_name","department","name","position","photo"],as_dict=1)
+		employee = frappe.get_cached_value("Employee",{"attendance_device_id":self.employee_device_id},["employee_name","department","name","position","photo"],as_dict=1)
 		if employee:
 			self.employee_name = employee.employee_name
 			self.title = employee.employee_name
@@ -21,6 +21,7 @@ class EmployeeCheckInLog(Document):
 			self.posting_date = datetime.now().date()
 
 	def after_insert(self):
+		# insert_attendance(self)
 		frappe.enqueue("estc_app.estc_hr.doctype.employee_check_in_log.employee_check_in_log.insert_attendance",self=self)
 
 def insert_attendance(self):
@@ -34,8 +35,8 @@ def insert_attendance(self):
 	
 	punch_direction = self.log_type
 	check_in_shift={}
-	auto_punch_direction = frappe.db.get_single_value('HR Setting', 'auto_punch_direction')
-	#frappe.throw(str(working_shift))
+	auto_punch_direction = frappe.get_cached_value('HR Setting',None, 'auto_punch_direction')
+ 
 	for d in working_shift:
 		timedelta_finger_print = timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second)
 		#Definde Punch Direction
@@ -68,11 +69,18 @@ def insert_attendance(self):
 		
 		check_in_late=0
 		if absents:
+			 
 			if timedelta(hours=on_duty_in_hour,minutes=on_duty_in_mins) < timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second):	
 				#check if employee check in late
 				if working_shift.off_duty_time >=  timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second):
 					check_in_late = timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second) - timedelta(hours=on_duty_in_hour,minutes=on_duty_in_mins)
 					check_in_late = check_in_late.total_seconds()
+			# check if transaction is in or out
+			check_in_date =  datetime.strptime(self.check_in_time, "%Y-%m-%d %H:%M:%S")
+			# begin_time = frappe.throw( str( str(working_shift.beginning_in)).split(":"))
+			# frappe.throw(str( check_in_date.replace(hour=begin_time[0], minute=begin_time[1], second=begin_time[2])))
+   
+			
 			frappe.db.set_value('Attendance', absents, {
 					'status':'Present',
 					'attendance_value':1,
@@ -85,6 +93,7 @@ def insert_attendance(self):
 					'checkin_log_id':self.name,
 					'attendance_devide_id' : self.employee_device_id
 			})
+			frappe.db.set_value("Employee Check In Log",self.name, "attendance", absents)
 			return
 
 		if punch_direction == "IN":
@@ -106,7 +115,7 @@ def insert_attendance(self):
 				get_existed_attendance = frappe.db.exists("Attendance", {"shift":working_shift.name,"attendance_date": datetime.strptime(self.check_in_time,'%Y-%m-%d %H:%M:%S').date(),'employee':self.employee,'shift':working_shift.name})
 
 				if not get_existed_attendance:
-					frappe.get_doc(
+					att_doc = frappe.get_doc(
 						{
 							'doctype': 'Attendance',
 							'employee': self.employee,
@@ -123,6 +132,7 @@ def insert_attendance(self):
 							'checkin_log_id':self.name,
 							'is_finger_print':1
 						}).insert()
+					frappe.db.set_value("Employee Check In Log",self.name, "attendance", att_doc.name)
 				else:
 					if timedelta(hours=finger_print_time.hour,minutes=finger_print_time.minute,seconds=finger_print_time.second) <= working_shift.ending_in : 
 						#Check in After insert attendance Absent update status if check in before ending in
@@ -133,6 +143,7 @@ def insert_attendance(self):
 						attendance.attendance_devide_id = self.employee_device_id,
 						attendance.check_in_late = check_in_late or 0,
 						attendance.save()
+						frappe.db.set_value("Employee Check In Log",self.name, "attendance", attendance.name)
 		elif punch_direction == "OUT":
 			
 			check_out_early=timedelta()
@@ -158,9 +169,10 @@ def insert_attendance(self):
 					doc.leave_early = check_out_early.total_seconds() or 0
 					doc.is_finger_print=1
 					doc.save()
+					frappe.db.set_value("Employee Check In Log",self.name, "attendance", doc.name)
 				else:
 					attendance_value,duration = get_attendance_value(self.check_in_time,datetime.strptime(self.check_in_time,'%Y-%m-%d %H:%M:%S'))
-					frappe.get_doc(
+					att_doc = frappe.get_doc(
 						{
 							'doctype': 'Attendance',
 							'employee': self.employee,
@@ -179,6 +191,8 @@ def insert_attendance(self):
 							'is_finger_print':1,
 							
 						}).insert()
+					frappe.db.set_value("Employee Check In Log",self.name, "attendance", att_doc.name)
+     
 
 
 def get_attendance_value(checkout_time,checkin_time):

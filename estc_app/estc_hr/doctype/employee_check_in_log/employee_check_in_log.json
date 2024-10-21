@@ -38,8 +38,7 @@
    "fieldname": "check_in_time",
    "fieldtype": "Datetime",
    "in_list_view": 1,
-   "label": "Check In Time",
-   "read_only": 1
+   "label": "Check In Time"
   },
   {
    "fieldname": "shift_name",
@@ -136,7 +135,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-12-08 11:21:03.171218",
+ "modified": "2024-10-21 09:09:44.914407",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Employee Check In Log",
