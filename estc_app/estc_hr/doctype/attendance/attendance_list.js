@@ -2,7 +2,7 @@ frappe.listview_settings['Attendance'] = {
     hide_name_column: true,
     add_fields:['late','leave_early','checkin_time','checkout_time'],
     get_indicator(doc) {
-        if (doc.status == "Present")
+        if (doc.status == "Present" || doc.status == "Present (AM)" || doc.status == "Present (PM)"  )
             return  [`<span style="font-size: 12px;background-color:#17ab07; color:white; padding: 2px 10px;border-radius: 10px;">${__(doc.status)}</span>`]; 
         if (doc.status.includes("Absent"))
             return  [`<span style="font-size: 12px;background-color:#f74931; color:white; padding: 2px 10px;border-radius: 10px;">${__(doc.status)}</span>`]; 
@@ -16,7 +16,7 @@ frappe.listview_settings['Attendance'] = {
             return `<img src='${doc.photo || "/assets/estc_app/images/avatar-2.png"}' style='border-radius: 50%;height:35px; margin-right:10px;margin-left:5px'/>`;
         },
         checkin_time: function (value, field, doc){
-            if(doc.status == "Present" && Number(doc.late || 0) > 0){
+            if((doc.status == "Present" || doc.status == "Present (AM)" || doc.status == "Present (PM)") && Number(doc.late || 0) > 0){
                 return `
                     ${frappe.datetime.str_to_user(value)}
                     <div class="ellipsis">
@@ -31,7 +31,7 @@ frappe.listview_settings['Attendance'] = {
             
         },
         checkout_time: function (value, field, doc){
-            if(doc.status == "Present" && Number(doc.leave_early || 0) > 0){
+            if((doc.status == "Present" || doc.status == "Present (AM)" || doc.status == "Present (PM)") && Number(doc.leave_early || 0) > 0){
                 return `
                     ${frappe.datetime.str_to_user(value)}
                     <div class="ellipsis">

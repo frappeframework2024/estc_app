@@ -11,6 +11,8 @@
   "naming_series",
   "shift_name",
   "on_duty_time",
+  "am_off_duty_time",
+  "pm_on_duty_time",
   "off_duty_time",
   "late_time",
   "attendance_value",
@@ -23,10 +25,15 @@
   "ending_out",
   "leave_early_time",
   "holiday",
-  "amended_from"
+  "amended_from",
+  "column_break_sjew",
+  "pm_beginning_in",
+  "pm_ending_in",
+  "pm_beginning_out"
  ],
  "fields": [
   {
+   "allow_on_submit": 1,
    "fieldname": "on_duty_time",
    "fieldtype": "Time",
    "in_list_view": 1,
@@ -38,34 +45,40 @@
    "label": "Late Time (Mins)"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "leave_early_time",
    "fieldtype": "Int",
    "label": "Leave Early time (Mins)"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "off_duty_time",
    "fieldtype": "Time",
    "in_list_view": 1,
    "label": "Off Duty Time"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "beginning_in",
    "fieldtype": "Time",
    "in_list_view": 1,
    "label": "Beginning In"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "ending_in",
    "fieldtype": "Time",
    "in_list_view": 1,
    "label": "Ending In"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "beginning_out",
    "fieldtype": "Time",
    "label": "Beginning Out"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "ending_out",
    "fieldtype": "Time",
    "label": "Ending Out"
@@ -95,6 +108,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "holiday",
    "fieldtype": "Link",
    "label": "Holiday",
@@ -121,12 +135,50 @@
    "fieldname": "attendance_value",
    "fieldtype": "Float",
    "label": "Attendance Value"
+  },
+  {
+   "fieldname": "column_break_sjew",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "pm_beginning_in",
+   "fieldtype": "Time",
+   "in_list_view": 1,
+   "label": "PM Beginning In"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "pm_ending_in",
+   "fieldtype": "Time",
+   "in_list_view": 1,
+   "label": "PM Ending In"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "pm_beginning_out",
+   "fieldtype": "Time",
+   "label": "PM Beginning Out"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "pm_on_duty_time",
+   "fieldtype": "Time",
+   "in_list_view": 1,
+   "label": "PM On Duty Time"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "am_off_duty_time",
+   "fieldtype": "Time",
+   "in_list_view": 1,
+   "label": "AM Off Duty Time "
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-11-25 09:13:57.285497",
+ "modified": "2024-10-24 10:22:55.923925",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Working Shift",
