@@ -35,6 +35,7 @@
    "read_only": 1
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "employee",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -43,6 +44,7 @@
    "options": "Employee"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "shift",
    "fieldtype": "Link",
    "label": "Shift",
@@ -86,7 +88,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-10-23 09:08:20.025622",
+ "modified": "2024-10-24 16:48:38.005619",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Shift Assignment",

@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "naming_series:",
+ "autoname": "field:shift_name",
  "creation": "2023-10-02 12:05:30.413515",
  "default_view": "List",
  "doctype": "DocType",
@@ -10,6 +10,9 @@
  "field_order": [
   "naming_series",
   "shift_name",
+  "holiday",
+  "column_break_xbca",
+  "section_break_rxjy",
   "on_duty_time",
   "am_off_duty_time",
   "pm_on_duty_time",
@@ -24,7 +27,6 @@
   "beginning_out",
   "ending_out",
   "leave_early_time",
-  "holiday",
   "amended_from",
   "column_break_sjew",
   "pm_beginning_in",
@@ -101,7 +103,8 @@
    "fieldname": "shift_name",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Shift Name"
+   "label": "Shift Name",
+   "unique": 1
   },
   {
    "fieldname": "column_break_mrzy",
@@ -118,6 +121,7 @@
    "default": "WS-.{shift_name}.-.YYYY.-",
    "fieldname": "naming_series",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Naming Series",
    "options": "WS-.{shift_name}.-.YYYY.-"
   },
@@ -173,16 +177,24 @@
    "fieldtype": "Time",
    "in_list_view": 1,
    "label": "AM Off Duty Time "
+  },
+  {
+   "fieldname": "column_break_xbca",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_rxjy",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-10-24 10:22:55.923925",
+ "modified": "2024-10-24 16:57:01.122399",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Working Shift",
- "naming_rule": "By \"Naming Series\" field",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
