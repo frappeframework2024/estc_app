@@ -26,6 +26,7 @@ class Employee(Document):
 			else:
 				frappe.throw(_("Please enter Attendance Device ID"))
 
+
 @frappe.whitelist()
 def update_user_information(self):
 	if self.allow_login:
@@ -79,7 +80,15 @@ def update_user_information(self):
 	frappe.db.sql("update `tabEmployee` set password='' where name='{}'".format(self.name))
 
 
+
 			
+@frappe.whitelist(methods="POST")
+def change_password(user,password):
+	doc = frappe.get_doc("User", user)
+	doc.new_password = password
+	doc.save()
+	frappe.msgprint(_("Update password successfully"))
+
 @frappe.whitelist()
 def update_leave_balance(self):
 	fiscal_year_data = frappe.db.sql("select name from `tabFiscal Year` where is_default=1",as_dict=1)
@@ -169,15 +178,15 @@ def get_current_employee_leave_balance(name=None):
 			ot_leave_type = frappe.db.get_single_value("HR Setting","ot_leave_type")
 
 			return {
-				"max_leave":sum([d.max_leave  for d in attendance_count if d.leave_type == annual_leave_type]) or 0,
-				"use_leave":sum([d.use_leave  for d in attendance_count if d.leave_type == annual_leave_type]) or 0,
-				"balance":sum([d.balance  for d in attendance_count if d.leave_type == annual_leave_type]) or 0,
-				"max_sick_leave":sum([d.max_leave  for d in attendance_count if d.leave_type == sick_leave_type]) or 0,
-				"use_sick_leave":sum([d.use_leave  for d in attendance_count if d.leave_type == sick_leave_type]) or 0,
-				"sick_leave_balance":sum([d.balance  for d in attendance_count if d.leave_type == sick_leave_type]) or 0,
-				"ot":'{:.2f}'.format(sum([d.max_leave  for d in attendance_count if d.leave_type == ot_leave_type]) or 0),
-				"use_ot":'{:.2f}'.format(sum([d.use_leave  for d in attendance_count if d.leave_type == ot_leave_type]) or 0) ,
-				"ot_balance":'{:.2f}'.format(sum([d.balance  for d in attendance_count if d.leave_type == ot_leave_type]) or 0),
+				"max_leave":sum([d.max_leave  for d in attendance_count if d.leave_type == annual_leave_type]) or 0.00,
+				"use_leave":sum([d.use_leave  for d in attendance_count if d.leave_type == annual_leave_type]) or 0.00,
+				"balance":sum([d.balance  for d in attendance_count if d.leave_type == annual_leave_type]) or 0.00,
+				"max_sick_leave":sum([d.max_leave  for d in attendance_count if d.leave_type == sick_leave_type]) or 0.00,
+				"use_sick_leave":sum([d.use_leave  for d in attendance_count if d.leave_type == sick_leave_type]) or 0.00,
+				"sick_leave_balance":sum([d.balance  for d in attendance_count if d.leave_type == sick_leave_type]) or 0.00,
+				"ot":'{:.2f}'.format(sum([d.max_leave  for d in attendance_count if d.leave_type == ot_leave_type]) or 0.00),
+				"use_ot":'{:.2f}'.format(sum([d.use_leave  for d in attendance_count if d.leave_type == ot_leave_type]) or 0.00) ,
+				"ot_balance":'{:.2f}'.format(sum([d.balance  for d in attendance_count if d.leave_type == ot_leave_type]) or 0.00),
 				"leave_data":attendance_count
 			}
 	

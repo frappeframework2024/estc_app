@@ -9,6 +9,8 @@
  "field_order": [
   "employee",
   "employee_name",
+  "total_carry_over",
+  "gain_balance",
   "max_leave",
   "use_leave",
   "balance",
@@ -104,11 +106,21 @@
    "fieldname": "sort_order",
    "fieldtype": "Int",
    "label": "Sort Order"
+  },
+  {
+   "fieldname": "total_carry_over",
+   "fieldtype": "Float",
+   "label": "Total Carry Over"
+  },
+  {
+   "fieldname": "gain_balance",
+   "fieldtype": "Float",
+   "label": "Gain Balance"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-11-24 11:12:14.889703",
+ "modified": "2025-02-07 10:57:16.450315",
  "modified_by": "Administrator",
  "module": "ESTC HR",
  "name": "Employee Attendance Leave Count",
@@ -132,5 +144,6 @@
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
- "title_field": "employee"
+ "title_field": "employee",
+ "track_changes": 1
 }

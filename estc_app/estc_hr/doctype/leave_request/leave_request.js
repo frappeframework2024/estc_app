@@ -124,28 +124,50 @@ frappe.ui.form.on("Leave Request", {
        
     },
     is_start_date_half_day(frm){
-        if(frm.doc.start_date && frm.doc.to_date){
-            frm.doc.total_leave_days = frappe.datetime.get_diff( frm.doc.to_date, frm.doc.start_date ) + 1
-            if(frm.doc.is_start_date_half_day){
-                frm.doc.total_leave_days = frm.doc.total_leave_days - 0.5
-            }
-            if(frm.doc.is_to_date_half_day){
-                frm.doc.total_leave_days = frm.doc.total_leave_days - 0.5
-            }
-            refresh_field('total_leave_days');
+        if (frm.doc.start_date && frm.doc.to_date){
+            frappe.call({
+                args: {
+                    "start": frm.doc.start_date,
+                    "end": frm.doc.to_date,
+                    "fiscal_year":frm.doc.fiscal_year
+                },
+                method: "estc_app.estc_hr.doctype.leave_request.leave_request.get_leave_count",
+                callback: function (r) {
+                    frm.doc.total_leave_days = frappe.datetime.get_diff( frm.doc.to_date, frm.doc.start_date ) + 1
+                    frm.doc.total_leave_days = frm.doc.total_leave_days - r.message.length
+                    if(frm.doc.is_to_date_half_day){
+                        frm.doc.total_leave_days = frm.doc.total_leave_days - 0.5
+                    }
+                    if(frm.doc.is_start_date_half_day){
+                        frm.doc.total_leave_days = frm.doc.total_leave_days - 0.5
+                    }
+                    refresh_field('total_leave_days');
+                }
+            })
         }
         
     },
     is_to_date_half_day(frm){
-        if(frm.doc.start_date && frm.doc.to_date){
-            frm.doc.total_leave_days = frappe.datetime.get_diff( frm.doc.to_date, frm.doc.start_date ) + 1
-            if(frm.doc.is_to_date_half_day){
-                frm.doc.total_leave_days = frm.doc.total_leave_days - 0.5
-            }
-            if(frm.doc.is_start_date_half_day){
-                frm.doc.total_leave_days = frm.doc.total_leave_days - 0.5
-            }
-            refresh_field('total_leave_days');
+        if (frm.doc.start_date && frm.doc.to_date){
+            frappe.call({
+                args: {
+                    "start": frm.doc.start_date,
+                    "end": frm.doc.to_date,
+                    "fiscal_year":frm.doc.fiscal_year
+                },
+                method: "estc_app.estc_hr.doctype.leave_request.leave_request.get_leave_count",
+                callback: function (r) {
+                    frm.doc.total_leave_days = frappe.datetime.get_diff( frm.doc.to_date, frm.doc.start_date ) + 1
+                    frm.doc.total_leave_days = frm.doc.total_leave_days - r.message.length
+                    if(frm.doc.is_to_date_half_day){
+                        frm.doc.total_leave_days = frm.doc.total_leave_days - 0.5
+                    }
+                    if(frm.doc.is_start_date_half_day){
+                        frm.doc.total_leave_days = frm.doc.total_leave_days - 0.5
+                    }
+                    refresh_field('total_leave_days');
+                }
+            })
         }
         
     }

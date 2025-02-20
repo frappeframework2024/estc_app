@@ -4,16 +4,33 @@
 import frappe 
 from frappe import _
 from frappe.model.document import Document
-from frappe.utils.data import add_to_date, getdate
+from frappe.utils.data import add_to_date, getdate,date_diff
+ 
+
 from datetime import datetime
 import json
 
 
 class LeaveRequest(Document):
 	def validate(self):
+		if self.to_date < self.start_date:
+			frappe.throw("To date must be greater or equal to start date")
 		self.validate_duplicate_request()
 		self.validate_request_out_of_fiscal_year()
 		self.fiscal_year = frappe.db.get_value("Fiscal Year", {'is_default': 1},"name")
+
+		self.total_leave_days = date_diff(self.to_date,self.start_date) + 1
+		# remove holidate date 
+
+		self.total_leave_days = self.total_leave_days - len(get_leave_count(self.start_date,self.to_date, self.fiscal_year))
+		# 
+		if self.is_start_date_half_day ==1:
+			self.total_leave_days  = self.total_leave_days  - 0.5
+		
+		if self.is_to_date_half_day ==1:
+			self.total_leave_days  = self.total_leave_days  - 0.5
+		
+
 		leave_type = frappe.get_doc("Leave Type", self.leave_type)
 		leave_count = frappe.db.sql("select * from `tabEmployee Attendance Leave Count` where employee='{}' and leave_type = '{}' and fiscal_year='{}'".format(self.employee, self.leave_type, self.fiscal_year),as_dict=1)
 
@@ -85,12 +102,14 @@ class LeaveRequest(Document):
 			frappe.throw("Please update max leave for {} in employee detail".format(self.leave_type))
 
 		leave_status = frappe.get_doc("Leave Status", self.status)
+		 
 		sick_leave = frappe.db.get_single_value("HR Setting","sick_leave_type")
 		if self.leave_type != sick_leave:
-			
+			 
+			 
 			if leave_status.delete_attendance_record==1:
 				frappe.db.sql("delete from `tabAttendance` where leave_request='{}'".format(self.name))
-			
+			 
 			if leave_status.create_attendance_record==1:
 				
 				date = getdate(self.start_date)
@@ -100,6 +119,8 @@ class LeaveRequest(Document):
 					if any(item["date"] == date for item in holiday_list):
 						date = add_to_date(date,days=1)
 						continue
+					
+					frappe.db.sql("delete from `tabAttendance` where leave_request='{}'".format(self.name))
 					doc = {
 						"doctype":"Attendance",
 						"fiscal_year":self.fiscal_year,
@@ -112,6 +133,7 @@ class LeaveRequest(Document):
 						"reason":self.reason
 					}
 					
+						
 					if date == getdate(self.start_date) and self.is_start_date_half_day == 1 and self.is_start_date_period == "AM":
 						doc["attendance_value"] = 0.5
 						doc["status"] = "On Leave Half Day AM"
@@ -138,7 +160,7 @@ class LeaveRequest(Document):
 					date = add_to_date(date,days=1)
 				update_leave_balance(self)
 		elif self.leave_type == sick_leave:
-
+			
 			if leave_status.delete_attendance_record==1:
 				frappe.db.sql("delete from `tabAttendance` where leave_request='{}'".format(self.name))
 			
@@ -154,6 +176,7 @@ class LeaveRequest(Document):
 						if any(item["date"] == date for item in holiday_list):
 							date = add_to_date(date,days=1)
 							continue
+						frappe.db.sql("delete from `tabAttendance` where leave_request='{}'".format(self.name))
 						doc = {
 							"doctype":"Attendance",
 							"fiscal_year":self.fiscal_year,
@@ -190,6 +213,8 @@ class LeaveRequest(Document):
 						frappe.get_doc(doc).insert()
 						
 						date = add_to_date(date,days=1)
+		
+		
 		update_leave_balance(self)
 		# frappe.enqueue("estc_app.estc_hr.doctype.leave_request.leave_request.update_leave_balance", queue='short', self =self)
 
@@ -215,6 +240,7 @@ class LeaveRequest(Document):
 
 @frappe.whitelist()
 def update_leave_balance(self):
+    
 	employee_attendance = frappe.db.sql("select * from `tabEmployee Attendance Leave Count` where employee='{}' and fiscal_year='{}'".format(self.employee, self.fiscal_year),as_dict=1)
 	 
 	for e in employee_attendance:
@@ -319,8 +345,10 @@ def get_events(start, end, filters=None):
 @frappe.whitelist()
 def get_leave_count(start,end,fiscal_year):
 	holiday_setting = frappe.db.get_value("Holiday Setting",{'fiscal_year':fiscal_year})
+ 
 	sql = """
 		select 
+			distinct
   			date
      	from 
     	`tabHoliday Schedule` 

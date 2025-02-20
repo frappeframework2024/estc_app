@@ -1,0 +1,91 @@
+{
+ "add_total_row": 0,
+ "columns": [
+  {
+   "fieldname": "employee",
+   "fieldtype": "Data",
+   "label": "ID",
+   "width": 0
+  },
+  {
+   "fieldname": "date_of_joining",
+   "fieldtype": "Date",
+   "label": "date_of_joining",
+   "width": 0
+  },
+  {
+   "fieldname": "annual_leave",
+   "fieldtype": "Float",
+   "label": "annual_leave",
+   "width": 0
+  },
+  {
+   "fieldname": "duration",
+   "fieldtype": "Float",
+   "label": "duration",
+   "width": 0
+  },
+  {
+   "fieldname": "carry_over",
+   "fieldtype": "Float",
+   "label": "carry_over",
+   "width": 0
+  },
+  {
+   "fieldname": "ot_carry_over",
+   "fieldtype": "Float",
+   "label": "ot_carry_over",
+   "width": 0
+  }
+ ],
+ "creation": "2025-02-20 08:50:37.155876",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [
+  {
+   "fieldname": "fiscal_year",
+   "fieldtype": "Link",
+   "label": "Academic Year",
+   "mandatory": 0,
+   "options": "Fiscal Year",
+   "wildcard_filter": 0
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "employee",
+   "mandatory": 0,
+   "options": "Employee",
+   "wildcard_filter": 0
+  }
+ ],
+ "idx": 0,
+ "is_standard": "Yes",
+ "json": "{}",
+ "letterhead": null,
+ "modified": "2025-02-20 09:35:02.465140",
+ "modified_by": "Administrator",
+ "module": "ESTC HR",
+ "name": "Carry Over Report",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "select \n    employee ,\n    date_of_joining ,\n    annual_leave ,\n    duration,\n    carry_over,\n    ot_carry_over\nfrom `tabEmployee Annual Leave`\nwhere parent = %(fiscal_year)s and employee = %(employee)s \n",
+ "ref_doctype": "Leave Request",
+ "report_name": "Carry Over Report",
+ "report_type": "Query Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Employee"
+  },
+  {
+   "role": "HR Manager"
+  },
+  {
+   "role": "Department Head"
+  }
+ ]
+}

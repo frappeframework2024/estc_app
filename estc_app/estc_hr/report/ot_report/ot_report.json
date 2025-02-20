@@ -1,0 +1,97 @@
+{
+ "add_total_row": 0,
+ "columns": [
+  {
+   "fieldname": "employee",
+   "fieldtype": "Data",
+   "label": "ID",
+   "width": 0
+  },
+  {
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "employee_name",
+   "width": 0
+  },
+  {
+   "fieldname": "posting_date",
+   "fieldtype": "Data",
+   "label": "Date",
+   "width": 0
+  },
+  {
+   "fieldname": "start_time",
+   "fieldtype": "Time",
+   "label": "Start Time",
+   "width": 0
+  },
+  {
+   "fieldname": "to_time",
+   "fieldtype": "Time",
+   "label": "To Time",
+   "width": 0
+  },
+  {
+   "fieldname": "total_hours",
+   "fieldtype": "Float",
+   "label": "Total Hours",
+   "width": 0
+  },
+  {
+   "fieldname": "leave_count",
+   "fieldtype": "Float",
+   "label": "OT Count",
+   "width": 0
+  }
+ ],
+ "creation": "2025-02-19 15:55:51.064209",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [
+  {
+   "fieldname": "fiscal_year",
+   "fieldtype": "Link",
+   "label": "Academic Year",
+   "mandatory": 0,
+   "options": "Fiscal Year",
+   "wildcard_filter": 0
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "employee",
+   "mandatory": 0,
+   "options": "Employee",
+   "wildcard_filter": 0
+  }
+ ],
+ "idx": 0,
+ "is_standard": "Yes",
+ "json": "{}",
+ "letterhead": null,
+ "modified": "2025-02-19 17:18:13.568166",
+ "modified_by": "Administrator",
+ "module": "ESTC HR",
+ "name": "OT Report",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "select \n    employee ,\n    employee_name ,\n    request_date ,\n    start_time ,\n    to_time ,\n    total_hours ,\n    leave_count\nfrom `tabOT Request`\nwhere fiscal_year = %(fiscal_year)s and employee = %(employee)s \ngroup by\n    employee\n",
+ "ref_doctype": "OT Request",
+ "report_name": "OT Report",
+ "report_type": "Query Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Employee"
+  },
+  {
+   "role": "HR Manager"
+  },
+  {
+   "role": "Department Head"
+  }
+ ]
+}
